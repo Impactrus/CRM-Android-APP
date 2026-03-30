@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/crm_divider" />
+
+    <!-- Row content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="10dp">
+
+        <!-- Type -->
+        <TextView
+            android:id="@+id/wniosek_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/crm_heading"
+            android:textSize="@dimen/text_body"
+            tools:text="Urlop" />
+
+        <!-- Dates -->
+        <TextView
+            android:id="@+id/wniosek_dates"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:textColor="@color/crm_secondary"
+            android:textSize="@dimen/text_caption"
+            tools:text="20.08 - 24.08" />
+
+        <!-- Status badge -->
+        <TextView
+            android:id="@+id/wniosek_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:textSize="@dimen/text_small"
+            tools:text="W trakcie" />
+
+    </LinearLayout>
+
+    <!-- Action buttons row -->
+    <LinearLayout
+        android:id="@+id/actions_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:paddingBottom="8dp"
+        android:gravity="end"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:gravity="center"
+            android:text="@string/btn_send"
+            android:textSize="@dimen/text_caption"
+            android:textColor="@color/status_success_text"
+            android:background="@drawable/bg_status_zaakceptowany"
+            android:paddingHorizontal="12dp"
+            android:layout_marginEnd="6dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/btn_resubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:gravity="center"
+            android:text="@string/btn_resubmit"
+            android:textSize="@dimen/text_caption"
+            android:textColor="@color/status_info_text"
+            android:background="@drawable/bg_status_szkic"
+            android:paddingHorizontal="12dp"
+            android:layout_marginEnd="6dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:gravity="center"
+            android:text="@string/btn_delete"
+            android:textSize="@dimen/text_caption"
+            android:textColor="@color/status_error_text"
+            android:background="@drawable/bg_status_odrzucony"
+            android:paddingHorizontal="12dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</LinearLayout>

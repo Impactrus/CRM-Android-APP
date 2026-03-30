@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "673001358230",
+    "project_id": "crm-oc",
+    "storage_bucket": "crm-oc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673001358230:android:d70311a2ab7b7ef051d3b7",
+        "android_client_info": {
+          "package_name": "com.osadkowski.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_V-icPLCCuBurufnKTCbbt_rfSEwQsks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673001358230:android:634182032cc925cb51d3b7",
+        "android_client_info": {
+          "package_name": "com.ossadkowski.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_V-icPLCCuBurufnKTCbbt_rfSEwQsks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

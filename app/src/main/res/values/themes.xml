@@ -1,0 +1,50 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.OssadkowskiApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Brand colors -->
+        <item name="colorPrimary">@color/crm_primary</item>
+        <item name="colorPrimaryVariant">@color/crm_primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/crm_primary</item>
+        <item name="colorSecondaryVariant">@color/crm_primary_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/crm_background</item>
+        <item name="colorOnSurface">@color/crm_heading</item>
+        <item name="colorError">@color/status_error_text</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="android:colorBackground">@color/crm_surface</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">#00000000</item>
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <!-- Default text appearances -->
+        <item name="android:textAppearance">@style/TextAppearance.Crm.Body</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Crm.Heading</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Crm.Subheading</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Crm.Body</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Crm.Body</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Crm.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Crm.Button</item>
+
+        <!-- Widget defaults -->
+        <item name="materialButtonStyle">@style/Widget.Crm.MaterialButton</item>
+        <item name="materialCardViewStyle">@style/Widget.Crm.MaterialCard</item>
+    </style>
+
+    <!-- Material Button override -->
+    <style name="Widget.Crm.MaterialButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAppearance">@style/TextAppearance.Crm.Button</item>
+        <item name="cornerRadius">@dimen/radius_md</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="backgroundTint">@color/crm_primary</item>
+    </style>
+
+    <!-- Material Card override -->
+    <style name="Widget.Crm.MaterialCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/radius_md</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="strokeColor">@color/crm_divider</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+</resources>

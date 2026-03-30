@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/crm_surface"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        android:background="@color/white"
+        android:elevation="@dimen/card_elevation"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/spacing_sm"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="@dimen/input_height"
+            android:layout_height="@dimen/input_height"
+            android:padding="@dimen/spacing_md"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/crm_body"
+            android:contentDescription="@string/cd_back_button" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_xs"
+            android:text="@string/task_detail_title"
+            android:textColor="@color/crm_heading"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        android:layout_marginTop="@dimen/spacing_xxl" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_md">
+
+            <!-- Task info card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/radius_md"
+                app:cardElevation="1dp"
+                android:layout_marginBottom="@dimen/spacing_md">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/spacing_sm">
+                        <TextView
+                            android:id="@+id/task_title"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textColor="@color/crm_heading" />
+                        <TextView
+                            android:id="@+id/task_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_caption"
+                            android:paddingHorizontal="@dimen/spacing_sm"
+                            android:paddingVertical="2dp" />
+                    </LinearLayout>
+
+                    <TextView android:id="@+id/task_typ" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_caption" android:layout_marginBottom="@dimen/spacing_xs" />
+                    <TextView android:id="@+id/task_opis" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" android:layout_marginBottom="@dimen/spacing_xs" />
+                    <TextView android:id="@+id/task_assigned" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_caption" android:layout_marginBottom="@dimen/spacing_xs" />
+                    <TextView android:id="@+id/task_termin" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_caption" android:layout_marginBottom="@dimen/spacing_xs" />
+                    <TextView android:id="@+id/task_created" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/crm_placeholder" android:textSize="@dimen/text_caption" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Tabs -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_height"
+                android:layout_marginBottom="@dimen/spacing_sm"
+                android:background="@drawable/bg_tab_bar"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_xs">
+
+                <TextView
+                    android:id="@+id/tab_comments"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_tab_active"
+                    android:gravity="center"
+                    android:text="@string/tab_comments"
+                    android:textColor="@color/crm_body"
+                    android:textSize="@dimen/text_caption" />
+
+                <TextView
+                    android:id="@+id/tab_files"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_tab_inactive"
+                    android:gravity="center"
+                    android:text="@string/tab_files"
+                    android:textColor="@color/crm_secondary"
+                    android:textSize="@dimen/text_caption" />
+
+                <TextView
+                    android:id="@+id/tab_history"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_tab_inactive"
+                    android:gravity="center"
+                    android:text="@string/tab_history"
+                    android:textColor="@color/crm_secondary"
+                    android:textSize="@dimen/text_caption" />
+            </LinearLayout>
+
+            <!-- Comments section -->
+            <LinearLayout
+                android:id="@+id/comments_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/spacing_sm">
+                    <EditText
+                        android:id="@+id/comment_input"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/search_height"
+                        android:background="@drawable/bg_search_bar"
+                        android:hint="@string/add_comment_hint"
+                        android:paddingHorizontal="@dimen/spacing_md"
+                        android:textSize="@dimen/text_body" />
+                    <Button
+                        android:id="@+id/btn_add_comment"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/search_height"
+                        android:text="@string/send"
+                        android:textAllCaps="false"
+                        android:textColor="@color/crm_primary" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/comments_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Files section -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/files_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <!-- History section -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/history_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

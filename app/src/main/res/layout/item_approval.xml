@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="1dp"
+    android:layout_marginBottom="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Employee + Status row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/approval_employee"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_body"
+                android:textColor="@color/crm_heading" />
+
+            <TextView
+                android:id="@+id/approval_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_caption"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp" />
+        </LinearLayout>
+
+        <!-- Type -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_typ"
+                android:textColor="@color/crm_secondary"
+                android:textSize="@dimen/text_caption" />
+            <TextView
+                android:id="@+id/approval_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/crm_body"
+                android:textSize="@dimen/text_caption" />
+        </LinearLayout>
+
+        <!-- Dates -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_od_do"
+                android:textColor="@color/crm_secondary"
+                android:textSize="@dimen/text_caption" />
+            <TextView
+                android:id="@+id/approval_dates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/crm_body"
+                android:textSize="@dimen/text_caption" />
+        </LinearLayout>
+
+        <!-- Hours -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_godziny"
+                android:textColor="@color/crm_secondary"
+                android:textSize="@dimen/text_caption" />
+            <TextView
+                android:id="@+id/approval_hours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/crm_body"
+                android:textSize="@dimen/text_caption" />
+        </LinearLayout>
+
+        <!-- Reason -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_powod"
+                android:textColor="@color/crm_secondary"
+                android:textSize="@dimen/text_caption" />
+            <TextView
+                android:id="@+id/approval_reason"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="@color/crm_body"
+                android:textSize="@dimen/text_caption"
+                android:maxLines="2"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- Days -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_dni"
+                android:textColor="@color/crm_secondary"
+                android:textSize="@dimen/text_caption" />
+            <TextView
+                android:id="@+id/approval_days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/crm_body"
+                android:textSize="@dimen/text_caption" />
+        </LinearLayout>
+
+        <!-- Action buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/btn_reject"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="@string/reject"
+                android:textSize="@dimen/text_caption"
+                android:textColor="@color/status_error_text"
+                app:strokeColor="@color/status_error_stroke"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btn_approve"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="@string/approve"
+                android:textSize="@dimen/text_caption"
+                android:backgroundTint="@color/status_success_bg"
+                android:textColor="@color/status_success_text" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

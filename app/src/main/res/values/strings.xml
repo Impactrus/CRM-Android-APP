@@ -1,0 +1,200 @@
+<resources>
+    <string name="app_name">Ossadkowski App</string>
+
+    <!-- Login -->
+    <string name="login_welcome">Witamy ponownie</string>
+    <string name="login_email_label">Email</string>
+    <string name="login_email_hint">Podaj swój email</string>
+    <string name="login_password_label">Hasło</string>
+    <string name="login_password_hint">Podaj swoje hasło</string>
+    <string name="login_remember">Zapamiętaj hasło</string>
+    <string name="login_forgot_password">Zapomniałeś Hasła?</string>
+    <string name="login_button">Zaloguj</string>
+    <string name="login_loading">Logowanie…</string>
+    <string name="login_no_account">Nie masz konta? Skontaktuj się z nami</string>
+    <string name="login_enter_credentials">Wprowadź login i hasło</string>
+    <string name="login_error">Błąd logowania: %1$s</string>
+    <string name="login_error_inline">Nie udało się zalogować – sprawdź dane.</string>
+
+    <!-- Dashboard -->
+    <string name="breadcrumb_dashboard">Home  ›  Panel pracownika</string>
+    <string name="tab_zadania">Zadania</string>
+    <string name="tab_zdarzenia">Zdarzenia</string>
+    <string name="tab_wizyty">Wizyty</string>
+    <string name="tab_wnioski">Wnioski</string>
+    <string name="stat_orders_label">Zamówienia</string>
+    <string name="stat_clients_label">Liczba klientów</string>
+    <string name="stat_days_off_label">Dni wolne</string>
+    <string name="stat_planned_label">Zaplanowane działania</string>
+    <string name="profile_badge_active">Aktywny</string>
+    <string name="logout">Wyloguj</string>
+    <string name="wnioski_title">Wnioski pracownicze</string>
+    <string name="wnioski_subtitle">Zarządzaj swoimi wnioskami</string>
+    <string name="wnioski_new_button">+ Wystaw wniosek</string>
+    <string name="table_header_typ">TYP</string>
+    <string name="table_header_od_do">OD - DO</string>
+    <string name="table_header_status">STATUS</string>
+    <string name="search_tasks_hint">Szukaj zadań…</string>
+
+    <!-- Drawer -->
+    <string name="drawer_panel">Panel pracownika</string>
+    <string name="drawer_start">Start</string>
+    <string name="drawer_kontrahenci">Kontrahenci</string>
+    <string name="drawer_towary">Towary</string>
+    <string name="drawer_zamowienia">Zamówienia</string>
+    <string name="drawer_transakcje">Transakcje</string>
+    <string name="drawer_wizyty">Wizyty</string>
+    <string name="drawer_oferty">Oferty</string>
+    <string name="drawer_approvals">Akceptacje</string>
+    <string name="drawer_tasks">Zadania</string>
+    <string name="drawer_crm">CRM</string>
+    <string name="drawer_calendar">Kalendarz</string>
+    <string name="drawer_limity_kredytowe">Limity kredytowe</string>
+    <string name="drawer_info">Informacje o celu</string>
+    <string name="drawer_section_main">Główne</string>
+    <string name="drawer_section_orders">Zamówienia</string>
+    <string name="drawer_section_other">Inne</string>
+
+    <!-- Common -->
+    <string name="search_hint">Szukaj…</string>
+    <string name="no_results">Brak wyników</string>
+    <string name="loading">Ładowanie…</string>
+    <string name="error_network">Błąd sieci</string>
+    <string name="error_unknown">Nieznany błąd</string>
+    <string name="error_generic">Błąd: %1$s</string>
+    <string name="page_info_showing">Pokazuje %1$d-%2$d z %3$d</string>
+    <string name="page_info_format">Strona %1$d z %2$d (%3$d)</string>
+    <string name="btn_new">+ Nowy</string>
+    <string name="btn_prev_page">‹</string>
+    <string name="btn_next_page">›</string>
+
+    <!-- Approvals -->
+    <string name="approval_title">Akceptacja wniosków</string>
+    <string name="approval_search_hint">Szukaj wniosków…</string>
+    <string name="approval_empty">Brak wniosków do akceptacji</string>
+    <string name="approved">Zaakceptowano</string>
+    <string name="approve_error">Błąd akceptacji</string>
+    <string name="rejected">Odrzucono</string>
+    <string name="reject_error">Błąd odrzucenia</string>
+    <string name="approve">Akceptuj</string>
+    <string name="reject">Odrzuć</string>
+    <string name="label_typ">Typ:</string>
+    <string name="label_od_do">Od / Do:</string>
+    <string name="label_godziny">Godziny:</string>
+    <string name="label_powod">Powód:</string>
+    <string name="label_dni">Dni:</string>
+
+    <!-- Tasks -->
+    <string name="tasks_title">Zadania</string>
+    <string name="task_detail_title">Szczegóły zadania</string>
+    <string name="tab_comments">Komentarze</string>
+    <string name="tab_files">Pliki</string>
+    <string name="tab_history">Historia</string>
+    <string name="add_comment_hint">Dodaj komentarz…</string>
+    <string name="send">Wyślij</string>
+
+    <!-- Offline -->
+    <string name="saved_offline">Zapisano offline — wyśle gdy wróci internet</string>
+    <string name="pending_actions_processed">Wysłano %d oczekujących akcji</string>
+
+    <!-- Wniosek actions -->
+    <string name="wniosek_sent">Wniosek wysłany</string>
+    <string name="wniosek_send_error">Błąd wysyłania</string>
+    <string name="wniosek_created">Wniosek utworzony</string>
+    <string name="btn_send">Wyślij</string>
+    <string name="btn_resubmit">Wyślij ponownie</string>
+    <string name="btn_delete">Usuń</string>
+
+    <!-- New Request -->
+    <string name="new_request_title">Wystaw wniosek</string>
+    <string name="request_type_label">Typ wniosku</string>
+    <string name="leave_type_label">Rodzaj urlopu</string>
+    <string name="date_from_label">Od</string>
+    <string name="date_to_label">Do</string>
+    <string name="date_hint">YYYY-MM-DD</string>
+    <string name="substitute_label">Zastępstwo</string>
+    <string name="substitute_none">-- Brak --</string>
+    <string name="description_label">Opis *</string>
+    <string name="description_hint">Dodaj opis do wniosku…</string>
+    <string name="upload_title">Dodaj dokument</string>
+    <string name="add_photo">Dodaj zdjęcie</string>
+    <string name="remove_photo">Usuń</string>
+    <string name="submit_request">Wystaw wniosek</string>
+    <string name="saved">Zapisano</string>
+    <string name="validation_select_type">Wybierz typ wniosku</string>
+    <string name="validation_enter_dates">Podaj daty</string>
+    <string name="validation_enter_description">Podaj opis</string>
+
+    <!-- Limity Kredytowe -->
+    <string name="limity_kredytowe_title">Limity kredytowe</string>
+    <string name="limit_kredytowy_detail_title">Limit kredytowy</string>
+    <string name="limit_new_title">Nowy wniosek o limit</string>
+    <string name="account_num_label">Numer kontrahenta (AccountNum) *</string>
+    <string name="account_num_hint">np. C-000123</string>
+    <string name="limit_amount_label">Wnioskowany limit (PLN) *</string>
+    <string name="limit_amount_hint">0.00</string>
+    <string name="uwagi_label">Uwagi</string>
+    <string name="uwagi_hint">Uwagi do wniosku…</string>
+    <string name="validation_account_required">Numer kontrahenta jest wymagany</string>
+    <string name="validation_limit_positive">Wnioskowany limit musi być > 0</string>
+    <string name="search_kontrahent_hint">Szukaj kontrahenta…</string>
+    <string name="lk_section_limits">Limity</string>
+    <string name="lk_section_finanse">Dane finansowe</string>
+    <string name="lk_section_details">Szczegóły wniosku</string>
+    <string name="lk_section_decyzja">Decyzja</string>
+    <string name="lk_wnioskowany">Wnioskowany limit</string>
+    <string name="lk_obecny">Obecny limit</string>
+    <string name="lk_pozostaly">Pozostały kredyt</string>
+    <string name="lk_saldo">Saldo</string>
+    <string name="lk_zamowione">Zamówione</string>
+    <string name="lk_zabezpieczenia">Wartość zabezpieczeń</string>
+    <string name="lk_przeterminowane">Zadłużenie przeterminowane</string>
+    <string name="lk_naklady_poprzedni">Nakłady (poprzedni rok)</string>
+    <string name="lk_naklady_biezacy">Nakłady (bieżący rok)</string>
+    <string name="lk_przychody_poprzedni">Przychody (poprzedni rok)</string>
+    <string name="lk_przychody_biezacy">Przychody (bieżący rok)</string>
+    <string name="lk_opis_zabezpieczen">Opis zabezpieczeń</string>
+    <string name="lk_nowe_zabezpieczenia">Nowe zabezpieczenia</string>
+    <string name="lk_dodatkowe_dochody">Dodatkowe dochody</string>
+    <string name="lk_zobowiazania">Zobowiązania</string>
+    <string name="lk_potwierdzone_przeterminowane">Potwierdzone przeterminowane</string>
+    <string name="lk_rozliczenie_plonami">Rozliczenie plonami</string>
+    <string name="lk_yes">Tak</string>
+    <string name="lk_no">Nie</string>
+    <string name="lk_no_data">—</string>
+
+    <!-- Calendar -->
+    <string name="calendar_title">Kalendarz</string>
+    <string name="calendar_empty">Brak zamrożeń w tym miesiącu</string>
+
+    <!-- Edit Request -->
+    <string name="edit_request_title">Edytuj wniosek</string>
+    <string name="view_request_title">Szczegóły wniosku</string>
+    <string name="save_changes">Zapisz zmiany</string>
+
+    <!-- Placeholder screens -->
+    <string name="oferta_title">Oferta</string>
+    <string name="oferta_placeholder">Moduł oferty w przygotowaniu.\n\nFunkcjonalność tabeli produktów będzie dostępna wkrótce.</string>
+    <string name="knowledge_base_title">Baza wiedzy</string>
+    <string name="knowledge_base_placeholder">Moduł bazy wiedzy w przygotowaniu.\n\nKarty artykułów będą dostępne wkrótce.</string>
+
+    <!-- Content descriptions (accessibility) -->
+    <string name="cd_back_button">Wróć</string>
+    <string name="cd_menu_button">Otwórz menu</string>
+    <string name="cd_search">Szukaj</string>
+    <string name="cd_login_background">Tło logowania</string>
+    <string name="cd_upload_icon">Ikona przesyłania</string>
+    <string name="cd_file_icon">Ikona pliku</string>
+    <string name="cd_file_uploaded">Plik przesłany</string>
+    <string name="cd_approve">Zaakceptuj wniosek</string>
+    <string name="cd_reject">Odrzuć wniosek</string>
+    <string name="cd_previous_page">Poprzednia strona</string>
+    <string name="cd_next_page">Następna strona</string>
+    <string name="cd_previous_month">Poprzedni miesiąc</string>
+    <string name="cd_next_month">Następny miesiąc</string>
+    <string name="cd_toggle_password">Pokaż/ukryj hasło</string>
+    <string name="cd_close_menu">Zamknij menu</string>
+
+    <!-- Feature placeholder -->
+    <string name="feature_coming_soon">Funkcja w przygotowaniu</string>
+</resources>

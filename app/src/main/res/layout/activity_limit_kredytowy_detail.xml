@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/crm_surface"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        android:background="@color/white"
+        android:elevation="@dimen/card_elevation"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/spacing_sm"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="@dimen/input_height"
+            android:layout_height="@dimen/input_height"
+            android:padding="@dimen/spacing_md"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/crm_body"
+            android:contentDescription="@string/cd_back_button" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_xs"
+            android:text="@string/limit_kredytowy_detail_title"
+            android:textColor="@color/crm_heading"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        android:layout_marginTop="@dimen/spacing_xxl" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_md">
+
+            <!-- Header card: kontrahent + status -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/radius_md"
+                app:cardElevation="1dp"
+                android:layout_marginBottom="@dimen/spacing_md">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/spacing_sm">
+
+                        <TextView
+                            android:id="@+id/detail_kontrahent_nazwa"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textColor="@color/crm_heading" />
+
+                        <TextView
+                            android:id="@+id/detail_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_caption"
+                            android:paddingHorizontal="@dimen/spacing_sm"
+                            android:paddingVertical="2dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/detail_account_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/crm_secondary"
+                        android:textSize="@dimen/text_body"
+                        android:layout_marginBottom="@dimen/spacing_xs" />
+
+                    <TextView
+                        android:id="@+id/detail_created_at"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/crm_secondary"
+                        android:textSize="@dimen/text_caption" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Limity card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/radius_md"
+                app:cardElevation="1dp"
+                android:layout_marginBottom="@dimen/spacing_md">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lk_section_limits"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_subheading"
+                        android:textColor="@color/crm_heading"
+                        android:layout_marginBottom="@dimen/spacing_md" />
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_wnioskowany" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_body" />
+                        <TextView android:id="@+id/detail_wnioskowany_limit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_heading" android:textSize="@dimen/text_body" android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_obecny" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_body" />
+                        <TextView android:id="@+id/detail_obecny_limit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_pozostaly" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_body" />
+                        <TextView android:id="@+id/detail_pozostaly_kredyt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Finanse card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/radius_md"
+                app:cardElevation="1dp"
+                android:layout_marginBottom="@dimen/spacing_md">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lk_section_finanse"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_subheading"
+                        android:textColor="@color/crm_heading"
+                        android:layout_marginBottom="@dimen/spacing_md" />
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_saldo" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_body" />
+                        <TextView android:id="@+id/detail_saldo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_zamowione" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_body" />
+                        <TextView android:id="@+id/detail_zamowione" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_zabezpieczenia" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_body" />
+                        <TextView android:id="@+id/detail_wartosc_zabezpieczen" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_przeterminowane" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_body" />
+                        <TextView android:id="@+id/detail_zadluzenie" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/status_error_text" android:textSize="@dimen/text_body" android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/crm_divider" android:layout_marginVertical="@dimen/spacing_sm" />
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_naklady_poprzedni" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_caption" />
+                        <TextView android:id="@+id/detail_naklady_poprzedni" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_caption" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_naklady_biezacy" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_caption" />
+                        <TextView android:id="@+id/detail_naklady_biezacy" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_caption" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_przychody_poprzedni" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_caption" />
+                        <TextView android:id="@+id/detail_przychody_poprzedni" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_caption" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_przychody_biezacy" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_caption" />
+                        <TextView android:id="@+id/detail_przychody_biezacy" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_caption" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Opis / uwagi card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_uwagi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/radius_md"
+                app:cardElevation="1dp"
+                android:layout_marginBottom="@dimen/spacing_md">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lk_section_details"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_subheading"
+                        android:textColor="@color/crm_heading"
+                        android:layout_marginBottom="@dimen/spacing_md" />
+
+                    <TextView android:id="@+id/label_opis_zabezpieczen" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/lk_opis_zabezpieczen" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_caption" android:layout_marginBottom="2dp" />
+                    <TextView android:id="@+id/detail_opis_zabezpieczen" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" android:layout_marginBottom="@dimen/spacing_sm" />
+
+                    <TextView android:id="@+id/label_nowe_zabezpieczenia" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/lk_nowe_zabezpieczenia" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_caption" android:layout_marginBottom="2dp" />
+                    <TextView android:id="@+id/detail_nowe_zabezpieczenia" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" android:layout_marginBottom="@dimen/spacing_sm" />
+
+                    <TextView android:id="@+id/label_dodatkowe_dochody" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/lk_dodatkowe_dochody" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_caption" android:layout_marginBottom="2dp" />
+                    <TextView android:id="@+id/detail_dodatkowe_dochody" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" android:layout_marginBottom="@dimen/spacing_sm" />
+
+                    <TextView android:id="@+id/label_zobowiazania" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/lk_zobowiazania" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_caption" android:layout_marginBottom="2dp" />
+                    <TextView android:id="@+id/detail_zobowiazania" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" android:layout_marginBottom="@dimen/spacing_sm" />
+
+                    <TextView android:id="@+id/label_uwagi" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/uwagi_label" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_caption" android:layout_marginBottom="2dp" />
+                    <TextView android:id="@+id/detail_uwagi" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" android:layout_marginBottom="@dimen/spacing_sm" />
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="@dimen/spacing_xs">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_potwierdzone_przeterminowane" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_body" />
+                        <TextView android:id="@+id/detail_potwierdzone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lk_rozliczenie_plonami" android:textColor="@color/crm_secondary" android:textSize="@dimen/text_body" />
+                        <TextView android:id="@+id/detail_rozliczenie" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/crm_body" android:textSize="@dimen/text_body" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Decision card (shown if approved/rejected) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_decyzja"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/radius_md"
+                app:cardElevation="1dp"
+                android:layout_marginBottom="@dimen/spacing_md"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lk_section_decyzja"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_subheading"
+                        android:textColor="@color/crm_heading"
+                        android:layout_marginBottom="@dimen/spacing_md" />
+
+                    <TextView
+                        android:id="@+id/detail_komentarz_decyzja"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/crm_body"
+                        android:textSize="@dimen/text_body"
+                        android:layout_marginBottom="@dimen/spacing_xs" />
+
+                    <TextView
+                        android:id="@+id/detail_approved_at"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/crm_secondary"
+                        android:textSize="@dimen/text_caption" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
