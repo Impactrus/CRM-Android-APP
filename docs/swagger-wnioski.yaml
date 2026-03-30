@@ -1,0 +1,1070 @@
+openapi: 3.0.3
+info:
+  title: CRM-OC — Moduł Urlopów (Wnioski)
+  description: |
+    API urlopowe dla aplikacji mobilnej CRM-OC Android.
+    Obejmuje: wnioski urlopowe, prawo pracy, zamrożenia, pliki, akceptacje.
+  version: 1.0.0
+
+servers:
+  - url: https://135.125.234.36/api
+    description: OVH (Staging)
+  - url: http://10.0.1.216/api
+    description: IIS (Production)
+  - url: http://localhost:5052/api
+    description: Local development
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # ── Auth ──
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+          maxLength: 100
+        password:
+          type: string
+          maxLength: 200
+
+    AuthResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        username:
+          type: string
+          nullable: true
+        userId:
+          type: integer
+          nullable: true
+        token:
+          type: string
+          nullable: true
+        role:
+          type: string
+          nullable: true
+        dzial:
+          type: string
+          nullable: true
+        employeeCacheId:
+          type: integer
+          nullable: true
+        claims:
+          type: array
+          items:
+            type: string
+          nullable: true
+        claimsVersion:
+          type: integer
+          nullable: true
+
+    # ── Wnioski ──
+    WniosekDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        managerId:
+          type: integer
+          nullable: true
+        hrId:
+          type: integer
+          nullable: true
+        typ:
+          type: string
+          description: "np. 'Urlop', 'Delegacja', 'Home Office'"
+        rodzajUrlopu:
+          type: string
+          nullable: true
+          description: "np. 'Wypoczynkowy', 'Na żądanie', 'Okolicznościowy'"
+        odDo:
+          type: string
+          description: "Zakres dat, np. '2026-04-01 – 2026-04-05'"
+        godziny:
+          type: integer
+          nullable: true
+        powod:
+          type: string
+        iloscDni:
+          type: integer
+        dokumenty:
+          type: integer
+          nullable: true
+        status:
+          type: string
+          description: "Szkic, Wysłany, Akceptacja kierownika, Akceptacja HR, Zaakceptowany, Do poprawy, Odrzucony"
+        managerApprovedAt:
+          type: string
+          nullable: true
+        hrApprovedAt:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          nullable: true
+        zastepstwoUserId:
+          type: integer
+          nullable: true
+        zastepstwoUsername:
+          type: string
+          nullable: true
+        komentarzManager:
+          type: string
+          nullable: true
+        komentarzHr:
+          type: string
+          nullable: true
+        username:
+          type: string
+          nullable: true
+
+    CreateWniosekRequest:
+      type: object
+      required: [userId, typ, odDo, powod, iloscDni]
+      properties:
+        userId:
+          type: integer
+        typ:
+          type: string
+        rodzajUrlopu:
+          type: string
+          nullable: true
+        odDo:
+          type: string
+        godziny:
+          type: integer
+          nullable: true
+        powod:
+          type: string
+        iloscDni:
+          type: integer
+        dokumenty:
+          type: integer
+          nullable: true
+        zastepstwoUserId:
+          type: integer
+          nullable: true
+
+    WnioskiPageRequest:
+      type: object
+      properties:
+        userId:
+          type: integer
+        page:
+          type: integer
+          default: 1
+        pageSize:
+          type: integer
+          default: 10
+        search:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+
+    WnioskiPageResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WniosekDto'
+        totalCount:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        totalPages:
+          type: integer
+
+    # ── Akceptacje ──
+    ManagerApprovalRequest:
+      type: object
+      required: [managerId, approved, data]
+      properties:
+        managerId:
+          type: integer
+        approved:
+          type: boolean
+        komentarz:
+          type: string
+          nullable: true
+        data:
+          type: string
+          format: date-time
+
+    HrApprovalRequest:
+      type: object
+      required: [hrId, approved, data]
+      properties:
+        hrId:
+          type: integer
+        approved:
+          type: boolean
+        komentarz:
+          type: string
+          nullable: true
+        data:
+          type: string
+          format: date-time
+
+    WyslijRequest:
+      type: object
+      required: [userId]
+      properties:
+        userId:
+          type: integer
+
+    # ── Pliki ──
+    WniosekPlikDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        wniosekId:
+          type: integer
+        nazwaPliku:
+          type: string
+        createdAt:
+          type: string
+          nullable: true
+
+    # ── Słowniki ──
+    SlownikItemDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        nazwa:
+          type: string
+
+    # ── Adres ──
+    UserAdresDto:
+      type: object
+      properties:
+        adresUlica:
+          type: string
+          nullable: true
+        adresNumer:
+          type: string
+          nullable: true
+        adresMiasto:
+          type: string
+          nullable: true
+        adresKod:
+          type: string
+          nullable: true
+
+    # ── Zamrożenia ──
+    ZamrozenieDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        dzial:
+          type: string
+        dataOd:
+          type: string
+        dataDo:
+          type: string
+        opis:
+          type: string
+          nullable: true
+
+    CreateZamrozenieRequest:
+      type: object
+      required: [userId, dzial, dataOd, dataDo]
+      properties:
+        userId:
+          type: integer
+        dzial:
+          type: string
+        dataOd:
+          type: string
+        dataDo:
+          type: string
+        opis:
+          type: string
+          nullable: true
+
+    # ── Prawo Pracy ──
+    PrawoPracyRegulaDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        kod:
+          type: string
+        wersja:
+          type: integer
+        obowiazujeOd:
+          type: string
+        obowiazujeDo:
+          type: string
+          nullable: true
+        nazwa:
+          type: string
+        podstawaPrawna:
+          type: string
+          nullable: true
+        jednostka:
+          type: string
+        limitRoczny:
+          type: number
+        limitRocznyAlt:
+          type: number
+          nullable: true
+        jednostkaAlt:
+          type: string
+          nullable: true
+        wymagaZatwierdzenia:
+          type: boolean
+        aktywny:
+          type: boolean
+        opis:
+          type: string
+          nullable: true
+
+    CreateWnioskiPrawoPracyRequest:
+      type: object
+      required: [rodzajPp, dataOd, iloscDni]
+      properties:
+        rodzajPp:
+          type: string
+        dataOd:
+          type: string
+        dataDo:
+          type: string
+          nullable: true
+        godziny:
+          type: integer
+          nullable: true
+        iloscDni:
+          type: number
+
+    PrawoPracySaldoDto:
+      type: object
+      properties:
+        kod:
+          type: string
+        nazwa:
+          type: string
+        podstawaPrawna:
+          type: string
+          nullable: true
+        jednostka:
+          type: string
+        limitRoczny:
+          type: number
+        limitRocznyAlt:
+          type: number
+          nullable: true
+        jednostkaAlt:
+          type: string
+          nullable: true
+        dniWyk:
+          type: number
+        godzinyWyk:
+          type: number
+        pozostalo:
+          type: number
+
+    # ── Shared ──
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+
+paths:
+  # ══════════════════════════════════════
+  #  AUTH
+  # ══════════════════════════════════════
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Logowanie użytkownika
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Nieprawidłowe dane logowania
+
+  # ══════════════════════════════════════
+  #  WNIOSKI — CRUD
+  # ══════════════════════════════════════
+  /wnioski:
+    post:
+      tags: [Wnioski]
+      summary: Utwórz nowy wniosek
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWniosekRequest'
+      responses:
+        '201':
+          description: Wniosek utworzony
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  message:
+                    type: string
+        '400':
+          description: Błąd walidacji
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /wnioski/{id}:
+    get:
+      tags: [Wnioski]
+      summary: Pobierz wniosek po ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WniosekDto'
+        '404':
+          description: Wniosek nie istnieje
+
+    put:
+      tags: [Wnioski]
+      summary: Edytuj wniosek (tylko szkic)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWniosekRequest'
+      responses:
+        '200':
+          description: Zaktualizowano
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '403':
+          description: Brak uprawnień
+        '404':
+          description: Wniosek nie istnieje
+
+    delete:
+      tags: [Wnioski]
+      summary: Usuń wniosek (tylko szkic)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Usunięto
+        '403':
+          description: Brak uprawnień
+        '404':
+          description: Wniosek nie istnieje
+
+  # ══════════════════════════════════════
+  #  WNIOSKI — LISTY
+  # ══════════════════════════════════════
+  /wnioski/list:
+    post:
+      tags: [Wnioski]
+      summary: Lista wniosków użytkownika (paginowana)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WnioskiPageRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WnioskiPageResponse'
+
+  /wnioski/approvals:
+    post:
+      tags: [Wnioski]
+      summary: Lista wniosków do akceptacji (Manager/HR)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WnioskiPageRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WnioskiPageResponse'
+        '403':
+          description: Brak uprawnień
+
+  # ══════════════════════════════════════
+  #  WNIOSKI — SŁOWNIKI
+  # ══════════════════════════════════════
+  /wnioski/typy:
+    get:
+      tags: [Wnioski - Słowniki]
+      summary: Pobierz typy wniosków
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SlownikItemDto'
+
+  /wnioski/rodzaje-urlopu:
+    get:
+      tags: [Wnioski - Słowniki]
+      summary: Pobierz rodzaje urlopu
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SlownikItemDto'
+
+  /wnioski/uzytkownicy:
+    get:
+      tags: [Wnioski - Słowniki]
+      summary: Pobierz listę pracowników (do zastępstwa)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SlownikItemDto'
+
+  # ══════════════════════════════════════
+  #  WNIOSKI — WORKFLOW
+  # ══════════════════════════════════════
+  /wnioski/{id}/wyslij:
+    post:
+      tags: [Wnioski - Workflow]
+      summary: Wyślij wniosek do akceptacji
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WyslijRequest'
+      responses:
+        '200':
+          description: Wysłano
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        '403':
+          description: Brak uprawnień
+        '404':
+          description: Wniosek nie istnieje
+
+  /wnioski/{id}/wyslij-ponownie:
+    post:
+      tags: [Wnioski - Workflow]
+      summary: Wyślij ponownie wniosek po poprawkach
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWniosekRequest'
+      responses:
+        '200':
+          description: Wysłano ponownie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        '403':
+          description: Brak uprawnień
+        '404':
+          description: Wniosek nie istnieje
+
+  /wnioski/{id}/akceptacja-manager:
+    post:
+      tags: [Wnioski - Workflow]
+      summary: Akceptacja/odrzucenie przez kierownika
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManagerApprovalRequest'
+      responses:
+        '200':
+          description: Zaakceptowano/odrzucono
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        '403':
+          description: Brak uprawnień (wymagana rola Manager)
+        '404':
+          description: Wniosek nie istnieje
+
+  /wnioski/{id}/akceptacja-hr:
+    post:
+      tags: [Wnioski - Workflow]
+      summary: Akceptacja/odrzucenie przez HR
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrApprovalRequest'
+      responses:
+        '200':
+          description: Zaakceptowano/odrzucono
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        '403':
+          description: Brak uprawnień (wymagana rola HR)
+        '404':
+          description: Wniosek nie istnieje
+
+  # ══════════════════════════════════════
+  #  WNIOSKI — PLIKI
+  # ══════════════════════════════════════
+  /wnioski/{id}/pliki:
+    get:
+      tags: [Wnioski - Pliki]
+      summary: Lista plików wniosku
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WniosekPlikDto'
+
+    post:
+      tags: [Wnioski - Pliki]
+      summary: Upload pliku do wniosku
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Plik dodany
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nazwaPliku:
+                    type: string
+                  message:
+                    type: string
+        '400':
+          description: Błąd walidacji pliku
+
+  /wnioski/pliki/{plikId}/pobierz:
+    get:
+      tags: [Wnioski - Pliki]
+      summary: Pobierz plik
+      parameters:
+        - name: plikId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Plik binarny
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Plik nie znaleziony
+
+  /wnioski/pliki/{plikId}:
+    delete:
+      tags: [Wnioski - Pliki]
+      summary: Usuń plik
+      parameters:
+        - name: plikId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Usunięto
+        '404':
+          description: Plik nie istnieje
+
+  # ══════════════════════════════════════
+  #  WNIOSKI — ADRES
+  # ══════════════════════════════════════
+  /wnioski/adres/{userId}:
+    get:
+      tags: [Wnioski - Adres]
+      summary: Pobierz adres użytkownika (delegacja)
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAdresDto'
+        '404':
+          description: Użytkownik nie istnieje
+
+    put:
+      tags: [Wnioski - Adres]
+      summary: Zapisz adres użytkownika
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAdresDto'
+      responses:
+        '200':
+          description: Zapisano
+        '404':
+          description: Użytkownik nie istnieje
+
+  # ══════════════════════════════════════
+  #  ZAMROŻENIA
+  # ══════════════════════════════════════
+  /wnioski/zamrozenia:
+    get:
+      tags: [Zamrożenia]
+      summary: Lista wszystkich zamrożeń
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ZamrozenieDto'
+
+    post:
+      tags: [Zamrożenia]
+      summary: Utwórz zamrożenie (tylko HR)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateZamrozenieRequest'
+      responses:
+        '201':
+          description: Utworzono
+        '403':
+          description: Brak uprawnień HR
+
+  /wnioski/zamrozenia/check:
+    get:
+      tags: [Zamrożenia]
+      summary: Sprawdź czy daty kolidują z zamrożeniem
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: od
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: do_
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Wynik sprawdzenia
+
+  /wnioski/zamrozenia/miesiac:
+    get:
+      tags: [Zamrożenia]
+      summary: Zamrożenia w danym miesiącu
+      parameters:
+        - name: rok
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: miesiac
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ZamrozenieDto'
+
+  /wnioski/zamrozenia/{id}:
+    put:
+      tags: [Zamrożenia]
+      summary: Edytuj zamrożenie (tylko HR)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateZamrozenieRequest'
+      responses:
+        '200':
+          description: Zaktualizowano
+        '403':
+          description: Brak uprawnień HR
+        '404':
+          description: Zamrożenie nie istnieje
+
+    delete:
+      tags: [Zamrożenia]
+      summary: Usuń zamrożenie (tylko HR)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Usunięto
+        '403':
+          description: Brak uprawnień HR
+        '404':
+          description: Zamrożenie nie istnieje
+
+  # ══════════════════════════════════════
+  #  PRAWO PRACY
+  # ══════════════════════════════════════
+  /prawo-pracy/reguly:
+    get:
+      tags: [Prawo Pracy]
+      summary: Pobierz reguły prawa pracy
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PrawoPracyRegulaDto'
+
+  /prawo-pracy/wnioski:
+    post:
+      tags: [Prawo Pracy]
+      summary: Utwórz wniosek prawo pracy (wolne z KP)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWnioskiPrawoPracyRequest'
+      responses:
+        '201':
+          description: Utworzono
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  message:
+                    type: string
+        '400':
+          description: Błąd walidacji (przekroczono limit, brak reguły)
+
+  /prawo-pracy/saldo/my:
+    get:
+      tags: [Prawo Pracy]
+      summary: Saldo prawa pracy zalogowanego użytkownika
+      parameters:
+        - name: rok
+          in: query
+          schema:
+            type: integer
+            description: Domyślnie bieżący rok
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PrawoPracySaldoDto'
