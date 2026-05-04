@@ -35,10 +35,24 @@
             android:layout_weight="1"
             android:layout_marginStart="4dp"
             android:fontFamily="sans-serif"
-            android:text="@string/approval_title"
+            android:text="Akceptacja wniosków HR"
             android:textColor="@color/crm_heading"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_sync_firebird"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Sync Firebird"
+            android:textAllCaps="false"
+            android:textColor="@color/crm_secondary"
+            android:textSize="12sp"
+            app:cornerRadius="6dp"
+            app:strokeColor="@color/crm_border" />
     </LinearLayout>
 
     <!-- Search -->
@@ -119,9 +133,7 @@
             android:id="@+id/page_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/crm_secondary"
-            android:textSize="@dimen/text_body" />
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="wrap_content"

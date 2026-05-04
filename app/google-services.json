@@ -28,7 +28,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:673001358230:android:634182032cc925cb51d3b7",
         "android_client_info": {
-          "package_name": "com.ossadkowski.app"
+          "package_name": "com.ossadkowski.crm.mobile"
         }
       },
       "oauth_client": [],

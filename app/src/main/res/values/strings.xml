@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ossadkowski App</string>
+    <string name="app_name">Ossadowski-Cebulski</string>
 
     <!-- Login -->
     <string name="login_welcome">Witamy ponownie</string>
@@ -22,10 +22,18 @@
     <string name="tab_zdarzenia">Zdarzenia</string>
     <string name="tab_wizyty">Wizyty</string>
     <string name="tab_wnioski">Wnioski</string>
-    <string name="stat_orders_label">Zamówienia</string>
-    <string name="stat_clients_label">Liczba klientów</string>
+    <string name="stat_orders_label">P. zdalna (wyk.)</string>
+    <string name="stat_clients_label">P. zdalna (poz.)</string>
     <string name="stat_days_off_label">Dni wolne</string>
-    <string name="stat_planned_label">Zaplanowane działania</string>
+    <string name="stat_days_off_hint">Kliknij po szczegóły</string>
+    <string name="stat_days_remaining">dni pozostało</string>
+    <string name="stat_planned_label">Wykorzystane dni wolne</string>
+    <string name="stat_used_fmt">Wykorzystane: %1$d</string>
+    <string name="stat_prev_year_fmt">Z poprz. roku: %1$d</string>
+    <string name="stat_additional_fmt">Dodatkowe: %1$d</string>
+    <string name="stat_limit_fmt">Wymiar urlopu: %1$d dni</string>
+    <string name="vacation_details_title">Szczegóły urlopu</string>
+    <string name="vacation_details_msg">Zestawienie Twojego salda urlopowego:</string>
     <string name="profile_badge_active">Aktywny</string>
     <string name="logout">Wyloguj</string>
     <string name="wnioski_title">Wnioski pracownicze</string>
@@ -49,6 +57,29 @@
     <string name="drawer_tasks">Zadania</string>
     <string name="drawer_crm">CRM</string>
     <string name="drawer_calendar">Kalendarz</string>
+    <string name="drawer_windykacja">Windykacja</string>
+    <string name="drawer_windykacja_wnioski">Wnioski o limit</string>
+    <string name="drawer_windykacja_nowy">Nowy wniosek</string>
+    <string name="drawer_windykacja_zadania">Zadania windykacyjne</string>
+    <string name="drawer_wiadomosci">Wiadomości</string>
+    
+    <string name="drawer_hr">Dział HR</string>
+    <string name="drawer_hr_akceptacje">Akceptacja wniosków</string>
+    <string name="drawer_hr_historia">Historia wniosków</string>
+    <string name="drawer_hr_kalendarz">Kalendarz zamrożeń</string>
+    <string name="drawer_hr_nadgodziny">Nadgodziny</string>
+    <string name="drawer_hr_home_office">Home Office</string>
+    <string name="drawer_hr_prawo_pracy">Prawo pracy</string>
+    <string name="drawer_hr_schemat">Schemat organizacyjny</string>
+    <string name="drawer_sales">Sprzedaż</string>
+    <string name="drawer_sales_orders">Zamówienia</string>
+    <string name="drawer_sales_transport">Transport zbóż</string>
+    <string name="drawer_sales_contracts">Umowy zbożowe</string>
+    <string name="drawer_sales_reps">Handlowcy</string>
+    <string name="drawer_sales_client_panel">Panel klienta</string>
+    <string name="drawer_sales_clients">Kontrahenci</string>
+    <string name="drawer_sales_grain_trade">Obrót zbożem</string>
+
     <string name="drawer_limity_kredytowe">Limity kredytowe</string>
     <string name="drawer_info">Informacje o celu</string>
     <string name="drawer_section_main">Główne</string>
@@ -67,6 +98,7 @@
     <string name="btn_new">+ Nowy</string>
     <string name="btn_prev_page">‹</string>
     <string name="btn_next_page">›</string>
+    <string name="save">Zapisz</string>
 
     <!-- Approvals -->
     <string name="approval_title">Akceptacja wniosków</string>
@@ -86,6 +118,7 @@
 
     <!-- Tasks -->
     <string name="tasks_title">Zadania</string>
+    <string name="debt_tasks_title">Zadania windykacyjne</string>
     <string name="task_detail_title">Szczegóły zadania</string>
     <string name="tab_comments">Komentarze</string>
     <string name="tab_files">Pliki</string>
@@ -124,19 +157,46 @@
     <string name="validation_select_type">Wybierz typ wniosku</string>
     <string name="validation_enter_dates">Podaj daty</string>
     <string name="validation_enter_description">Podaj opis</string>
+    <string name="uwagi_label">Uwagi</string>
 
     <!-- Limity Kredytowe -->
-    <string name="limity_kredytowe_title">Limity kredytowe</string>
-    <string name="limit_kredytowy_detail_title">Limit kredytowy</string>
-    <string name="limit_new_title">Nowy wniosek o limit</string>
-    <string name="account_num_label">Numer kontrahenta (AccountNum) *</string>
-    <string name="account_num_hint">np. C-000123</string>
-    <string name="limit_amount_label">Wnioskowany limit (PLN) *</string>
-    <string name="limit_amount_hint">0.00</string>
-    <string name="uwagi_label">Uwagi</string>
-    <string name="uwagi_hint">Uwagi do wniosku…</string>
-    <string name="validation_account_required">Numer kontrahenta jest wymagany</string>
-    <string name="validation_limit_positive">Wnioskowany limit musi być > 0</string>
+    <string name="limity_kredytowe_title">Wnioski o limit kredytowy</string>
+    <string name="limit_kredytowy_detail_title">Szczegóły wniosku o limit</string>
+    <string name="limit_new_title">Wniosek o limit kredytowy</string>
+    <string name="kontrahent_section_title">Kontrahent</string>
+    <string name="limits_section_title">Limit i zabezpieczenia</string>
+    <string name="additional_section_title">Dodatkowe informacje</string>
+    <string name="lk_nazwa_label">Nazwa *</string>
+    <string name="lk_nip_label">NIP</string>
+    <string name="lk_ax_num_label">Nr AX</string>
+    <string name="lk_adres_label">Adres</string>
+    <string name="lk_obecny_limit_label">Obecny limit</string>
+    <string name="lk_wnioskowany_limit_label">Wnioskowany limit *</string>
+    <string name="lk_zadluzenie_label">Zadłużenie przeterminowane</string>
+    <string name="lk_status_label">Status</string>
+    <string name="lk_status_draft">Szkic</string>
+    <string name="lk_potwierdzone_przeterminowane_label">Potwierdzone zadłużenie przeterminowane</string>
+    <string name="lk_rozliczenie_plonami_label">Rozliczenie plonami</string>
+    <string name="ax_sync_label">AX SYNC</string>
+    <string name="ax_sync_ok">Zsynch.</string>
+    <string name="ax_sync_none">Brak</string>
+    <string name="limit_format">Łączny limit: %1$,.2f PLN</string>
+    <string name="limit_requested_format">Wnioskowany: %1$,.2f PLN</string>
+    <string name="lk_termin_zabezpieczen_label">Termin dostarczenia zabezpieczeń *</string>
+    <string name="lk_opis_zabezpieczen_label">Opis posiadanych zabezpieczeń *</string>
+    <string name="lk_nowe_zabezpieczenia_label">Nowe zabezpieczenia - Jakie? *</string>
+    <string name="lk_dodatkowe_dochody_label">Dodatkowe źródła dochodów - Jakie? *</string>
+    <string name="lk_zobowiazania_label">Zobowiązania do podmiotów trzecich w zł. *</string>
+    <string name="lk_uwagi_label">Uwagi</string>
+    <string name="lk_obserwatorzy_label">Obserwatorzy</string>
+    <string name="lk_btn_save">Zapisz wniosek</string>
+    <string name="lk_btn_cancel">Anuluj</string>
+    <string name="validation_name_required">Nazwa kontrahenta jest wymagana</string>
+    <string name="validation_ax_num_required">Numer AX jest wymagany</string>
+    <string name="validation_limit_required">Wnioskowany limit jest wymagany</string>
+    <string name="validation_date_required">Termin jest wymagany</string>
+    <string name="validation_limit_positive">Wnioskowany limit musi być większy od 0</string>
+    <string name="validation_fields_required">Pola oznaczone * są wymagane</string>
     <string name="search_kontrahent_hint">Szukaj kontrahenta…</string>
     <string name="lk_section_limits">Limity</string>
     <string name="lk_section_finanse">Dane finansowe</string>
@@ -194,6 +254,27 @@
     <string name="cd_next_month">Następny miesiąc</string>
     <string name="cd_toggle_password">Pokaż/ukryj hasło</string>
     <string name="cd_close_menu">Zamknij menu</string>
+
+    <!-- Debt Tasks -->
+    <string name="debt_new_task_title">Nowe zadanie windykacyjne</string>
+    <string name="debt_task_title_label">Tytuł zadania *</string>
+    <string name="debt_task_desc_label">Opis zadania</string>
+    <string name="debt_task_kontrahent_label">Kontrahent</string>
+    <string name="debt_task_termin_label">Termin *</string>
+    <string name="debt_task_btn_save">Utwórz zadanie</string>
+    <string name="validation_title_required">Tytuł zadania jest wymagany</string>
+    <string name="cd_add_button">Dodaj nowe zadanie</string>
+
+    <!-- Sales Orders -->
+    <string name="sales_orders_title">Zamówienia sprzedaży</string>
+    <string name="sales_orders_search_hint">Szukaj zamówienia…</string>
+    <string name="sales_orders_new_button">+ Nowe zamówienie</string>
+    <string name="sales_orders_count_fmt">%1$d z %2$d zamówień</string>
+    <string name="sales_orders_header_nr">NR ZAM.</string>
+    <string name="sales_orders_header_ax">NR AX</string>
+    <string name="sales_orders_header_client">KONTRAHENT</string>
+    <string name="sales_orders_header_value">WARTOŚĆ NETTO</string>
+    <string name="sales_orders_header_status">STATUS</string>
 
     <!-- Feature placeholder -->
     <string name="feature_coming_soon">Funkcja w przygotowaniu</string>

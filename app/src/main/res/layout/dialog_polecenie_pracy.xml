@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Polecenie pracy w sobotę"
+            android:textColor="@color/crm_heading"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Podstawa prawna: art. 151^3 KP. Kompensatą podstawową jest udzielenie dnia wolnego; alternatywnie przysługuje dodatek 100% do wynagrodzenia. Decyduje pracownik po potwierdzeniu."
+            android:textColor="@color/crm_placeholder"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Pracownik *"
+            android:textColor="@color/crm_body"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/workerSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_input_field" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Data *"
+            android:textColor="@color/crm_body"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/dateInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_input_field"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="dd.mm.rrrr"
+            android:inputType="none"
+            android:paddingHorizontal="12dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Uzasadnienie *"
+            android:textColor="@color/crm_body"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/reasonInput"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_input_field"
+            android:gravity="top"
+            android:hint="Krótko opisz powód wystawienia polecenia pracy..."
+            android:inputType="textMultiLine"
+            android:padding="12dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/reasonCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Minimum 10 znaków"
+            android:textColor="@color/crm_placeholder"
+            android:textSize="11sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCancel"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anuluj"
+                android:textColor="@color/crm_secondary" />
+
+            <Button
+                android:id="@+id/btnSubmit"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:enabled="false"
+                android:text="Wystaw polecenie"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/crm_primary"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

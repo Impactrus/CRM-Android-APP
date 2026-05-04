@@ -64,11 +64,17 @@
                 android:orientation="horizontal"
                 android:paddingHorizontal="8dp">
 
-                <View
+                <TextView
                     android:id="@+id/topbar_avatar"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:background="@drawable/bg_avatar_placeholder" />
+                    android:background="@drawable/bg_initials_circle"
+                    android:gravity="center"
+                    android:textColor="#03543f"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="MK" />
+
 
                 <TextView
                     android:id="@+id/topbar_name"
@@ -109,27 +115,33 @@
                     android:textSize="13sp"
                     tools:text="Home  ›  Panel pracownika" />
 
-                <!-- Profile Card -->
+                <!-- Profile & Summary Stats Container -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/bg_profile_card"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="8dp">
 
-                    <!-- Avatar + Name row -->
+                    <!-- Profile Section -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_profile_card"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_marginBottom="12dp">
 
-                        <View
+                        <TextView
                             android:id="@+id/profile_avatar"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:background="@drawable/bg_avatar_placeholder" />
+                            android:background="@drawable/bg_avatar_square"
+                            android:gravity="center"
+                            android:textColor="@color/status_success_text"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            tools:text="M" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -138,23 +150,21 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <!-- Name + Badge -->
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
                                 android:orientation="horizontal"
+                                android:gravity="center_vertical"
                                 android:layout_marginBottom="4dp">
 
                                 <TextView
                                     android:id="@+id/profile_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="sans-serif"
+                                    android:fontFamily="sans-serif-black"
                                     android:textColor="@color/crm_heading"
-                                    android:textSize="@dimen/text_heading"
-                                    android:textStyle="bold"
-                                    tools:text="Andrzej Kowalski" />
+                                    android:textSize="18sp"
+                                    tools:text="MAREK" />
 
                                 <TextView
                                     android:id="@+id/profile_badge"
@@ -162,213 +172,286 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
                                     android:background="@drawable/bg_badge_active"
-                                    android:fontFamily="sans-serif-medium"
                                     android:paddingHorizontal="8dp"
                                     android:paddingVertical="2dp"
-                                    android:text="@string/profile_badge_active"
+                                    android:text="✓ Aktywny"
                                     android:textColor="@color/status_success_text"
-                                    android:textSize="@dimen/text_caption" />
+                                    android:textSize="10sp"
+                                    android:fontFamily="sans-serif-medium" />
                             </LinearLayout>
 
-                            <!-- Role -->
                             <TextView
                                 android:id="@+id/profile_role"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
                                 android:drawableStart="@drawable/ic_user"
                                 android:drawablePadding="6dp"
-                                android:fontFamily="sans-serif-medium"
+                                android:drawableTint="@color/crm_primary"
                                 android:textColor="@color/crm_body"
-                                android:textSize="@dimen/text_body"
-                                tools:text="Handlowiec" />
+                                android:textSize="13sp"
+                                android:layout_marginBottom="2dp"
+                                tools:text="Administrator AX, Analityk-Architekt AX" />
 
-                            <!-- Phone -->
-                            <TextView
-                                android:id="@+id/profile_phone"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:drawableStart="@drawable/ic_phone"
-                                android:drawablePadding="6dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:textColor="@color/crm_body"
-                                android:textSize="@dimen/text_body"
-                                tools:text="505 221 251" />
-
-                            <!-- Email -->
                             <TextView
                                 android:id="@+id/profile_email"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/ic_email"
                                 android:drawablePadding="6dp"
-                                android:fontFamily="sans-serif-medium"
+                                android:drawableTint="@color/crm_primary"
                                 android:textColor="@color/crm_body"
                                 android:textSize="13sp"
-                                tools:text="andrzej@osadkowski.pl" />
+                                tools:text="m_perczuk@osadkowski-cebulski.pl" />
+                                
+                            <TextView
+                                android:id="@+id/profile_phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
                         </LinearLayout>
                     </LinearLayout>
 
-                    <!-- Logout button under profile -->
-                    <Button
-                        android:id="@+id/btn_logout"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="12dp"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="@string/logout"
-                        android:textAllCaps="false"
-                        android:textColor="@color/status_error_text"
-                        android:textSize="13sp"
-                        app:cornerRadius="8dp"
-                        app:strokeColor="@color/status_error_bg" />
-
-                    <!-- Stats Grid 2x2 -->
+                    <!-- Top Summary Stats (2 Mini Cards) -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
 
-                        <!-- Row 1 -->
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:orientation="horizontal">
+                            android:layout_weight="1"
+                            android:layout_marginEnd="6dp"
+                            android:background="@drawable/bg_profile_card"
+                            android:orientation="horizontal"
+                            android:padding="12dp"
+                            android:gravity="center_vertical">
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="4dp"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_stat_card"
-                                android:orientation="vertical"
-                                android:padding="12dp">
-
+                                android:orientation="vertical">
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/stat_orders_label"
+                                    android:text="Dni wolne"
                                     android:textColor="@color/crm_secondary"
-                                    android:textSize="@dimen/text_body" />
-
+                                    android:textSize="12sp" />
                                 <TextView
-                                    android:id="@+id/stat_orders"
+                                    android:id="@+id/summary_days_off"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
                                     android:textColor="@color/crm_heading"
-                                    android:textSize="24sp"
+                                    android:textSize="20sp"
                                     android:textStyle="bold"
-                                    tools:text="205.5k" />
+                                    tools:text="32" />
                             </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/bg_stat_card"
-                                android:orientation="vertical"
-                                android:padding="12dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/stat_clients_label"
-                                    android:textColor="@color/crm_secondary"
-                                    android:textSize="@dimen/text_body" />
-
-                                <TextView
-                                    android:id="@+id/stat_clients"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:textColor="@color/crm_heading"
-                                    android:textSize="24sp"
-                                    android:textStyle="bold"
-                                    tools:text="20" />
-                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_calendar"
+                                app:tint="@color/crm_primary" />
                         </LinearLayout>
 
-                        <!-- Row 2 -->
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_weight="1"
+                            android:layout_marginStart="6dp"
+                            android:background="@drawable/bg_profile_card"
+                            android:orientation="horizontal"
+                            android:padding="12dp"
+                            android:gravity="center_vertical">
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="4dp"
                                 android:layout_weight="1"
-                                android:background="@drawable/bg_stat_card"
-                                android:orientation="vertical"
-                                android:padding="12dp">
-
+                                android:orientation="vertical">
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/stat_days_off_label"
+                                    android:text="Zadania na dziś"
                                     android:textColor="@color/crm_secondary"
-                                    android:textSize="@dimen/text_body" />
-
+                                    android:textSize="12sp" />
                                 <TextView
-                                    android:id="@+id/stat_days_off"
+                                    android:id="@+id/summary_tasks"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
                                     android:textColor="@color/crm_heading"
-                                    android:textSize="24sp"
+                                    android:textSize="20sp"
                                     android:textStyle="bold"
-                                    tools:text="21" />
+                                    tools:text="0" />
                             </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/bg_stat_card"
-                                android:orientation="vertical"
-                                android:padding="12dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/stat_planned_label"
-                                    android:textColor="@color/crm_secondary"
-                                    android:textSize="@dimen/text_body" />
-
-                                <TextView
-                                    android:id="@+id/stat_planned"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
-                                    android:textColor="@color/crm_heading"
-                                    android:textSize="24sp"
-                                    android:textStyle="bold"
-                                    tools:text="6" />
-                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_task"
+                                app:tint="@color/crm_primary" />
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
-                <!-- Tab Bar — 4 tabs matching Figma -->
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="8dp"
-                    android:scrollbars="none"
-                    android:fillViewport="true">
+                    <!-- Detailed Stats (Dni wolne) -->
+                    <LinearLayout
+                        android:id="@+id/stat_days_off_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_profile_card"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:layout_marginBottom="12dp">
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dni wolne"
+                                android:textStyle="bold"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:text="FIREBIRD"
+                                android:textColor="@color/crm_placeholder"
+                                android:textSize="10sp"
+                                android:fontFamily="sans-serif-medium" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="bottom"
+                            android:layout_marginBottom="8dp">
+                            <TextView
+                                android:id="@+id/stat_days_off"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="32sp"
+                                android:fontFamily="sans-serif-black"
+                                tools:text="32" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" dni pozostało"
+                                android:textColor="@color/crm_secondary"
+                                android:textSize="14sp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginBottom="4dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/stat_days_off_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/crm_body"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="4dp"
+                            tools:text="Wykorzystane: 5 • Z poprzedniego roku: 11 • Dodatkowe: 0" />
+
+                        <TextView
+                            android:id="@+id/stat_days_off_limit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/crm_body"
+                            android:textSize="12sp"
+                            tools:text="Wymiar urlopu: 26 dni" />
+                    </LinearLayout>
+
+                    <!-- Detailed Stats (Praca zdalna) -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_profile_card"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:layout_marginBottom="12dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dni praca zdalna"
+                                android:textStyle="bold"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:text="LIMIT GLOBALNY"
+                                android:textColor="@color/crm_placeholder"
+                                android:textSize="10sp"
+                                android:fontFamily="sans-serif-medium" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="bottom"
+                            android:layout_marginBottom="8dp">
+                            <TextView
+                                android:id="@+id/stat_ho_remaining"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="32sp"
+                                android:fontFamily="sans-serif-black"
+                                tools:text="24" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" dni pozostało"
+                                android:textColor="@color/crm_secondary"
+                                android:textSize="14sp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginBottom="4dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/stat_ho_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/crm_body"
+                            android:textSize="12sp"
+                            tools:text="Wykorzystane: 0 • Limit roczny: 24" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_logout"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/logout"
+                        android:textColor="@color/status_error_text"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <!-- Tab Bar — 2 Rows to fit screen -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+
+                    <!-- First Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@drawable/bg_tab_bar"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
@@ -387,6 +470,40 @@
                             android:textSize="13sp" />
 
                         <TextView
+                            android:id="@+id/tab_board"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center"
+                            android:text="Board"
+                            android:textColor="@color/crm_secondary"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tab_akceptacje"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center"
+                            android:text="Akceptacje"
+                            android:textColor="@color/crm_secondary"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <!-- Second Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:background="@drawable/bg_tab_bar"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
+
+                        <TextView
                             android:id="@+id/tab_wnioski"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -397,787 +514,232 @@
                             android:text="@string/tab_wnioski"
                             android:textColor="@color/crm_secondary"
                             android:textSize="13sp" />
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-                <!-- Tasks Container -->
-                <LinearLayout
-                    android:id="@+id/tasks_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_profile_card"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:visibility="visible">
-
-                    <EditText
-                        android:id="@+id/tasks_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="44dp"
-                        android:background="@drawable/bg_search_bar"
-                        android:drawableStart="@drawable/ic_search"
-                        android:drawablePadding="8dp"
-                        android:hint="@string/search_tasks_hint"
-                        android:paddingHorizontal="12dp"
-                        android:textColor="@color/crm_heading"
-                        android:textColorHint="@color/crm_secondary"
-                        android:textSize="@dimen/text_body"
-                        android:layout_marginBottom="12dp" />
-
-                    <ProgressBar
-                        android:id="@+id/tasks_progress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:visibility="gone" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/tasks_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingTop="12dp">
 
                         <TextView
-                            android:id="@+id/tasks_page_info"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:textColor="@color/crm_secondary"
-                            android:textSize="@dimen/text_body" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/tab_zastepstwa"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:text="Zastępstwa"
+                            android:textColor="@color/crm_secondary"
+                            android:textSize="13sp" />
 
-                            <Button
-                                android:id="@+id/tasks_btn_prev"
-                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:enabled="false"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp"
-                                android:text="‹"
-                                android:textSize="18sp"
-                                app:cornerRadius="4dp"
-                                app:strokeColor="@color/crm_border" />
-
-                            <Button
-                                android:id="@+id/tasks_btn_next"
-                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp"
-                                android:text="›"
-                                android:textSize="18sp"
-                                app:cornerRadius="4dp"
-                                app:strokeColor="@color/crm_border" />
-                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/tab_polecenie"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center"
+                            android:text="Polecenie"
+                            android:textColor="@color/crm_secondary"
+                            android:textSize="13sp" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Wnioski Container -->
-                <LinearLayout
-                    android:id="@+id/wnioski_container"
+                <!-- Containers Stack -->
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_profile_card"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/wnioski_title"
-                        android:textColor="@color/crm_heading"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="4dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wnioski_subtitle"
-                        android:textColor="@color/crm_secondary"
-                        android:textSize="@dimen/text_body"
-                        android:layout_marginBottom="12dp" />
-
-                    <Button
-                        android:id="@+id/btn_new_wniosek"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="@string/wnioski_new_button"
-                        android:textAllCaps="false"
-                        android:textColor="@color/crm_primary"
-                        app:cornerRadius="8dp"
-                        app:strokeColor="@color/crm_primary" />
-
-                    <ProgressBar
-                        android:id="@+id/wnioski_progress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:visibility="gone" />
-
+                    <!-- Tasks Container -->
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_table_header"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="12dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/table_header_typ"
-                            android:textColor="@color/crm_secondary"
-                            android:textSize="@dimen/text_caption" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/table_header_od_do"
-                            android:textColor="@color/crm_secondary"
-                            android:textSize="@dimen/text_caption" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/table_header_status"
-                            android:textColor="@color/crm_secondary"
-                            android:textSize="@dimen/text_caption" />
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/wnioski_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <LinearLayout
+                        android:id="@+id/tasks_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:background="@drawable/bg_profile_card"
                         android:orientation="vertical"
-                        android:paddingTop="12dp">
+                        android:padding="16dp"
+                        android:visibility="visible">
 
-                        <TextView
-                            android:id="@+id/wnioski_page_info"
+                        <EditText
+                            android:id="@+id/tasks_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:background="@drawable/bg_search_bar"
+                            android:drawableStart="@drawable/ic_search"
+                            android:drawablePadding="8dp"
+                            android:hint="@string/search_tasks_hint"
+                            android:paddingHorizontal="12dp"
+                            android:textColor="@color/crm_heading"
+                            android:textColorHint="@color/crm_secondary"
+                            android:textSize="@dimen/text_body"
+                            android:layout_marginBottom="12dp" />
+
+                        <ProgressBar
+                            android:id="@+id/tasks_progress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:textColor="@color/crm_secondary"
-                            android:textSize="@dimen/text_body" />
+                            android:layout_gravity="center"
+                            android:visibility="gone" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/tasks_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:id="@+id/wnioski_btn_prev"
-                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:enabled="false"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp"
-                                android:text="‹"
-                                android:textSize="18sp"
-                                app:cornerRadius="4dp"
-                                app:strokeColor="@color/crm_border" />
-
-                            <Button
-                                android:id="@+id/wnioski_btn_next"
-                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp"
-                                android:text="›"
-                                android:textSize="18sp"
-                                app:cornerRadius="4dp"
-                                app:strokeColor="@color/crm_border" />
+                            android:orientation="vertical"
+                            android:paddingTop="12dp">
+                            <TextView
+                                android:id="@+id/tasks_page_info"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+                                <Button
+                                    android:id="@+id/tasks_btn_prev"
+                                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:enabled="false"
+                                    android:insetTop="0dp"
+                                    android:insetBottom="0dp"
+                                    android:text="‹"
+                                    android:textSize="18sp"
+                                    app:cornerRadius="4dp"
+                                    app:strokeColor="@color/crm_border" />
+                                <Button
+                                    android:id="@+id/tasks_btn_next"
+                                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:insetTop="0dp"
+                                    android:insetBottom="0dp"
+                                    android:text="›"
+                                    android:textSize="18sp"
+                                    app:cornerRadius="4dp"
+                                    app:strokeColor="@color/crm_border" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
 
+                    <!-- Board Container -->
+                    <LinearLayout
+                        android:id="@+id/board_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_profile_card"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:visibility="gone">
+                        
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="12dp">
+                            <Button android:id="@+id/btn_board_filter_my" android:layout_width="0dp" android:layout_height="36dp" android:layout_weight="1" android:text="Moje" android:textSize="11sp" style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                            <Button android:id="@+id/btn_board_filter_team" android:layout_width="0dp" android:layout_height="36dp" android:layout_weight="1" android:text="Zespół" android:textSize="11sp" style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                            <Button android:id="@+id/btn_board_filter_all" android:layout_width="0dp" android:layout_height="36dp" android:layout_weight="1" android:text="Wszy." android:textSize="11sp" style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                        </LinearLayout>
+
+                        <ProgressBar android:id="@+id/board_progress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:visibility="gone" />
+                        <androidx.recyclerview.widget.RecyclerView android:id="@+id/board_recycler" android:layout_width="match_parent" android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <!-- Akceptacje Container -->
+                    <LinearLayout
+                        android:id="@+id/akceptacje_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_profile_card"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:visibility="gone">
+                        <ProgressBar android:id="@+id/akceptacje_progress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:visibility="gone" />
+                        <TextView android:id="@+id/akceptacje_empty_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Brak wniosków do akceptacji" android:gravity="center" android:padding="20dp" android:visibility="gone" />
+                        <androidx.recyclerview.widget.RecyclerView android:id="@+id/akceptacje_recycler" android:layout_width="match_parent" android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <!-- Wnioski Container -->
+                    <LinearLayout
+                        android:id="@+id/wnioski_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_profile_card"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:visibility="gone">
+                        <Button
+                            android:id="@+id/btn_new_wniosek"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:text="@string/wnioski_new_button"
+                            android:textAllCaps="false"
+                            android:textColor="@color/crm_primary"
+                            app:cornerRadius="8dp"
+                            app:strokeColor="@color/crm_primary" />
+                        <ProgressBar android:id="@+id/wnioski_progress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:visibility="gone" />
+                        <androidx.recyclerview.widget.RecyclerView android:id="@+id/wnioski_recycler" android:layout_width="match_parent" android:layout_height="wrap_content" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="12dp">
+                            <TextView android:id="@+id/wnioski_page_info" android:layout_width="wrap_content" android:layout_height="wrap_content" android:visibility="gone" />
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                                <Button android:id="@+id/wnioski_btn_prev" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="40dp" android:layout_height="40dp" android:text="‹" />
+                                <Button android:id="@+id/wnioski_btn_next" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="40dp" android:layout_height="40dp" android:text="›" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Zastepstwa Container -->
+                    <LinearLayout
+                        android:id="@+id/zastepstwa_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_profile_card"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:visibility="gone">
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Oczekujące" android:textStyle="bold" />
+                        <ProgressBar android:id="@+id/zastepstwa_oczekujace_progress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:visibility="gone" />
+                        <TextView android:id="@+id/zastepstwa_oczekujace_empty_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Brak oczekujących zastępstw" android:visibility="gone" />
+                        <androidx.recyclerview.widget.RecyclerView android:id="@+id/zastepstwa_oczekujace_recycler" android:layout_width="match_parent" android:layout_height="200dp" />
+                        
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Zaakceptowane" android:textStyle="bold" android:layout_marginTop="16dp" />
+                        <ProgressBar android:id="@+id/zastepstwa_zaakceptowane_progress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:visibility="gone" />
+                        <TextView android:id="@+id/zastepstwa_zaakceptowane_empty_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Brak zaakceptowanych zastępstw" android:visibility="gone" />
+                        <androidx.recyclerview.widget.RecyclerView android:id="@+id/zastepstwa_zaakceptowane_recycler" android:layout_width="match_parent" android:layout_height="200dp" />
+                    </LinearLayout>
+
+                    <!-- Polecenie Container -->
+                    <LinearLayout
+                        android:id="@+id/polecenie_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_profile_card"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:visibility="gone">
+                        <Button android:id="@+id/btn_polecenie_sobota" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Polecenie pracy: Sobota" style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                        <Button android:id="@+id/btn_polecenie_niedziela" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Polecenie pracy: Niedziela" style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                    </LinearLayout>
+
+                </FrameLayout>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Navigation Drawer — Figma 254:24350 -->
-    <ScrollView
-        android:id="@+id/nav_drawer"
-        android:layout_width="280dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/white"
-        android:elevation="8dp"
-        android:fitsSystemWindows="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="16dp"
-            android:paddingBottom="24dp">
-
-            <!-- Header: Close (X) + Logo -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="16dp"
-                android:paddingBottom="16dp">
-
-                <ImageView
-                    android:id="@+id/drawer_close"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_close"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/cd_close_menu" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/logo"
-                    android:contentDescription="@string/app_name" />
-            </LinearLayout>
-
-            <!-- User info -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="12dp"
-                android:background="@color/crm_surface">
-
-                <View
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/bg_avatar_placeholder" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/drawer_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/crm_heading"
-                        android:textSize="15sp"
-                        tools:text="Andrzej Kowalski" />
-
-                    <TextView
-                        android:id="@+id/drawer_role"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/crm_secondary"
-                        android:textSize="12sp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        tools:text="andrzej.kowalski@osadkowski-cebulski.pl" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Section: Główne -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="4dp"
-                android:text="@string/drawer_section_main"
-                android:textColor="@color/crm_placeholder"
-                android:textSize="12sp"
-                android:fontFamily="sans-serif-medium" />
-
-            <!-- Start -->
-            <LinearLayout
-                android:id="@+id/drawer_panel"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_home" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_start"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- Kontrahenci -->
-            <LinearLayout
-                android:id="@+id/drawer_kontrahenci"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_people" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_kontrahenci"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- Towary -->
-            <LinearLayout
-                android:id="@+id/drawer_towary"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_inventory" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_towary"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- Section: Zamówienia -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="4dp"
-                android:text="@string/drawer_section_orders"
-                android:textColor="@color/crm_placeholder"
-                android:textSize="12sp"
-                android:fontFamily="sans-serif-medium" />
-
-            <!-- Zamówienia -->
-            <LinearLayout
-                android:id="@+id/drawer_zamowienia"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_shopping_cart" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_zamowienia"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- Transakcje -->
-            <LinearLayout
-                android:id="@+id/drawer_transakcje"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_receipt" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_transakcje"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- Wizyty -->
-            <LinearLayout
-                android:id="@+id/drawer_wizyty"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_location" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_wizyty"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- Oferty -->
-            <LinearLayout
-                android:id="@+id/drawer_oferty"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_local_offer" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_oferty"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- Zadania -->
-            <LinearLayout
-                android:id="@+id/drawer_tasks"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_task" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_tasks"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- CRM -->
-            <LinearLayout
-                android:id="@+id/drawer_crm"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_crm" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_crm"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- Section: Inne -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="4dp"
-                android:text="@string/drawer_section_other"
-                android:textColor="@color/crm_placeholder"
-                android:textSize="12sp"
-                android:fontFamily="sans-serif-medium" />
-
-            <!-- Akceptacje (claims-based) -->
-            <LinearLayout
-                android:id="@+id/drawer_approvals"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_task" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_approvals"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- Kalendarz (claims-based) -->
-            <LinearLayout
-                android:id="@+id/drawer_calendar"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_calendar" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_calendar"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- Limity kredytowe (claims-based) -->
-            <LinearLayout
-                android:id="@+id/drawer_limity_kredytowe"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_receipt" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_limity_kredytowe"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <!-- Informacje o celu -->
-            <LinearLayout
-                android:id="@+id/drawer_info"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_info" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_info"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="4dp"
-                android:background="@color/crm_divider" />
-
-            <!-- Wyloguj -->
-            <LinearLayout
-                android:id="@+id/drawer_logout"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_close"
-                    android:tint="@color/status_error_text" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/logout"
-                    android:textColor="@color/status_error_text"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
+    <include
+        android:id="@+id/include_drawer"
+        layout="@layout/nav_drawer_content" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

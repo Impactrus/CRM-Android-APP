@@ -1,0 +1,1090 @@
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_drawer"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="24dp">
+
+            <!-- Header: Close (X) + Logo -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/drawer_close"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_close"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/cd_close_menu" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/logo"
+                    android:contentDescription="@string/app_name" />
+            </LinearLayout>
+
+            <!-- User info -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="12dp"
+                android:background="@color/crm_surface">
+
+                <TextView
+                    android:id="@+id/drawer_avatar"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_initials_circle"
+                    android:gravity="center"
+                    android:textColor="#03543f"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="M" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/drawer_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/crm_heading"
+                        android:textSize="15sp"
+                        tools:text="Andrzej Kowalski" />
+
+                    <TextView
+                        android:id="@+id/drawer_role"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/crm_secondary"
+                        android:textSize="12sp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        tools:text="andrzej.kowalski@osadkowski-cebulski.pl" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Section: Główne -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="4dp"
+                android:text="@string/drawer_section_main"
+                android:textColor="@color/crm_placeholder"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-medium" />
+
+            <!-- Start -->
+            <LinearLayout
+                android:id="@+id/drawer_panel"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_home" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_start"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Kontrahenci -->
+            <LinearLayout
+                android:id="@+id/drawer_kontrahenci"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_people" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_kontrahenci"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Towary -->
+            <LinearLayout
+                android:id="@+id/drawer_towary"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_inventory" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_towary"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Wiadomości (Główne) -->
+            <LinearLayout
+                android:id="@+id/drawer_messages"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_email" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_wiadomosci"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Section: Zamówienia -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="4dp"
+                android:text="@string/drawer_section_orders"
+                android:textColor="@color/crm_placeholder"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-medium" />
+
+            <!-- Zamówienia -->
+            <LinearLayout
+                android:id="@+id/drawer_zamowienia"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_shopping_cart" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_zamowienia"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Transakcje -->
+            <LinearLayout
+                android:id="@+id/drawer_transakcje"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_receipt" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_transakcje"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Wizyty -->
+            <LinearLayout
+                android:id="@+id/drawer_wizyty"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_location" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_wizyty"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Oferty -->
+            <LinearLayout
+                android:id="@+id/drawer_oferty"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_local_offer" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_oferty"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Zadania -->
+            <LinearLayout
+                android:id="@+id/drawer_tasks"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_task" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_tasks"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- CRM -->
+            <LinearLayout
+                android:id="@+id/drawer_crm"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_crm" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_crm"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Section: Inne -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="4dp"
+                android:text="@string/drawer_section_other"
+                android:textColor="@color/crm_placeholder"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-medium" />
+
+            <!-- Akceptacje (claims-based) -->
+            <LinearLayout
+                android:id="@+id/drawer_approvals"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_task" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_approvals"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Kalendarz (claims-based) -->
+            <LinearLayout
+                android:id="@+id/drawer_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_calendar" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_calendar"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Sekcja Windykacja (Screenshot alignment) -->
+            <LinearLayout
+                android:id="@+id/drawer_windykacja_header"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_receipt" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_windykacja"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/drawer_windykacja_arrow"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/drawer_windykacja_sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"> <!-- Default visible for now as requested -->
+
+                <!-- Wnioski o limit -->
+                <LinearLayout
+                    android:id="@+id/drawer_windykacja_wnioski"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_receipt"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_windykacja_wnioski"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Nowy wniosek -->
+                <LinearLayout
+                    android:id="@+id/drawer_windykacja_nowy"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_add"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_windykacja_nowy"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Zadania windykacyjne -->
+                <LinearLayout
+                    android:id="@+id/drawer_windykacja_zadania"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_task"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_windykacja_zadania"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Sekcja Sprzedaż -->
+            <LinearLayout
+                android:id="@+id/drawer_sales_header"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_local_offer" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_sales"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/drawer_sales_arrow"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/drawer_sales_sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Zamówienia -->
+                <LinearLayout
+                    android:id="@+id/drawer_sales_orders"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_shopping_cart"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_sales_orders"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Transport zbóż -->
+                <LinearLayout
+                    android:id="@+id/drawer_sales_transport"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_local_offer"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_sales_transport"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Umowy zbożowe -->
+                <LinearLayout
+                    android:id="@+id/drawer_sales_contracts"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_receipt"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_sales_contracts"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Handlowcy -->
+                <LinearLayout
+                    android:id="@+id/drawer_sales_reps"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_people"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_sales_reps"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Panel klienta -->
+                <LinearLayout
+                    android:id="@+id/drawer_sales_client_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_user"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_sales_client_panel"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Kontrahenci -->
+                <LinearLayout
+                    android:id="@+id/drawer_sales_clients"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_people"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_sales_clients"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Obrót zbożem -->
+                <LinearLayout
+                    android:id="@+id/drawer_sales_grain_trade"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_inventory"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_sales_grain_trade"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Sekcja HR -->
+            <LinearLayout
+                android:id="@+id/drawer_hr_header"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_people" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_hr"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/drawer_hr_arrow"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/drawer_hr_sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Akceptacja wniosków -->
+                <LinearLayout
+                    android:id="@+id/drawer_hr_akceptacje"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_task"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_hr_akceptacje"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Historia wniosków -->
+                <LinearLayout
+                    android:id="@+id/drawer_hr_historia"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_info"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_hr_historia"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Kalendarz zamrożeń -->
+                <LinearLayout
+                    android:id="@+id/drawer_hr_kalendarz"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_calendar"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_hr_kalendarz"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Nadgodziny -->
+                <LinearLayout
+                    android:id="@+id/drawer_hr_nadgodziny"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_receipt"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_hr_nadgodziny"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Home Office -->
+                <LinearLayout
+                    android:id="@+id/drawer_hr_home_office"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_home"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_hr_home_office"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Prawo pracy -->
+                <LinearLayout
+                    android:id="@+id/drawer_hr_prawo_pracy"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_receipt"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_hr_prawo_pracy"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Schemat organizacyjny -->
+                <LinearLayout
+                    android:id="@+id/drawer_hr_schemat"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_people"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_hr_schemat"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Informacje o celu -->
+            <LinearLayout
+
+                android:id="@+id/drawer_info"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_info" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_info"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/crm_divider" />
+
+            <!-- Wyloguj -->
+            <LinearLayout
+                android:id="@+id/drawer_logout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_close"
+                    android:tint="@color/status_error_text" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/logout"
+                    android:textColor="@color/status_error_text"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>

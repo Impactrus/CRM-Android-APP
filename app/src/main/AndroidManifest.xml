@@ -4,9 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:name=".OssadkowskiApp"
         android:allowBackup="false"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
@@ -14,7 +14,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.OssadkowskiApp"
-        android:usesCleartextTraffic="false"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
@@ -25,8 +25,23 @@
             </intent-filter>
         </activity>
         <activity android:name=".DashboardActivity" />
+        <activity android:name=".ConversationsActivity" />
+        <activity android:name=".ui.chat.ChatActivity" />
         <activity android:name=".NewRequestActivity" />
         <activity android:name=".ApprovalActivity" />
+        <activity android:name=".ApprovalDetailActivity" />
+        <activity android:name=".SalesListActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity android:name=".TasksListActivity" />
         <activity android:name=".TaskDetailActivity" />
         <activity android:name=".CalendarActivity" />
@@ -36,16 +51,40 @@
         <activity android:name=".EditRequestActivity" />
         <activity android:name=".OfertaActivity" />
         <activity android:name=".KnowledgeBaseActivity" />
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
+        <activity android:name=".DebtTasksListActivity" />
+        <activity android:name=".NewDebtTaskActivity" />
+        
+        <activity android:name=".TowarSearchActivity" />
+        <activity android:name=".SalesOrdersActivity" />
+        <activity android:name=".SalesOrderDetailActivity" />
+        
+        <!-- HR Module -->
+        <activity android:name=".HrHistoriaWnioskowActivity" />
+        <activity android:name=".HrKalendarzZamrozenActivity" />
+        <activity android:name=".HrNadgodzinyActivity" />
+        <activity android:name=".HrHomeOfficeActivity" />
+        <activity android:name=".HrPrawoPracyActivity" />
+        <activity android:name=".HrSchematOrgActivity" />
+
+        <!-- Transport -->
+        <activity android:name=".TransportListActivity" />
+        <activity android:name=".NewTransportPriceActivity" />
+        <activity android:name=".GrainContractsListActivity" />
+        <activity android:name=".NewGrainContractActivity" />
+        <activity android:name=".GrainContractDetailActivity" />
+        <activity android:name=".HandlowcyListActivity" android:exported="false" />
+        <activity android:name=".CustomerPanelActivity" android:exported="false" />
+        <activity android:name=".ui.sales.AxContractSearchActivity" />
+        
+        <activity
+            android:name=".KontrahentSearchActivity"
             android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-        <service android:name=".fcm.CrmFirebaseMessagingService" android:exported="false">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.OssadkowskiApp" />
+        
+        <service
+            android:name=".fcm.CrmFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

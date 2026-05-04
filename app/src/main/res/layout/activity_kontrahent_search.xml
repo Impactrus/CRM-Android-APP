@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/crm_surface"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/crm_body" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:fontFamily="sans-serif"
+            android:text="Wybierz kontrahenta"
+            android:textColor="@color/crm_heading"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/search_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_search_bar">
+
+            <EditText
+                android:id="@+id/search_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="8dp"
+                android:hint="Szukaj kontrahenta..."
+                android:inputType="text"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/crm_heading"
+                android:textColorHint="@color/crm_secondary"
+                android:textSize="14sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Podpowiedź / komunikat pusty stan -->
+    <TextView
+        android:id="@+id/text_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wpisz frazę, aby wyszukać kontrahenta"
+        android:textColor="@color/crm_secondary"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/search_box"
+        app:layout_constraintBottom_toTopOf="@id/pagination_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/search_box"
+        app:layout_constraintBottom_toTopOf="@id/pagination_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="8dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/search_box"
+        app:layout_constraintBottom_toTopOf="@id/pagination_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_kontrahent_search" />
+
+    <LinearLayout
+        android:id="@+id/pagination_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btn_prev"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:enabled="false"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="‹"
+            android:textSize="18sp"
+            app:cornerRadius="4dp"
+            app:strokeColor="@color/crm_border" />
+
+        <TextView
+            android:id="@+id/page_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:textColor="@color/crm_secondary"
+            android:text="1 / 1"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btn_next"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="›"
+            android:textSize="18sp"
+            app:cornerRadius="4dp"
+            app:strokeColor="@color/crm_border" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

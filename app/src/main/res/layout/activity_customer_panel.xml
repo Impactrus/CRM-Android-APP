@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9FAFB">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Panel klienta"
+            app:titleTextColor="#111827"
+            app:navigationIcon="@drawable/ic_arrow_back" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutSearch"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Wyszukaj kontrahenta (Nazwa, NIP, Nr AX)"
+                app:startIconDrawable="@drawable/ic_search"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxStrokeColor="#E5E7EB">
+
+                <AutoCompleteTextView
+                    android:id="@+id/editSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Nagłówek Kontrahenta -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/textCustomerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nazwa Kontrahenta"
+                    android:textColor="#111827"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textSyncDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dane z: -"
+                    android:textColor="#6B7280"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Grid Kart Informacyjnych -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                android:baselineAligned="false">
+
+                <!-- Adres -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#F3F4F6"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ADRES"
+                            android:textColor="#9CA3AF"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/textAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#374151"
+                            android:textSize="12sp"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- NIP -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#F3F4F6"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NIP"
+                            android:textColor="#9CA3AF"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/textNip"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#374151"
+                            android:textSize="12sp"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                android:baselineAligned="false">
+
+                <!-- Nr AX -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#F3F4F6"
+                    android:layout_marginEnd="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NR AX"
+                            android:textColor="#9CA3AF"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/textNrAx"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#374151"
+                            android:textSize="12sp"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Grupa -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#F3F4F6"
+                    android:layout_marginStart="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="GRUPA"
+                            android:textColor="#9CA3AF"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/textGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#374151"
+                            android:textSize="12sp"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Grid Finansowy -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                android:baselineAligned="false">
+
+                <!-- Saldo -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SALDO"
+                            android:textColor="#9CA3AF"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/textSaldo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0,00 PLN"
+                            android:textColor="#EF4444"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Zamówione -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ZAMÓWIONE"
+                            android:textColor="#9CA3AF"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/textZamowione"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0,00 PLN"
+                            android:textColor="#3B82F6"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                android:baselineAligned="false">
+
+                <!-- Limit -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    android:layout_marginEnd="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="LIMIT KREDYTOWY"
+                            android:textColor="#9CA3AF"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/textLimit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0,00 PLN"
+                            android:textColor="#10B981"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Pozostało -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    android:layout_marginStart="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="POZOSTAŁY LIMIT"
+                            android:textColor="#9CA3AF"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/textPozostalo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0,00 PLN"
+                            android:textColor="#6366F1"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Sekcja Opiekunów -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#F3F4F6"
+                android:layout_marginBottom="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="OPIEKUNOWIE"
+                        android:textColor="#111827"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp" />
+                    
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+                        
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DKA" android:textSize="9sp" android:textColor="#9CA3AF" />
+                            <TextView android:id="@+id/textOpiekunDka" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="11sp" android:textColor="#374151" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DKZ" android:textSize="9sp" android:textColor="#9CA3AF" />
+                            <TextView android:id="@+id/textOpiekunDkz" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="11sp" android:textColor="#374151" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="KSIĘGOWY" android:textSize="9sp" android:textColor="#9CA3AF" />
+                            <TextView android:id="@+id/textOpiekunKsiegowy" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="11sp" android:textColor="#374151" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Sekcja Kafelków Szczegółowych (Dashboard) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DANE SZCZEGÓŁOWE"
+                android:textColor="#111827"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:id="@+id/gridDashboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <!-- Row 1: Finanse Główne -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Należności -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tileNaleznosci"
+                        style="@style/Widget.MaterialComponents.CardView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_receipt" app:tint="#3B82F6" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Należności" android:textSize="9sp" android:textColor="#374151" android:layout_marginTop="2dp" />
+                            <TextView android:id="@+id/countNaleznosci" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="11sp" android:textStyle="bold" android:textColor="#3B82F6" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Zobowiązania -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tileZobowiazania"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_octagon_red" app:tint="#EF4444" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Zobowiązania" android:textSize="9sp" android:textColor="#374151" android:layout_marginTop="2dp" />
+                            <TextView android:id="@+id/countZobowiazania" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="11sp" android:textStyle="bold" android:textColor="#EF4444" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Transakcje Otwarte -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tileTransakcje"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_task" app:tint="#F59E0B" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Trans. otwarte" android:textSize="9sp" android:textColor="#374151" android:layout_marginTop="2dp" />
+                            <TextView android:id="@+id/countTransakcje" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="11sp" android:textStyle="bold" android:textColor="#F59E0B" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- Row 2: Dokumenty -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Zabezpieczenia -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tileZabezpieczenia"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_info" app:tint="#10B981" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Zabezpieczenia" android:textSize="9sp" android:textColor="#374151" android:layout_marginTop="2dp" />
+                            <TextView android:id="@+id/countZabezpieczenia" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="11sp" android:textStyle="bold" android:textColor="#10B981" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Faktury -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tileFaktury"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_receipt" app:tint="#6366F1" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Faktury" android:textSize="9sp" android:textColor="#374151" android:layout_marginTop="2dp" />
+                            <TextView android:id="@+id/countFaktury" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="11sp" android:textStyle="bold" android:textColor="#6366F1" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Wpłaty -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tileWplaty"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_local_offer" app:tint="#8B5CF6" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Wpłaty" android:textSize="9sp" android:textColor="#374151" android:layout_marginTop="2dp" />
+                            <TextView android:id="@+id/countWplaty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="11sp" android:textStyle="bold" android:textColor="#8B5CF6" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- Row 3: Oferty i Handel -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Wnioski o limit -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tileWnioski"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_task" app:tint="#EC4899" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Wnioski o limit" android:textSize="9sp" android:textColor="#374151" android:layout_marginTop="2dp" />
+                            <TextView android:id="@+id/countWnioski" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="11sp" android:textStyle="bold" android:textColor="#EC4899" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Przegrane oferty -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tileOferty"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_close" app:tint="#9CA3AF" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Przegrane oferty" android:textSize="9sp" android:textColor="#374151" android:layout_marginTop="2dp" />
+                            <TextView android:id="@+id/countOferty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="11sp" android:textStyle="bold" android:textColor="#9CA3AF" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Zasiewy -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tileZasiewy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_inventory" app:tint="#059669" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Zasiewy" android:textSize="9sp" android:textColor="#374151" android:layout_marginTop="2dp" />
+                            <TextView android:id="@+id/countZasiewy" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="11sp" android:textStyle="bold" android:textColor="#059669" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- Row 4: Analiza -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Historia obrotów -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tileHistoria"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_calendar" app:tint="#4F46E5" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Historia obrotów" android:textSize="9sp" android:textColor="#374151" android:layout_marginTop="2dp" />
+                            <TextView android:id="@+id/countHistoria" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="11sp" android:textStyle="bold" android:textColor="#4F46E5" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Top produkty -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/tileTopProdukty"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        android:layout_margin="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+                            <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_shopping_cart" app:tint="#D97706" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Top produkty" android:textSize="9sp" android:textColor="#374151" android:layout_marginTop="2dp" />
+                            <TextView android:id="@+id/countTopProdukty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="11sp" android:textStyle="bold" android:textColor="#D97706" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Empty space for symmetry -->
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" android:layout_margin="4dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Sekcja Listy Szczegółowej (Widoczna po kliknięciu w kafel) -->
+            <LinearLayout
+                android:id="@+id/layoutDetailsHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+                
+                <TextView
+                    android:id="@+id/textDetailsTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="NALEŻNOŚCI"
+                    android:textColor="#111827"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBackToDashboard"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wróć"
+                    android:textSize="12sp"
+                    app:icon="@drawable/ic_arrow_back"
+                    app:iconSize="14dp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="200dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/layoutEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_search"
+            app:tint="#D1D5DB" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wyszukaj kontrahenta, aby zobaczyć szczegóły"
+            android:textColor="#9CA3AF"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

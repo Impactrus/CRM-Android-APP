@@ -1,12 +1,23 @@
-# Keep Retrofit service interfaces
--keep,allowobfuscation interface * {
-    @retrofit2.http.* <methods>;
-}
+# Final production build with obfuscation and optimization enabled
+# but with critical fixes for generic signatures preservation.
+
+# CRITICAL: Preserve generic signatures for Gson TypeToken
+-keepattributes Signature, InnerClasses, EnclosingMethod, *Annotation*
+
+# Keep everything in our main packages
+-keep class com.ossadkowski.crm.mobile.** { *; }
+-keep interface com.ossadkowski.crm.mobile.** { *; }
+
+# Keep Gson's TypeToken and all its anonymous subclasses
+-keep class com.google.gson.reflect.TypeToken { *; }
+-keep class * extends com.google.gson.reflect.TypeToken
+-keepattributes Signature
 
 # Keep Gson serialized/deserialized data classes
--keep class com.ossadkowski.app.data.model.** { *; }
--keep class com.ossadkowski.app.data.cache.** { *; }
--keep class com.ossadkowski.app.data.NetworkResult { *; }
+-keep class com.ossadkowski.crm.mobile.data.model.** { *; }
+-keep class com.ossadkowski.crm.mobile.data.cache.** { *; }
+-keep class com.ossadkowski.crm.mobile.data.NetworkResult { *; }
+-keep class com.ossadkowski.crm.mobile.data.api.ApiService { *; }
 
 # Gson
 -keepattributes Signature
@@ -39,3 +50,10 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+
+# Firebase
+-keep class com.google.firebase.** { *; }
+-dontwarn com.google.firebase.**
+
+# General attributes for libraries
+-keepattributes Signature, InnerClasses, EnclosingMethod, *Annotation*

@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F5F7FA">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:elevation="0dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <ImageView
+                        android:id="@+id/menuButton"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_menu"
+                        app:tint="#4A5568" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Nowa umowa zbożowa"
+                        android:textColor="#2D3748"
+                        android:textSize="18sp" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Dane podstawowe -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dane podstawowe"
+                                android:textColor="#2D3748"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="16dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:baselineAligned="false">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/inputLayoutDataZawarcia"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="8dp"
+                                    android:hint="Data zawarcia"
+                                    app:boxCornerRadiusBottomEnd="8dp"
+                                    app:boxCornerRadiusBottomStart="8dp"
+                                    app:boxCornerRadiusTopEnd="8dp"
+                                    app:boxCornerRadiusTopStart="8dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/inputDataZawarcia"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:focusable="false"
+                                        android:clickable="true"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/inputLayoutDataZobowiazania"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="Data zobowiązania"
+                                    app:boxCornerRadiusBottomEnd="8dp"
+                                    app:boxCornerRadiusBottomStart="8dp"
+                                    app:boxCornerRadiusTopEnd="8dp"
+                                    app:boxCornerRadiusTopStart="8dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/inputDataZobowiazania"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:focusable="false"
+                                        android:clickable="true"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rodzaj zboża / Towar"
+                                android:textColor="#718096"
+                                android:textSize="14sp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <Spinner
+                                android:id="@+id/spinnerRodzajZboza"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:background="@drawable/bg_spinner_outlined"/>
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Kontrahent -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Kontrahent"
+                                android:textColor="#2D3748"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="16dp"/>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/inputLayoutKontrahent"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Kontrahent (dostawca) *"
+                                app:boxCornerRadiusBottomEnd="8dp"
+                                app:boxCornerRadiusBottomStart="8dp"
+                                app:boxCornerRadiusTopEnd="8dp"
+                                app:boxCornerRadiusTopStart="8dp"
+                                app:endIconMode="custom"
+                                app:endIconDrawable="@drawable/ic_search">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputKontrahent"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:clickable="true"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/inputLayoutFca"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:hint="FCA (adres dostawy)"
+                                app:boxCornerRadiusBottomEnd="8dp"
+                                app:boxCornerRadiusBottomStart="8dp"
+                                app:boxCornerRadiusTopEnd="8dp"
+                                app:boxCornerRadiusTopStart="8dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputFca"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Towar i cena -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Towar i cena"
+                                android:textColor="#2D3748"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="16dp"/>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/inputLayoutTowarKtm"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Towar KTM"
+                                app:boxCornerRadiusBottomEnd="8dp"
+                                app:boxCornerRadiusBottomStart="8dp"
+                                app:boxCornerRadiusTopEnd="8dp"
+                                app:boxCornerRadiusTopStart="8dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputTowarKtm"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="16dp"
+                                android:baselineAligned="false">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/inputLayoutIlosc"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="8dp"
+                                    android:hint="Ilość ton"
+                                    app:boxCornerRadiusBottomEnd="8dp"
+                                    app:boxCornerRadiusBottomStart="8dp"
+                                    app:boxCornerRadiusTopEnd="8dp"
+                                    app:boxCornerRadiusTopStart="8dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/inputIlosc"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:inputType="numberDecimal"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/inputLayoutCena"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="Cena netto (PLN/t)"
+                                    app:boxCornerRadiusBottomEnd="8dp"
+                                    app:boxCornerRadiusBottomStart="8dp"
+                                    app:boxCornerRadiusTopEnd="8dp"
+                                    app:boxCornerRadiusTopStart="8dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/inputCena"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:inputType="numberDecimal"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Płatności -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Płatności"
+                                android:textColor="#2D3748"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="16dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Warunek płatności *"
+                                android:textColor="#718096"
+                                android:textSize="14sp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <Spinner
+                                android:id="@+id/spinnerWarunekPlatnosci"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:background="@drawable/bg_spinner_outlined"/>
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Uwagi -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dodatkowe"
+                                android:textColor="#2D3748"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="16dp"/>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/inputLayoutUwagi"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Uwagi"
+                                app:boxCornerRadiusBottomEnd="8dp"
+                                app:boxCornerRadiusBottomStart="8dp"
+                                app:boxCornerRadiusTopEnd="8dp"
+                                app:boxCornerRadiusTopStart="8dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputUwagi"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="top"
+                                    android:inputType="textMultiLine"
+                                    android:minLines="3"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Buttons -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="end"
+                        android:layout_marginBottom="32dp">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnCancel"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anuluj"
+                            android:textColor="#718096"
+                            android:textAllCaps="false"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnSubmit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Wyślij do zatwierdzenia"
+                            android:textAllCaps="false"
+                            android:backgroundTint="#99BC20"
+                            app:cornerRadius="8dp"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <include
+            android:id="@+id/includeDrawer"
+            layout="@layout/nav_drawer_content" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

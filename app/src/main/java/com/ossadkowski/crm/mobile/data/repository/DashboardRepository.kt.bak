@@ -1,0 +1,120 @@
+package com.ossadkowski.crm.mobile.data.repository
+
+import com.google.gson.reflect.TypeToken
+import com.ossadkowski.crm.mobile.data.NetworkResult
+import com.ossadkowski.crm.mobile.data.api.ApiService
+import com.ossadkowski.crm.mobile.data.api.RetrofitClient
+import com.ossadkowski.crm.mobile.data.cache.ActionQueue
+import com.ossadkowski.crm.mobile.data.cache.AppDatabase
+import com.ossadkowski.crm.mobile.data.cache.CacheTtl
+import com.ossadkowski.crm.mobile.data.cache.IdUserPayload
+import com.ossadkowski.crm.mobile.data.model.*
+import com.google.gson.Gson
+
+class DashboardRepository(
+    private val apiService: ApiService = RetrofitClient.apiService,
+    private val db: AppDatabase = RetrofitClient.cacheDb,
+    private val actionQueue: ActionQueue = ActionQueue(RetrofitClient.cacheDb)
+) : BaseRepository() {
+
+    private val gson = Gson()
+
+    suspend fun getAuthProfile(): NetworkResult<AuthProfileResponse> {
+        return cachedApiCall(db, "profile", CacheTtl.PROFILE,
+            object : TypeToken<AuthProfileResponse>() {}.type
+        ) { apiService.getAuthProfile() }
+    }
+
+    suspend fun getProfile(userId: Int): NetworkResult<ProfileResponse> {
+        return cachedApiCall(db, "employee_profile_$userId", CacheTtl.PROFILE,
+            object : TypeToken<ProfileResponse>() {}.type
+        ) { apiService.getProfile(userId) }
+    }
+
+    suspend fun getTasks(page: Int, pageSize: Int, search: String?): NetworkResult<PaginatedResponse<TaskItem>> {
+        val key = "dash_tasks_p${page}_q${search ?: ""}"
+        return safeApiCall {
+            val responseDto = apiService.getTasksV2(page, pageSize, search)
+            android.util.Log.d("API_TASK", "V2 JSON fetched. responseDto._items size = ${responseDto._items?.size}, items size = ${responseDto.items.size}")
+            val mappedItems = responseDto.items.map { dto ->
+                TaskItem(
+                    id = dto.id,
+                    title = dto.tytul,
+                    description = dto.typ ?: "",
+                    status = dto.status,
+                    assignedTo = dto.assignedToName,
+                    createdAt = dto.createdAt,
+                    dueDate = dto.termin
+                )
+            }.sortedByDescending { it.id }
+            android.util.Log.d("API_TASK", "Mapped items size = ${mappedItems.size}")
+            PaginatedResponse(mappedItems, responseDto.totalCount, responseDto.totalPages)
+        }
+    }
+
+    suspend fun getWnioski(userId: Int, page: Int, pageSize: Int): NetworkResult<PaginatedResponse<WniosekItem>> {
+        val result = safeApiCall { apiService.getWnioski(WnioskiListRequest(userId, page, pageSize)) }
+        if (result is NetworkResult.Success) {
+            val data = result.data
+            if (data != null) {
+                val sortedList = data.items.sortedByDescending { it.id }
+                return NetworkResult.Success(
+                    PaginatedResponse(sortedList, data.totalCount, data.totalPages)
+                )
+            }
+        }
+        return result
+    }
+
+    suspend fun sendWniosek(wniosekId: Int, userId: Int): NetworkResult<Any> {
+        val result = safeApiCall { apiService.sendWniosek(wniosekId, UserIdRequest(userId)) }
+        if (result is NetworkResult.Success) {
+            db.invalidateByPrefix("wnioski_")
+            db.invalidateByPrefix("dash_wnioski_")
+        } else if (result is NetworkResult.Error) {
+            actionQueue.enqueue("send_wniosek", gson.toJson(IdUserPayload(wniosekId, userId)))
+            return NetworkResult.Success("queued_offline")
+        }
+        return result
+    }
+
+    suspend fun resubmitWniosek(wniosekId: Int, userId: Int): NetworkResult<Any> {
+        val result = safeApiCall { apiService.resubmitWniosek(wniosekId, UserIdRequest(userId)) }
+        if (result is NetworkResult.Success) {
+            db.invalidateByPrefix("wnioski_")
+            db.invalidateByPrefix("dash_wnioski_")
+        } else if (result is NetworkResult.Error) {
+            actionQueue.enqueue("resubmit_wniosek", gson.toJson(IdUserPayload(wniosekId, userId)))
+            return NetworkResult.Success("queued_offline")
+        }
+        return result
+    }
+
+    suspend fun deleteWniosek(wniosekId: Int, userId: Int): NetworkResult<Any> {
+        val result = safeApiCall { apiService.deleteWniosek(wniosekId, userId) }
+        if (result is NetworkResult.Success) {
+            db.invalidateByPrefix("wnioski_")
+            db.invalidateByPrefix("dash_wnioski_")
+        } else if (result is NetworkResult.Error) {
+            actionQueue.enqueue("delete_wniosek", gson.toJson(IdUserPayload(wniosekId, userId)))
+            return NetworkResult.Success("queued_offline")
+        }
+        return result
+    }
+
+    suspend fun getPrawoPracySaldo(): NetworkResult<List<PrawoPracySaldoDto>> {
+        return cachedApiCall(db, "prawo_pracy_saldo", CacheTtl.SHORT,
+            object : TypeToken<List<PrawoPracySaldoDto>>() {}.type
+        ) { apiService.getPrawoPracySaldo() }
+    }
+
+    suspend fun getVacationSummary(): NetworkResult<VacationSummaryDto> {
+        return safeApiCall { apiService.getVacationSummary() }
+    }
+
+    suspend fun logout(): NetworkResult<Any> {
+        return safeApiCall {
+            try { apiService.logout() } catch (_: Exception) { }
+        }
+    }
+}

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/radius_md"
@@ -22,15 +23,37 @@
             android:layout_marginBottom="@dimen/spacing_xs">
 
             <TextView
+                android:id="@+id/item_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/crm_placeholder"
+                android:textSize="12sp"
+                tools:text="#27" />
+
+            <TextView
                 android:id="@+id/item_kontrahent"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:textColor="@color/crm_heading"
                 android:ellipsize="end"
                 android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/item_ax_sync"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_status_badge"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="1dp"
+                android:layout_marginEnd="8dp"
+                tools:text="Zsynch."
+                tools:backgroundTint="@color/crm_success" />
 
             <TextView
                 android:id="@+id/item_status"
@@ -38,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_caption"
                 android:paddingHorizontal="@dimen/spacing_sm"
-                android:paddingVertical="2dp" />
+                android:paddingVertical="2dp"
+                tools:text="Szkic" />
         </LinearLayout>
 
         <TextView
@@ -55,21 +79,37 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/item_limit"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textColor="@color/crm_body"
-                android:textSize="@dimen/text_body"
-                android:textStyle="bold" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/item_limit_current"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/crm_secondary"
+                    android:textSize="11sp"
+                    tools:text="Obecny: 49 500,00 PLN" />
+
+                <TextView
+                    android:id="@+id/item_limit_requested"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/crm_primary"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    tools:text="Wnioskowany: 300 000,00 PLN" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/item_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/crm_placeholder"
-                android:textSize="@dimen/text_caption" />
+                android:textSize="@dimen/text_caption"
+                tools:text="14.04.2026" />
         </LinearLayout>
 
     </LinearLayout>

@@ -5,7 +5,16 @@
     <!-- TEXT APPEARANCES          -->
     <!-- ======================== -->
 
-    <!-- Base styles for dot-notation hierarchy -->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/crm_primary</item>
+        <item name="colorPrimaryDark">@color/crm_primary_dark</item>
+        <item name="colorAccent">@color/crm_blue</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
     <style name="TextAppearance.Crm" parent="TextAppearance.MaterialComponents.Body1" />
     <style name="Widget.Crm" parent="" />
 
@@ -161,6 +170,43 @@
     <style name="Widget.Crm.FormLabel">
         <item name="android:textAppearance">@style/TextAppearance.Crm.Label</item>
         <item name="android:paddingBottom">@dimen/spacing_xs</item>
+    </style>
+
+    <!-- Calendar Header -->
+    <style name="CrmCalendarWeekdayHeader">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/crm_secondary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DetailSectionStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginBottom">12dp</item>
+    </style>
+
+    <style name="DetailLabelStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#A0AEC0</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="DetailValueStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#2D3748</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">2dp</item>
     </style>
 
 </resources>

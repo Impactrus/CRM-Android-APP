@@ -5,8 +5,8 @@ plugins {
 }
 
 android {
-    namespace 'com.ossadkowski.app'
-    compileSdk 36
+    namespace 'com.ossadkowski.crm.mobile'
+    compileSdk 35
 
     signingConfigs {
         release {
@@ -18,11 +18,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.ossadkowski.app"
+        applicationId "com.ossadkowski.crm.mobile"
         minSdk 24
-        targetSdk 36
-        versionCode 1
-        versionName "1.0.0"
+        targetSdk 35
+        versionCode 10
+        versionName "1.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -33,7 +33,7 @@ android {
         release {
             signingConfig signingConfigs.release
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -46,12 +46,13 @@ android {
         jvmTarget = '17'
     }
     buildFeatures {
+        dataBinding true
         viewBinding true
         buildConfig true
     }
 }
 
-dependencies {
+dependencies {  []
     implementation 'androidx.core:core-ktx:1.15.0'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'

@@ -24,6 +24,8 @@
     <color name="crm_gray">#6B7280</color>
 
     <!-- Status colors -->
+    <color name="crm_success">#0E9F6E</color>
+    <color name="crm_error">#F05252</color>
     <color name="status_success_bg">#DEF7EC</color>
     <color name="status_success_text">#03543F</color>
     <color name="status_error_bg">#FDE8E8</color>
@@ -49,4 +51,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="crm_overlay">#DD7BA63C</color>
+    <color name="crm_blue">#1E429F</color>
 </resources>

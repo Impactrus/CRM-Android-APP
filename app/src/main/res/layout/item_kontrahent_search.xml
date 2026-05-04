@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/crm_heading"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="Nazwa Kontrahenta" />
+
+        <TextView
+            android:id="@+id/text_account_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/crm_secondary"
+            android:textSize="12sp"
+            android:text="KOD: 123456" />
+
+        <TextView
+            android:id="@+id/text_nip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/crm_secondary"
+            android:textSize="12sp"
+            android:text="NIP: 1234567890" />
+
+        <TextView
+            android:id="@+id/text_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/crm_body"
+            android:textSize="12sp"
+            android:text="Adres kontrahenta" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

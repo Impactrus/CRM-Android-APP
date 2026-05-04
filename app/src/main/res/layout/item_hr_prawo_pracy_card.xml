@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/crm_border"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_kod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OPIEKA_DZIECKO"
+                    android:textColor="@color/crm_blue"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/tv_nazwa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Opieka nad dzieckiem"
+                    android:textColor="@color/crm_heading"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+                
+                <TextView
+                    android:id="@+id/tv_podstawa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="art. 188 KP"
+                    android:textColor="@color/crm_secondary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2.00"
+                    android:textColor="@color/crm_heading"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_jednostka"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DNI"
+                    android:textColor="@color/crm_secondary"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="12dp"
+            android:background="@color/crm_border" />
+
+        <TextView
+            android:id="@+id/tv_opis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zwolnienie od pracy z zachowaniem wynagrodzenia..."
+            android:textColor="@color/crm_body"
+            android:textSize="12sp"
+            android:lineSpacingExtra="2dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="12dp"
+            android:background="@color/crm_border" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <TextView
+                android:id="@+id/btn_zmien_limit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Zmień limit"
+                android:textColor="@color/crm_blue"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:background="?attr/selectableItemBackground" />
+
+            <TextView
+                android:id="@+id/btn_historia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:padding="8dp"
+                android:text="Historia"
+                android:textColor="@color/crm_blue"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:background="?attr/selectableItemBackground" />
+
+            <TextView
+                android:id="@+id/btn_dezaktywuj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:padding="8dp"
+                android:text="Dezaktywuj"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:background="?attr/selectableItemBackground" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

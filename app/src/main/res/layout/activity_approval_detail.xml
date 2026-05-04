@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/crm_surface"
+    android:fitsSystemWindows="true">
+
+    <!-- Topbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Wróć" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Szczegóły wniosku"
+            android:textColor="@color/crm_heading"
+            android:textSize="17sp"
+            android:fontFamily="sans-serif-medium"
+            android:paddingStart="4dp" />
+
+    </LinearLayout>
+
+    <!-- Progress -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Karta: Pracownik -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="1dp"
+                app:cardCornerRadius="8dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRACOWNIK"
+                        android:textSize="11sp"
+                        android:textColor="@color/crm_secondary"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.08"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Imię i Nazwisko + Data złożenia -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Imię i nazwisko"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_username"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Data złożenia"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_created_at"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Oddział + Stanowisko -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Oddział"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_oddzial"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Stanowisko"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_stanowisko"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Przełożony -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Przełożony"
+                            android:textSize="11sp"
+                            android:textColor="@color/crm_secondary" />
+
+                        <TextView
+                            android:id="@+id/detail_manager_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/crm_heading"
+                            android:textSize="14sp"
+                            android:text="-" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Karta: Wniosek -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="1dp"
+                app:cardCornerRadius="8dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="WNIOSEK"
+                        android:textSize="11sp"
+                        android:textColor="@color/crm_secondary"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.08"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Typ + Od/Do -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Typ"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_typ"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Od / Do"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_od_do"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Dni + Godziny -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ilość dni"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_ilosc_dni"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Godziny"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_godziny"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Powód -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Powód"
+                            android:textSize="11sp"
+                            android:textColor="@color/crm_secondary" />
+
+                        <TextView
+                            android:id="@+id/detail_powod"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/crm_heading"
+                            android:textSize="14sp"
+                            android:text="-" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Karta: Zastępstwo -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="1dp"
+                app:cardCornerRadius="8dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ZASTĘPSTWO"
+                        android:textSize="11sp"
+                        android:textColor="@color/crm_secondary"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.08"
+                        android:layout_marginBottom="12dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Zastępca"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_zastepca"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Status zastępcy"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_zastepstwo_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                android:background="@drawable/bg_status_badge"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Ostrzeżenie o braku akceptacji zastępcy -->
+                    <TextView
+                        android:id="@+id/detail_zastepstwo_warning"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="#FFF8E1"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp"
+                        android:text="⚠ Zastępca nie zaakceptował jeszcze zastępstwa."
+                        android:textColor="#F59E0B"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Karta: Akceptacja managera -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="1dp"
+                app:cardCornerRadius="8dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AKCEPTACJA MANAGERA"
+                        android:textSize="11sp"
+                        android:textColor="@color/crm_secondary"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.08"
+                        android:layout_marginBottom="12dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Manager"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_manager_approval_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Data akceptacji"
+                                android:textSize="11sp"
+                                android:textColor="@color/crm_secondary" />
+
+                            <TextView
+                                android:id="@+id/detail_manager_approved_at"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/crm_heading"
+                                android:textSize="14sp"
+                                android:text="-" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Karta: Akcja (komentarz + przyciski) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="1dp"
+                app:cardCornerRadius="8dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AKCJA"
+                        android:textSize="11sp"
+                        android:textColor="@color/crm_secondary"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.08"
+                        android:layout_marginBottom="12dp" />
+
+                    <EditText
+                        android:id="@+id/input_komentarz"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="80dp"
+                        android:hint="Komentarz (opcjonalnie)..."
+                        android:gravity="top"
+                        android:background="@drawable/bg_input_field"
+                        android:padding="12dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/crm_heading"
+                        android:textColorHint="@color/crm_secondary"
+                        android:inputType="textMultiLine"
+                        android:layout_marginBottom="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_reject"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:text="Odrzuć"
+                            android:textColor="#DC2626"
+                            android:backgroundTint="#FEE2E2"
+                            android:fontFamily="sans-serif-medium"
+                            android:textAllCaps="false"
+                            android:stateListAnimator="@null" />
+
+                        <Button
+                            android:id="@+id/btn_approve"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="Akceptuj"
+                            android:textColor="@color/white"
+                            android:backgroundTint="#059669"
+                            android:fontFamily="sans-serif-medium"
+                            android:textAllCaps="false"
+                            android:stateListAnimator="@null" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

@@ -1,0 +1,101 @@
+package com.ossadkowski.crm.mobile.ui.dashboard
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ossadkowski.crm.mobile.data.NetworkResult
+import com.ossadkowski.crm.mobile.data.model.*
+import com.ossadkowski.crm.mobile.data.repository.DashboardRepository
+import kotlinx.coroutines.launch
+
+class DashboardViewModel(
+    private val repository: DashboardRepository = DashboardRepository()
+) : ViewModel() {
+
+    // Profile (now from /auth/profile)
+    private val _profile = MutableLiveData<NetworkResult<AuthProfileResponse>>()
+    val profile: LiveData<NetworkResult<AuthProfileResponse>> = _profile
+
+    private val _employeeProfile = MutableLiveData<NetworkResult<ProfileResponse>>()
+    val employeeProfile: LiveData<NetworkResult<ProfileResponse>> = _employeeProfile
+    
+    // Saldo
+    private val _saldo = MutableLiveData<NetworkResult<List<PrawoPracySaldoDto>>>()
+    val saldo: LiveData<NetworkResult<List<PrawoPracySaldoDto>>> = _saldo
+
+    private val _vacationSummary = MutableLiveData<NetworkResult<VacationSummaryDto>>()
+    val vacationSummary: LiveData<NetworkResult<VacationSummaryDto>> = _vacationSummary
+
+    // Tasks
+    private val _tasks = MutableLiveData<NetworkResult<PaginatedResponse<TaskItem>>>()
+    val tasks: LiveData<NetworkResult<PaginatedResponse<TaskItem>>> = _tasks
+    var tasksPage = 1
+    var tasksSearch: String? = null
+
+    // Wnioski
+    private val _wnioski = MutableLiveData<NetworkResult<PaginatedResponse<WniosekItem>>>()
+    val wnioski: LiveData<NetworkResult<PaginatedResponse<WniosekItem>>> = _wnioski
+    var wnioskiPage = 1
+
+    fun loadProfile() {
+        viewModelScope.launch {
+            _profile.value = repository.getAuthProfile()
+        }
+    }
+
+    fun loadEmployeeProfile(userId: Int) {
+        viewModelScope.launch {
+            _employeeProfile.value = repository.getProfile(userId)
+        }
+    }
+
+    fun loadSaldo() {
+        viewModelScope.launch {
+            _saldo.value = repository.getPrawoPracySaldo()
+            _vacationSummary.value = repository.getVacationSummary()
+        }
+    }
+
+    fun loadTasks(pageSize: Int = 10) {
+        _tasks.value = NetworkResult.Loading()
+        viewModelScope.launch {
+            _tasks.value = repository.getTasks(tasksPage, pageSize, tasksSearch)
+        }
+    }
+
+    fun loadWnioski(userId: Int, pageSize: Int = 10) {
+        _wnioski.value = NetworkResult.Loading()
+        viewModelScope.launch {
+            _wnioski.value = repository.getWnioski(userId, wnioskiPage, pageSize)
+        }
+    }
+
+    fun sendWniosek(wniosekId: Int, userId: Int, onResult: (Boolean, Any?) -> Unit) {
+        viewModelScope.launch {
+            val result = repository.sendWniosek(wniosekId, userId)
+            onResult(result is NetworkResult.Success, (result as? NetworkResult.Success)?.data)
+        }
+    }
+
+    fun resubmitWniosek(wniosekId: Int, userId: Int, onResult: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val result = repository.resubmitWniosek(wniosekId, userId)
+            onResult(result is NetworkResult.Success)
+        }
+    }
+
+    fun deleteWniosek(wniosekId: Int, userId: Int, onResult: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val result = repository.deleteWniosek(wniosekId, userId)
+            onResult(result is NetworkResult.Success)
+        }
+    }
+
+    fun logout(onDone: () -> Unit) {
+        viewModelScope.launch {
+            repository.logout()
+            onDone()
+        }
+    }
+}

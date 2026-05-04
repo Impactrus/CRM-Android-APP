@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F5F7FA">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:elevation="0dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <ImageView
+                        android:id="@+id/menuButton"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_menu"
+                        app:tint="#4A5568" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Nowy wniosek o transport"
+                        android:textColor="#2D3748"
+                        android:textSize="18sp" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Kontrakt AX (opcjonalnie)"
+                                android:textColor="#718096"
+                                android:textSize="14sp"
+                                android:layout_marginBottom="8dp"/>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/inputLayoutAx"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                app:boxCornerRadiusBottomEnd="8dp"
+                                app:boxCornerRadiusBottomStart="8dp"
+                                app:boxCornerRadiusTopEnd="8dp"
+                                app:boxCornerRadiusTopStart="8dp"
+                                app:endIconMode="custom"
+                                app:endIconDrawable="@drawable/ic_search">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputAx"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Nr kontraktu lub nazwa dostawcy.."
+                                    android:focusable="false"
+                                    android:clickable="true"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dane wniosku"
+                                android:textColor="#2D3748"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="16dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:baselineAligned="false">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/inputLayoutKontrahent"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="8dp"
+                                    android:hint="Kontrahent (dostawca) *"
+                                    app:boxCornerRadiusBottomEnd="8dp"
+                                    app:boxCornerRadiusBottomStart="8dp"
+                                    app:boxCornerRadiusTopEnd="8dp"
+                                    app:boxCornerRadiusTopStart="8dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/inputKontrahent"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:focusable="false"
+                                        android:clickable="true"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/inputLayoutTowar"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="Towar"
+                                    app:boxCornerRadiusBottomEnd="8dp"
+                                    app:boxCornerRadiusBottomStart="8dp"
+                                    app:boxCornerRadiusTopEnd="8dp"
+                                    app:boxCornerRadiusTopStart="8dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/inputTowar"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="16dp"
+                                android:baselineAligned="false">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/inputLayoutIlosc"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_marginEnd="8dp"
+                                    android:hint="Ilość (tony)"
+                                    app:boxCornerRadiusBottomEnd="8dp"
+                                    app:boxCornerRadiusBottomStart="8dp"
+                                    app:boxCornerRadiusTopEnd="8dp"
+                                    app:boxCornerRadiusTopStart="8dp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/inputIlosc"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:inputType="numberDecimal"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/inputLayoutSklad"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="Skład"
+                                    app:boxCornerRadiusBottomEnd="8dp"
+                                    app:boxCornerRadiusBottomStart="8dp"
+                                    app:boxCornerRadiusTopEnd="8dp"
+                                    app:boxCornerRadiusTopStart="8dp"
+                                    android:enabled="false">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/inputSklad"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Główny"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                            </LinearLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/inputLayoutAdresZaladunku"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:hint="Adres załadunku"
+                                app:boxCornerRadiusBottomEnd="8dp"
+                                app:boxCornerRadiusBottomStart="8dp"
+                                app:boxCornerRadiusTopEnd="8dp"
+                                app:boxCornerRadiusTopStart="8dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputAdresZaladunku"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/inputLayoutOdbiorca"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:hint="Odbiorca"
+                                app:boxCornerRadiusBottomEnd="8dp"
+                                app:boxCornerRadiusBottomStart="8dp"
+                                app:boxCornerRadiusTopEnd="8dp"
+                                app:boxCornerRadiusTopStart="8dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputOdbiorca"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/inputLayoutAdresOdbioru"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:hint="Adres odbioru"
+                                app:boxCornerRadiusBottomEnd="8dp"
+                                app:boxCornerRadiusBottomStart="8dp"
+                                app:boxCornerRadiusTopEnd="8dp"
+                                app:boxCornerRadiusTopStart="8dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputAdresOdbioru"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/inputLayoutKoszt"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:hint="Szacowany koszt transportu (PLN) *"
+                                app:boxCornerRadiusBottomEnd="8dp"
+                                app:boxCornerRadiusBottomStart="8dp"
+                                app:boxCornerRadiusTopEnd="8dp"
+                                app:boxCornerRadiusTopStart="8dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputKoszt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="numberDecimal"
+                                    android:text="0"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/inputLayoutKomentarz"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:hint="Komentarz"
+                                app:boxCornerRadiusBottomEnd="8dp"
+                                app:boxCornerRadiusBottomStart="8dp"
+                                app:boxCornerRadiusTopEnd="8dp"
+                                app:boxCornerRadiusTopStart="8dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputKomentarz"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="top"
+                                    android:inputType="textMultiLine"
+                                    android:minLines="3"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="24dp"
+                                android:orientation="horizontal"
+                                android:gravity="end">
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btnCancel"
+                                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Anuluj"
+                                    android:textColor="#718096"
+                                    android:textAllCaps="false"/>
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btnSubmit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Wyślij do logistyki"
+                                    android:textAllCaps="false"
+                                    android:backgroundTint="#99BC20"
+                                    app:cornerRadius="8dp"
+                                    android:paddingStart="24dp"
+                                    android:paddingEnd="24dp"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <include
+            android:id="@+id/includeDrawer"
+            layout="@layout/nav_drawer_content" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

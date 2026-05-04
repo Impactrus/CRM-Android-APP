@@ -9,3 +9,15 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Logs and temp files
+*.log
+build_log*.txt
+build_output*.txt
+build_error.log
+check_build.bat
+deploy_headless.bat
+start_emulator.bat
+window_dump.xml
+*.png
+backup_calendar/

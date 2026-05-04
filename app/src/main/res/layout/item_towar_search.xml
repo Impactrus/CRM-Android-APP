@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/text_nazwa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/crm_heading"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="Nazwa towaru" />
+
+        <TextView
+            android:id="@+id/text_kod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/crm_secondary"
+            android:textSize="12sp"
+            android:text="Kod: K-12345" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:id="@+id/text_branza"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="@color/crm_body"
+                android:textSize="12sp"
+                android:text="Branża: Maszyny" />
+
+            <TextView
+                android:id="@+id/text_cena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/crm_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="0.00 PLN" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp">
+
+            <TextView
+                android:id="@+id/text_magazyn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="@color/crm_secondary"
+                android:textSize="11sp"
+                android:text="Magazyn: MAG-01" />
+
+            <TextView
+                android:id="@+id/text_dostepne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/crm_success"
+                android:textSize="11sp"
+                android:text="Dostępne: 100" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
