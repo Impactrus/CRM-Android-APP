@@ -197,7 +197,36 @@
                 android:orientation="vertical"
                 android:padding="16dp"
                 android:layout_marginBottom="24dp">
-                <TextView android:id="@+id/txt_observers" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Brak" android:textColor="@color/crm_secondary" android:textSize="14sp" />
+                
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+                    <EditText 
+                        android:id="@+id/input_search_observers" 
+                        android:layout_width="match_parent" 
+                        android:layout_height="@dimen/input_height" 
+                        android:background="@drawable/bg_input_field" 
+                        android:hint="Wyszukaj obserwatora..." 
+                        android:drawableStart="@drawable/ic_search"
+                        android:drawablePadding="8dp"
+                        android:paddingHorizontal="12dp" 
+                        android:textSize="14sp" />
+                    <ProgressBar
+                        android:id="@+id/observer_search_progress"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="12dp"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_observers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingVertical="8dp"
+                    app:chipSpacingHorizontal="8dp" />
             </LinearLayout>
 
             <Button

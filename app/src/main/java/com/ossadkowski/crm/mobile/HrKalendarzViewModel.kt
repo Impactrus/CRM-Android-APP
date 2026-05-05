@@ -112,7 +112,7 @@ class HrKalendarzViewModel : ViewModel() {
              // We can map frozen status by passing it conceptually or just map it later in adapter. 
              // We'll override 'hasTasks' to represent 'isFrozen' since CalendarGridAdapter supports the red dot.
              val isToday = isSameDay(date, Calendar.getInstance())
-             days.add(CalendarDay(date.time, i, true, isToday, hasTasks = isFrozen, hasZamrozenia = isFrozen)) 
+             days.add(CalendarDay(date.time, i, true, isToday, hasTasks = false, hasZamrozenia = isFrozen)) 
          }
 
          // Next month filler

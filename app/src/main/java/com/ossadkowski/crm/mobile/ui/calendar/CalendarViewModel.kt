@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.ossadkowski.crm.mobile.data.NetworkResult
 import com.ossadkowski.crm.mobile.data.model.CalendarDay
 import com.ossadkowski.crm.mobile.data.model.TaskListItemDto
-import com.ossadkowski.crm.mobile.data.model.ZamrozenieDto
 import com.ossadkowski.crm.mobile.data.repository.CalendarRepository
 import com.ossadkowski.crm.mobile.data.repository.TasksRepository
 import kotlinx.coroutines.async
@@ -36,7 +35,6 @@ class CalendarViewModel(
     val selectedDayTasks: LiveData<List<TaskListItemDto>> = _selectedDayTasks
 
     private var allTasks: List<TaskListItemDto> = emptyList()
-    private var allZamrozenia: List<ZamrozenieDto> = emptyList()
     var selectedDate: Date? = null
 
     // Normalizacja terminu do yyyy-MM-dd z różnych formatów
@@ -57,23 +55,19 @@ class CalendarViewModel(
         _error.value = null
         viewModelScope.launch {
             try {
-                val zamrozeniaDeferred = async { calendarRepository.getZamrozeniaMiesiac(currentYear, currentMonth) }
                 val tasksDeferred = async { tasksRepository.getTasksForMonth(currentYear, currentMonth) }
 
-                val zamrozeniaResult = zamrozeniaDeferred.await()
                 val tasksResult = tasksDeferred.await()
 
-                if (zamrozeniaResult is NetworkResult.Error || tasksResult is NetworkResult.Error) {
+                if (tasksResult is NetworkResult.Error) {
                     _error.value = "Błąd podczas pobierania danych"
                 }
 
-                val zamrozenia = (zamrozeniaResult as? NetworkResult.Success)?.data ?: emptyList()
                 val tasks = (tasksResult as? NetworkResult.Success)?.data ?: emptyList()
 
                 allTasks = tasks
-                allZamrozenia = zamrozenia
 
-                generateDays(zamrozenia, tasks)
+                generateDays(tasks)
                 
                 // If today is in the current view, select it
                 if (selectedDate == null) {
@@ -87,7 +81,7 @@ class CalendarViewModel(
         }
     }
 
-    private fun generateDays(zamrozenia: List<ZamrozenieDto>, tasks: List<TaskListItemDto>) {
+    private fun generateDays(tasks: List<TaskListItemDto>) {
         val daysList = mutableListOf<CalendarDay>()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         
@@ -124,15 +118,7 @@ class CalendarViewModel(
             val dayTasks = tasksByDate[dateStr] ?: emptyList()
             val hasTasks = dayTasks.isNotEmpty()
             
-            // Zamrożenie matching (needs to check range)
-            val dayZamrozenie = zamrozenia.find { z ->
-                try {
-                    val start = z.dataOd ?: ""
-                    val end = z.dataDo ?: ""
-                    dateStr >= start && dateStr <= end
-                } catch (e: Exception) { false }
-            }
-            val hasZamrozenia = dayZamrozenie != null
+            val hasZamrozenia = false // Not applicable for Task Calendar
 
             // Abbreviation (skrót)
             val weekdayNames = arrayOf("Ndz", "Pn", "Wt", "Śr", "Czw", "Pt", "Sob")

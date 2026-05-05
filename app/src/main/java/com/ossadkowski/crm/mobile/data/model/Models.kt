@@ -19,6 +19,13 @@ data class LoginResponse(
 
 data class LogoutRequest(val placeholder: String? = null)
 
+data class UserSearchItem(
+    val id: Int,
+    val username: String,
+    val role: String? = null,
+    val dzial: String? = null
+)
+
 data class RefreshTokenResponse(
     val success: Boolean,
     val token: String?
@@ -87,6 +94,9 @@ data class TaskItem(
     val status: String?,
     val assignedTo: String?,
     val createdAt: String?,
+    val approvedAt: String? = null,
+    val komentarzDecyzja: String? = null,
+    val observers: List<UserSearchItem>? = null,
     val dueDate: String?
 )
 
@@ -343,7 +353,7 @@ data class LimitKredytowyDetailDto(
     val zobowiazania: String?,
     val uwagi: String?,
     @SerializedName("potwierdzone_przeterminowane") val potwierdzonePrzeterminowane: Boolean?,
-    @SerializedName("rozliczenie_plonami") val rozliczeniePlonami: Boolean?,
+    @SerializedName("rozliczenie_plonami") val rozliczeniePlonami: Boolean,
     val status: String?,
     @SerializedName("approved_by") val approvedBy: Int?,
     @SerializedName("approved_at") val approvedAt: String?,
@@ -351,7 +361,8 @@ data class LimitKredytowyDetailDto(
     @SerializedName("ax_sync") val axSync: Boolean?,
     @SerializedName("ax_data_sync") val axDataSync: String?,
     @SerializedName("created_at") val createdAt: String?,
-    @SerializedName("updated_at") val updatedAt: String?
+    @SerializedName("updated_at") val updatedAt: String?,
+    val observers: List<UserSearchItem>? = null
 )
 
 data class CreateLimitKredytowyRequest(
@@ -365,7 +376,8 @@ data class CreateLimitKredytowyRequest(
     val zobowiazania: String? = null,
     val uwagi: String? = null,
     @SerializedName("potwierdzone_przeterminowane") val potwierdzonePrzeterminowane: Boolean = false,
-    @SerializedName("rozliczenie_plonami") val rozliczeniePlonami: Boolean = false
+    @SerializedName("rozliczenie_plonami") val rozliczeniePlonami: Boolean = false,
+    val observers: List<Int>? = null
 )
 
 // ── Zamrożenie check ──

@@ -39,14 +39,18 @@ class CalendarGridAdapter(
             if (!day.isCurrentMonth) {
                 binding.dayText.setTextColor(Color.parseColor("#D1D5DB"))
                 binding.dayContainer.setBackgroundColor(Color.parseColor("#F9FAFB"))
-            } else if (day.hasTasks || day.hasZamrozenia) {
-                // Frozen day styling
+            } else if (day.hasZamrozenia) {
+                // Zamrożenie day styling (HR Calendar)
                 binding.dayContainer.setBackgroundResource(R.drawable.bg_tag_red_soft)
                 binding.dayText.setTextColor(Color.parseColor("#B91C1C"))
                 binding.dayText.setTypeface(null, Typeface.BOLD)
             } else {
+                // Normal day or Task day (no red background)
                 binding.dayContainer.setBackgroundColor(Color.WHITE)
                 binding.dayText.setTextColor(ContextCompat.getColor(context, R.color.crm_heading))
+                if (day.hasTasks) {
+                    binding.dayText.setTypeface(null, Typeface.BOLD)
+                }
             }
 
             // 2. Today highlight (overrides background)
@@ -63,7 +67,8 @@ class CalendarGridAdapter(
             binding.dayContainer.isSelected = day.isSelected
 
             // 4. Indicators
-            binding.indicatorZamrozenie.visibility = if (day.hasTasks || day.hasZamrozenia) ViewGroup.VISIBLE else ViewGroup.GONE
+            binding.indicatorZamrozenie.visibility = if (day.hasZamrozenia) ViewGroup.VISIBLE else ViewGroup.GONE
+            binding.indicatorTask.visibility = if (day.hasTasks) ViewGroup.VISIBLE else ViewGroup.GONE
 
             binding.root.setOnClickListener { onDayClick(day) }
         }

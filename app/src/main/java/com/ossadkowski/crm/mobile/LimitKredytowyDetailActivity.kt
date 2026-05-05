@@ -82,6 +82,24 @@ class LimitKredytowyDetailActivity : BaseActivity() {
             binding.detailKomentarzDecyzja.text = d.komentarzDecyzja ?: getString(R.string.lk_no_data)
             binding.detailApprovedAt.text = d.approvedAt?.take(10) ?: ""
         }
+
+        // Observers
+        if (!d.observers.isNullOrEmpty()) {
+            binding.cardObservers.visibility = View.VISIBLE
+            binding.detailObserversGroup.removeAllViews()
+            d.observers.forEach { observer ->
+                val chip = com.google.android.material.chip.Chip(this).apply {
+                    text = observer.username
+                    isClickable = false
+                    isCheckable = false
+                    setChipBackgroundColorResource(R.color.status_approved_bg)
+                    setTextColor(getColor(R.color.status_approved_text))
+                }
+                binding.detailObserversGroup.addView(chip)
+            }
+        } else {
+            binding.cardObservers.visibility = View.GONE
+        }
     }
 
     private fun formatCurrency(value: Double?): String {

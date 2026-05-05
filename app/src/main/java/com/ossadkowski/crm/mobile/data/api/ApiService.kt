@@ -163,7 +163,7 @@ interface ApiService {
     suspend fun createLimitKredytowy(@Body request: CreateLimitKredytowyRequest): Any
 
     @GET("limity-kredytowe/users/search")
-    suspend fun searchLimityUsers(@Query("q") query: String): List<Any>
+    suspend fun searchLimityUsers(@Query("q") query: String): List<UserSearchItem>
 
     @GET("kontrahenci")
     suspend fun searchKontrahenci(

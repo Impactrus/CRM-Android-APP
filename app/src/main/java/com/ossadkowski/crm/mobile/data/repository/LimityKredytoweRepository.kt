@@ -45,4 +45,8 @@ class LimityKredytoweRepository(
     suspend fun searchKontrahenci(search: String): NetworkResult<List<KontrahentSearchItem>> {
         return safeApiCall { apiService.searchKontrahenci(search) }
     }
+
+    suspend fun searchUsers(query: String): NetworkResult<List<UserSearchItem>> {
+        return safeApiCall { apiService.searchLimityUsers(query) }
+    }
 }

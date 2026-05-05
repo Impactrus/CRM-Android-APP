@@ -31,6 +31,7 @@ class LimitKredytowyActivity : BaseActivity() {
         binding.backButton.setOnClickListener { finish() }
 
         setupKontrahentSearch()
+        setupObserverSearch()
 
         binding.btnSubmit.setOnClickListener {
             submitForm()
@@ -86,6 +87,56 @@ class LimitKredytowyActivity : BaseActivity() {
         }
     }
 
+    private fun setupObserverSearch() {
+        val observerPopup = ListPopupWindow(this).apply {
+            anchorView = binding.inputSearchObservers
+            isModal = false
+        }
+
+        binding.inputSearchObservers.addDebouncedTextListener(lifecycleScope) { query ->
+            if (query.length >= 2) {
+                binding.observerSearchProgress.visibility = View.VISIBLE
+                viewModel.searchUsers(query)
+            } else {
+                observerPopup.dismiss()
+            }
+        }
+
+        viewModel.users.observe(this) { result ->
+            binding.observerSearchProgress.visibility = View.GONE
+            if (result is NetworkResult.Success) {
+                val users = result.data ?: emptyList()
+                if (users.isNotEmpty()) {
+                    val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_2, android.R.id.text1, users.map { it.username })
+                    observerPopup.setAdapter(adapter)
+                    observerPopup.setOnItemClickListener { _, _, position, _ ->
+                        val user = users[position]
+                        viewModel.addObserver(user)
+                        binding.inputSearchObservers.setText("")
+                        observerPopup.dismiss()
+                    }
+                    if (!isFinishing) observerPopup.show()
+                } else {
+                    observerPopup.dismiss()
+                }
+            }
+        }
+
+        viewModel.selectedObservers.observe(this) { observers ->
+            binding.chipGroupObservers.removeAllViews()
+            observers.forEach { user ->
+                val chip = com.google.android.material.chip.Chip(this).apply {
+                    text = user.username
+                    isCloseIconVisible = true
+                    setOnCloseIconClickListener {
+                        viewModel.removeObserver(user)
+                    }
+                }
+                binding.chipGroupObservers.addView(chip)
+            }
+        }
+    }
+
     private fun applyKontrahent(item: KontrahentSearchItem) {
         selectedKontrahent = item
         binding.inputNazwa.setText(item.name)
@@ -131,7 +182,8 @@ class LimitKredytowyActivity : BaseActivity() {
             zobowiazania = zobowiazania,
             potwierdzonePrzeterminowane = potwPrzeterm,
             rozliczeniePlonami = rozlPlonami,
-            uwagi = uwagi.takeIf { it.isNotBlank() }
+            uwagi = uwagi.takeIf { it.isNotBlank() },
+            observers = viewModel.selectedObservers.value?.map { it.id }
         )
 
         viewModel.create(request)

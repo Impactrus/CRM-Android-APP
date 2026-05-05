@@ -316,6 +316,40 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- Observers card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_observers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/radius_md"
+                app:cardElevation="1dp"
+                android:layout_marginBottom="@dimen/spacing_md"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lk_obserwatorzy_label"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_subheading"
+                        android:textColor="@color/crm_heading"
+                        android:layout_marginBottom="@dimen/spacing_md" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/detail_observers_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:chipSpacingVertical="8dp"
+                        app:chipSpacingHorizontal="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
