@@ -95,7 +95,7 @@ class TaskDetailViewModelTest {
 
     @Test
     fun `loadHistoria updates historia LiveData`() = runTest {
-        val historia = listOf(TaskHistoriaDto(1, "user", "zmiana", "old", "new", null, "2026-01-01"))
+        val historia = listOf(TaskHistoriaDto(1, "zmiana", "user", "old → new", "2026-01-01"))
         whenever(repository.getHistoria(1)).thenReturn(NetworkResult.Success(historia))
 
         viewModel.loadHistoria(1)

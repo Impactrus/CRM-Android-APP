@@ -1,5 +1,6 @@
 package com.ossadkowski.crm.mobile.ui.newrequest
 
+import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.ossadkowski.crm.mobile.data.NetworkResult
 import com.ossadkowski.crm.mobile.data.model.*
@@ -20,6 +21,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -35,11 +37,13 @@ class NewRequestViewModelTest {
     lateinit var repository: NewRequestRepository
 
     private lateinit var viewModel: NewRequestViewModel
+    private lateinit var context: Context
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         viewModel = NewRequestViewModel(repository)
+        context = mock()
     }
 
     @After
@@ -94,9 +98,10 @@ class NewRequestViewModelTest {
     @Test
     fun `submitWniosek success updates submitResult`() = runTest {
         val request = CreateWniosekRequest(1, "Urlop", null, "01-05", null, "reason", 1)
-        whenever(repository.createWniosek(any())).thenReturn(NetworkResult.Success(Unit))
+        whenever(repository.createWniosekWithPhotos(any(), any(), any()))
+            .thenReturn(NetworkResult.Success(CreateWniosekResponse(1, "ok")))
 
-        viewModel.submitWniosek(request)
+        viewModel.submitWniosek(request, emptyList(), context)
         advanceUntilIdle()
 
         assertTrue(viewModel.submitResult.value is NetworkResult.Success)
@@ -105,9 +110,10 @@ class NewRequestViewModelTest {
     @Test
     fun `submitWniosek sets loading state`() = runTest {
         val request = CreateWniosekRequest(1, "Urlop", null, "01-05", null, "reason", 1)
-        whenever(repository.createWniosek(any())).thenReturn(NetworkResult.Success(Unit))
+        whenever(repository.createWniosekWithPhotos(any(), any(), any()))
+            .thenReturn(NetworkResult.Success(CreateWniosekResponse(1, "ok")))
 
-        viewModel.submitWniosek(request)
+        viewModel.submitWniosek(request, emptyList(), context)
         assertTrue(viewModel.submitResult.value is NetworkResult.Loading)
 
         advanceUntilIdle()
@@ -117,9 +123,10 @@ class NewRequestViewModelTest {
     @Test
     fun `submitWniosek error updates submitResult`() = runTest {
         val request = CreateWniosekRequest(1, "Urlop", null, "01-05", null, "reason", 1)
-        whenever(repository.createWniosek(any())).thenReturn(NetworkResult.Error("Validation error"))
+        whenever(repository.createWniosekWithPhotos(any(), any(), any()))
+            .thenReturn(NetworkResult.Error("Validation error"))
 
-        viewModel.submitWniosek(request)
+        viewModel.submitWniosek(request, emptyList(), context)
         advanceUntilIdle()
 
         assertTrue(viewModel.submitResult.value is NetworkResult.Error)
@@ -129,9 +136,10 @@ class NewRequestViewModelTest {
     @Test
     fun `submitWniosek network error`() = runTest {
         val request = CreateWniosekRequest(1, "Urlop", null, "01-05", null, "reason", 1)
-        whenever(repository.createWniosek(any())).thenReturn(NetworkResult.Error("Network error"))
+        whenever(repository.createWniosekWithPhotos(any(), any(), any()))
+            .thenReturn(NetworkResult.Error("Network error"))
 
-        viewModel.submitWniosek(request)
+        viewModel.submitWniosek(request, emptyList(), context)
         advanceUntilIdle()
 
         assertTrue(viewModel.submitResult.value is NetworkResult.Error)
