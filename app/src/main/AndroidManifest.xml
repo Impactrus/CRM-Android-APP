@@ -104,6 +104,21 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <!-- FCM defaults for background-delivered notifications (when the app is killed
+             or in the background and the push is a `notification` payload, the SDK
+             auto-builds the notification and uses these). Without this the SDK falls
+             back to the launcher icon (a colored PNG), which Android renders as a
+             white square in the status bar and can drop silently on some OEMs. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/crm_primary" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="crm_notifications" />
     </application>
 
 </manifest>
