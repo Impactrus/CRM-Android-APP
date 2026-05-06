@@ -19,6 +19,7 @@ class SessionManager(context: Context) {
         private const val KEY_USER_ID = "userId"
         private const val KEY_ROLE = "role"
         private const val KEY_USERNAME = "username"
+        private const val KEY_FULL_NAME = "fullName"
         private const val KEY_DZIAL = "dzial"
         private const val KEY_EMPLOYEE_CACHE_ID = "employeeCacheId"
         private const val KEY_CLAIMS = "claims"
@@ -64,6 +65,7 @@ class SessionManager(context: Context) {
     val userId: Int get() = prefs.getInt(KEY_USER_ID, 0)
     val role: String get() = prefs.getString(KEY_ROLE, "User") ?: "User"
     val username: String get() = prefs.getString(KEY_USERNAME, "") ?: ""
+    val fullName: String get() = prefs.getString(KEY_FULL_NAME, username) ?: username
     val dzial: String get() = prefs.getString(KEY_DZIAL, "") ?: ""
     val employeeCacheId: Int get() = prefs.getInt(KEY_EMPLOYEE_CACHE_ID, 0)
 
@@ -89,6 +91,10 @@ class SessionManager(context: Context) {
             .putStringSet(KEY_CLAIMS, newClaims.toSet())
             .putInt(KEY_CLAIMS_VERSION, version)
             .apply()
+    }
+
+    fun updateFullName(fullName: String) {
+        prefs.edit().putString(KEY_FULL_NAME, fullName).apply()
     }
 
     fun clear() {

@@ -213,6 +213,39 @@ class DashboardActivity : BaseDrawerActivity() {
         viewModel.profile.observe(this) { result ->
             if (result is NetworkResult.Success) {
                 val p = result.data ?: return@observe
+                
+                val apiName = p.name ?: ""
+                val apiFName = p.fName ?: ""
+                
+                if (apiName.isNotBlank() || apiFName.isNotBlank()) {
+                    var actualFirstName = if (apiFName.isNotBlank()) apiFName else apiName
+                    var actualLastName = if (apiFName.isNotBlank()) apiName else ""
+                    
+                    // Fallback to extract surname from username (e.g. j_stachowski -> Stachowski)
+                    if (actualLastName.isBlank() && sessionManager.username.contains("_")) {
+                        val parts = sessionManager.username.split("_")
+                        if (parts.size > 1) {
+                            actualLastName = parts[1]
+                        }
+                    }
+                    
+                    actualFirstName = actualFirstName.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+                    actualLastName = actualLastName.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+                    
+                    val fullName = "$actualFirstName $actualLastName".trim().ifBlank { sessionManager.username }
+                    sessionManager.updateFullName(fullName)
+                    val initial = actualFirstName.firstOrNull()?.toString()?.uppercase() ?: fullName.firstOrNull()?.toString()?.uppercase() ?: "M"
+
+                    binding.profileName.text = fullName
+                    binding.profileRole.text = p.workpost ?: p.role ?: sessionManager.role
+                    binding.topbarName.text = fullName
+                    binding.topbarAvatar.text = initial
+                    binding.profileAvatar.text = initial
+                    binding.includeDrawer.drawerAvatar.text = initial
+                    binding.includeDrawer.drawerName.text = fullName
+                    binding.includeDrawer.drawerRole.text = p.workpost ?: p.role ?: sessionManager.role
+                }
+
                 // Update claims if needed
                 if (p.claims != null && p.claimsVersion != null && p.claimsVersion != sessionManager.claimsVersion) {
                     sessionManager.updateClaims(p.claims, p.claimsVersion)
@@ -224,29 +257,47 @@ class DashboardActivity : BaseDrawerActivity() {
         viewModel.employeeProfile.observe(this) { result ->
             if (result is NetworkResult.Success) {
                 val p = result.data ?: return@observe
-                val fName = p.name ?: ""
-                val lName = p.fName ?: ""
-                val fullName = "$fName $lName".trim().ifBlank { sessionManager.username }
-                val initial = fName.firstOrNull()?.toString()?.uppercase() ?: fullName.firstOrNull()?.toString()?.uppercase() ?: "M"
+                val apiName = p.name ?: ""
+                val apiFName = p.fName ?: ""
+                
+                if (apiName.isNotBlank() || apiFName.isNotBlank()) {
+                    var actualFirstName = if (apiFName.isNotBlank()) apiFName else apiName
+                    var actualLastName = if (apiFName.isNotBlank()) apiName else ""
+                    
+                    // Fallback to extract surname from username
+                    if (actualLastName.isBlank() && sessionManager.username.contains("_")) {
+                        val parts = sessionManager.username.split("_")
+                        if (parts.size > 1) {
+                            actualLastName = parts[1]
+                        }
+                    }
+                    
+                    actualFirstName = actualFirstName.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+                    actualLastName = actualLastName.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+                    
+                    val fullName = "$actualFirstName $actualLastName".trim().ifBlank { sessionManager.username }
+                    sessionManager.updateFullName(fullName)
+                    val initial = actualFirstName.firstOrNull()?.toString()?.uppercase() ?: fullName.firstOrNull()?.toString()?.uppercase() ?: "M"
 
-                binding.profileName.text = fullName
-                binding.profileRole.text = p.workpost ?: p.role ?: sessionManager.role
-                
-                // topbar: MAREK
-                binding.topbarName.text = fName.ifBlank { fullName }
-                
-                binding.topbarAvatar.text = initial
-                binding.profileAvatar.text = initial
-                binding.includeDrawer.drawerAvatar.text = initial
-                
-                binding.includeDrawer.drawerName.text = fullName
-                binding.includeDrawer.drawerRole.text = p.workpost ?: p.role ?: sessionManager.role
+                    binding.profileName.text = fullName
+                    binding.profileRole.text = p.workpost ?: p.role ?: sessionManager.role
+                    
+                    // topbar
+                    binding.topbarName.text = fullName
+                    
+                    binding.topbarAvatar.text = initial
+                    binding.profileAvatar.text = initial
+                    binding.includeDrawer.drawerAvatar.text = initial
+                    
+                    binding.includeDrawer.drawerName.text = fullName
+                    binding.includeDrawer.drawerRole.text = p.workpost ?: p.role ?: sessionManager.role
+                }
                 
                 binding.profilePhone.visibility = View.GONE
                 binding.profileEmail.visibility = View.VISIBLE
                 binding.profileEmail.text = p.email ?: ""
             } else {
-                val fallbackName = sessionManager.username
+                val fallbackName = sessionManager.fullName
                 binding.profileName.text = fallbackName
                 binding.profileRole.text = sessionManager.role
                 binding.topbarName.text = fallbackName.uppercase()

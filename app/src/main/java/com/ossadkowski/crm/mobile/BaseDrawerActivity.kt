@@ -61,7 +61,7 @@ abstract class BaseDrawerActivity : BaseActivity() {
         drawerInfo: View? = null,
         drawerMessages: View? = null
     ) {
-        drawerName.text = sessionManager.username
+        drawerName.text = sessionManager.fullName
         drawerRole.text = sessionManager.role
 
         menuButton.setOnClickListener {
