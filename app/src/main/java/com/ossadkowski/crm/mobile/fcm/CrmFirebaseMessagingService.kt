@@ -11,6 +11,7 @@ import com.ossadkowski.crm.mobile.R
 import com.ossadkowski.crm.mobile.TaskDetailActivity
 import com.ossadkowski.crm.mobile.data.SessionManager
 import com.ossadkowski.crm.mobile.data.api.RetrofitClient
+import com.ossadkowski.crm.mobile.data.device.FcmTokenProvider
 import kotlinx.coroutines.*
 
 class CrmFirebaseMessagingService : FirebaseMessagingService() {
@@ -19,6 +20,7 @@ class CrmFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         Log.d("FCM", "New token: $token")
+        FcmTokenProvider(applicationContext).update(token)
         val session = SessionManager(this)
         if (session.token != null) {
             scope.launch {

@@ -3,7 +3,14 @@ package com.ossadkowski.crm.mobile.data.model
 import com.google.gson.annotations.SerializedName
 
 // ── Auth ──
-data class LoginRequest(val username: String, val password: String)
+data class LoginRequest(
+    val username: String,
+    val password: String,
+    val deviceId: String? = null,
+    val deviceLabel: String? = null,
+    val devicePlatform: String? = null,
+    val fcmToken: String? = null
+)
 data class LoginResponse(
     val token: String?,
     val userId: Int?,
@@ -14,7 +21,9 @@ data class LoginResponse(
     val dzial: String?,
     val employeeCacheId: Int?,
     val claims: Array<String>?,
-    val claimsVersion: Int?
+    val claimsVersion: Int?,
+    val deviceTrusted: Boolean? = null,
+    val deviceIsNew: Boolean? = null
 )
 
 data class LogoutRequest(val placeholder: String? = null)

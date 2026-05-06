@@ -2,7 +2,8 @@ package com.ossadkowski.crm.mobile.data.repository
 
 import com.ossadkowski.crm.mobile.data.NetworkResult
 import com.ossadkowski.crm.mobile.data.api.ApiService
-import com.ossadkowski.crm.mobile.data.model.LoginRequest
+import com.ossadkowski.crm.mobile.data.device.DeviceIdProvider
+import com.ossadkowski.crm.mobile.data.device.FcmTokenProvider
 import com.ossadkowski.crm.mobile.data.model.LoginResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,13 +27,19 @@ import retrofit2.Response
 class AuthRepositoryTest {
 
     @Mock lateinit var apiService: ApiService
+    @Mock lateinit var deviceIdProvider: DeviceIdProvider
+    @Mock lateinit var fcmTokenProvider: FcmTokenProvider
     private lateinit var repository: AuthRepository
     private val testDispatcher = StandardTestDispatcher()
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        repository = AuthRepository(apiService)
+        whenever(deviceIdProvider.deviceId()).thenReturn("test-device-uuid")
+        whenever(deviceIdProvider.label()).thenReturn("Test Manufacturer Test Model")
+        whenever(deviceIdProvider.platform()).thenReturn("android")
+        whenever(fcmTokenProvider.current()).thenReturn(null)
+        repository = AuthRepository(deviceIdProvider, fcmTokenProvider, apiService)
     }
 
     @After
