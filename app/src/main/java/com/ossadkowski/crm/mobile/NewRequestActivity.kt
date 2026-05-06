@@ -68,6 +68,20 @@ class NewRequestActivity : BaseActivity() {
             galleryLauncher.launch("image/*")
         }
 
+        val uploadHeader = findViewById<LinearLayout>(R.id.upload_header)
+        val uploadContent = findViewById<LinearLayout>(R.id.upload_content)
+        val uploadChevron = findViewById<ImageView>(R.id.upload_chevron)
+
+        uploadHeader.setOnClickListener {
+            if (uploadContent.visibility == View.VISIBLE) {
+                uploadContent.visibility = View.GONE
+                uploadChevron.animate().rotation(0f).setDuration(200).start()
+            } else {
+                uploadContent.visibility = View.VISIBLE
+                uploadChevron.animate().rotation(180f).setDuration(200).start()
+            }
+        }
+
         viewModel.loadFormData()
     }
 

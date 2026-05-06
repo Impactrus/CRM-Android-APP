@@ -170,6 +170,10 @@ class DashboardActivity : BaseDrawerActivity() {
         binding.statDaysOff.text = "-"
         binding.statHoRemaining.text = "-"
 
+        binding.btnLogout.setOnClickListener {
+            performLogout()
+        }
+
         // Offline action queue monitor
         val actionQueue = ActionQueue(RetrofitClient.cacheDb)
         connectivityMonitor = ConnectivityMonitor(this, actionQueue)

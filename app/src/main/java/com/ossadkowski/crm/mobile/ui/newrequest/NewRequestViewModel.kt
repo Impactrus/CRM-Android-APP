@@ -29,7 +29,16 @@ class NewRequestViewModel(
 
     fun loadFormData() {
         viewModelScope.launch {
-            _typy.value = repository.getTypy()
+            val typyResult = repository.getTypy()
+            if (typyResult is NetworkResult.Success) {
+                val filtered = typyResult.data?.filter {
+                    !it.nazwa.contains("sobotę", ignoreCase = true) &&
+                    !it.nazwa.contains("niedzielę", ignoreCase = true)
+                } ?: emptyList()
+                _typy.value = NetworkResult.Success(filtered)
+            } else {
+                _typy.value = typyResult
+            }
             _rodzajeUrlopu.value = repository.getRodzajeUrlopu()
             _uzytkownicy.value = repository.getUzytkownicy()
         }
