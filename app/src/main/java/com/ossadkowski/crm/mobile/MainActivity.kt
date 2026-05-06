@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ossadkowski.crm.mobile.data.NetworkResult
 import com.ossadkowski.crm.mobile.data.SessionManager
 import com.ossadkowski.crm.mobile.data.api.RetrofitClient
@@ -111,11 +110,7 @@ class MainActivity : AppCompatActivity() {
                 is NetworkResult.HttpError -> {
                     binding.loginButton.isEnabled = true
                     binding.loginButton.text = getString(R.string.login_button)
-                    if (result.code == 403 && result.deviceTrusted == false) {
-                        showDeviceNotTrustedDialog(result.message)
-                    } else {
-                        showLoginError(result.message ?: getString(R.string.login_error_inline))
-                    }
+                    showLoginError(result.message ?: getString(R.string.login_error_inline))
                 }
                 is NetworkResult.Error -> {
                     binding.loginButton.isEnabled = true
@@ -124,16 +119,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun showDeviceNotTrustedDialog(serverMsg: String?) {
-        val deviceId = DeviceIdProvider(applicationContext).deviceId()
-        val baseMsg = serverMsg ?: getString(R.string.device_not_trusted_default)
-        MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.device_not_trusted_title)
-            .setMessage(getString(R.string.device_not_trusted_body_fmt, baseMsg, deviceId))
-            .setPositiveButton(android.R.string.ok, null)
-            .show()
     }
 
     private fun showLoginError(message: String) {
