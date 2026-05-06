@@ -158,7 +158,7 @@ object RetrofitClient {
             .build()
     }
 
-    private val retrofit by lazy {
+    val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BuildConfig.API_BASE_URL.trimEnd('/') + "/api/")
             .client(okHttpClient)

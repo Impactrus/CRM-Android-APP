@@ -3,7 +3,9 @@ package com.ossadkowski.crm.mobile
 import android.app.Application
 import com.ossadkowski.crm.mobile.data.api.RetrofitClient
 import com.ossadkowski.crm.mobile.fcm.NotificationChannelHelper
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class OssadkowskiApp : Application() {
     override fun onCreate() {
         super.onCreate()

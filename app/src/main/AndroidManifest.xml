@@ -75,6 +75,13 @@
         <activity android:name=".HandlowcyListActivity" android:exported="false" />
         <activity android:name=".CustomerPanelActivity" android:exported="false" />
         <activity android:name=".ui.sales.AxContractSearchActivity" />
+
+        <!-- Serwis (field-service) Compose host -->
+        <activity
+            android:name=".ui.serwis.SerwisActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode" />
         
         <activity
             android:name=".KontrahentSearchActivity"
@@ -82,6 +89,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.OssadkowskiApp" />
         
+        <!-- Throwaway example feature for the Clean Architecture scaffolding.
+             Not in any launcher / drawer; reachable only via:
+             adb shell am start -n com.ossadkowski.crm.mobile/.example.serverstatus.ui.ServerStatusActivity -->
+        <activity
+            android:name=".example.serverstatus.ui.ServerStatusActivity"
+            android:exported="true"
+            android:label="Server Status (debug)" />
+
         <service
             android:name=".fcm.CrmFirebaseMessagingService"
             android:exported="false">

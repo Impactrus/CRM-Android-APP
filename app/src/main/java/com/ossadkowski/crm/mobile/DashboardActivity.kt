@@ -34,8 +34,15 @@ import kotlinx.coroutines.*
 import android.app.DatePickerDialog
 import android.text.Editable
 import android.text.TextWatcher
+import com.ossadkowski.crm.mobile.ui.serwis.SerwisActivity
+import com.ossadkowski.crm.mobile.ui.serwis.access.SerwisAccessChecker
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DashboardActivity : BaseDrawerActivity() {
+
+    @Inject lateinit var serwisAccessChecker: SerwisAccessChecker
     private lateinit var binding: ActivityDashboardBinding
     private val viewModel: DashboardViewModel by viewModels()
 
@@ -105,6 +112,7 @@ class DashboardActivity : BaseDrawerActivity() {
         setupZastepstwaTab()
         setupBoardTab()
         setupPoleceniePracy()
+        setupSerwisTile()
 
         setupDrawer(
             drawerLayout = binding.drawerLayout,
@@ -741,6 +749,22 @@ class DashboardActivity : BaseDrawerActivity() {
                     Toast.makeText(this, "Błąd zastępstw zaakceptowanych: ${result.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    /**
+     * Show the Serwis (field-service) entry tile only for users whose role / claims
+     * include the field-service module — see [SerwisAccessChecker].
+     */
+    private fun setupSerwisTile() {
+        val tile = binding.tileSerwis
+        if (serwisAccessChecker.hasAccess()) {
+            tile.visibility = View.VISIBLE
+            tile.setOnClickListener {
+                startActivity(Intent(this, SerwisActivity::class.java))
+            }
+        } else {
+            tile.visibility = View.GONE
         }
     }
 

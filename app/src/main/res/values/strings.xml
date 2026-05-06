@@ -283,4 +283,8 @@
     <string name="device_not_trusted_title">Urządzenie nieautoryzowane</string>
     <string name="device_not_trusted_default">To urządzenie nie jest jeszcze zaufane.</string>
     <string name="device_not_trusted_body_fmt">%1$s\n\nDevice ID: %2$s\n\nProszę przekazać ten identyfikator administratorowi w celu zatwierdzenia.</string>
+
+    <!-- Serwis (field-service) module -->
+    <string name="dashboard_tile_serwis">Serwis</string>
+    <string name="dashboard_tile_serwis_subtitle">Zlecenia, maszyny, karty pracy</string>
 </resources>
