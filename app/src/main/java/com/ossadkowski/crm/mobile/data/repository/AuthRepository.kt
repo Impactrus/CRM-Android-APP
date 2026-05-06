@@ -22,11 +22,16 @@ class AuthRepository(
 
     suspend fun login(username: String, password: String): NetworkResult<LoginResponse> =
         withContext(Dispatchers.IO) {
-            // Device-binding intentionally disabled — every device may log in.
-            // FCM token still registers post-login via /device-tokens for push delivery.
+            // Device info is sent so the backend can register/overwrite this
+            // device on every successful login. The client never blocks on
+            // device-trust state — that gate (if any) lives server-side.
             val req = LoginRequest(
                 username = username,
                 password = password,
+                deviceId = deviceIdProvider.deviceId(),
+                deviceLabel = deviceIdProvider.label(),
+                devicePlatform = deviceIdProvider.platform(),
+                fcmToken = fcmTokenProvider.current()
             )
             try {
                 NetworkResult.Success(apiService.login(req))

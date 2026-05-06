@@ -35,8 +35,10 @@ class AuthRepositoryTest {
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        // device-binding disabled: deviceIdProvider/fcmTokenProvider mocks are
-        // injected for constructor compatibility but their methods are no longer called.
+        whenever(deviceIdProvider.deviceId()).thenReturn("test-device-uuid")
+        whenever(deviceIdProvider.label()).thenReturn("Test Manufacturer Test Model")
+        whenever(deviceIdProvider.platform()).thenReturn("android")
+        whenever(fcmTokenProvider.current()).thenReturn(null)
         repository = AuthRepository(deviceIdProvider, fcmTokenProvider, apiService)
     }
 
