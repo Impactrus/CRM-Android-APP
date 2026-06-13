@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -38,6 +39,7 @@ class NewRequestActivity : BaseActivity() {
     private var typyList: List<SlownikItemDto> = emptyList()
     private var rodzajeUrlopuList: List<SlownikItemDto> = emptyList()
     private var uzytkownicyList: List<SlownikItemDto> = emptyList()
+    private var homeOfficeAddresses: com.ossadkowski.crm.mobile.data.model.HomeOfficeAddressListDto? = null
 
     private val photoUris = mutableListOf<Uri>()
     private var zamrozenieWarningShown = false
@@ -221,6 +223,7 @@ class NewRequestActivity : BaseActivity() {
                         val selectedTyp = typyList.getOrNull(pos)?.nazwa ?: ""
                         val isUrlop = selectedTyp == "Urlop"
                         val isDelegacja = selectedTyp == "Delegacja" || selectedTyp == "Delegacje"
+                        val isRemote = selectedTyp == "Praca zdalna"
 
                         // Rodzaj urlopu – tylko dla Urlopu
                         labelLeave.visibility = if (isUrlop) View.VISIBLE else View.GONE
@@ -230,6 +233,13 @@ class NewRequestActivity : BaseActivity() {
                         val showSub = isUrlop || isDelegacja
                         labelSub.visibility = if (showSub) View.VISIBLE else View.GONE
                         spinnerSub.visibility = if (showSub) View.VISIBLE else View.GONE
+
+                        // Praca Zdalna section
+                        val sectionRemote = findViewById<View>(R.id.section_remote_work)
+                        sectionRemote.visibility = if (isRemote) View.VISIBLE else View.GONE
+                        if (isRemote) {
+                            viewModel.loadHomeOfficeData(session.userId)
+                        }
                     }
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
@@ -253,6 +263,73 @@ class NewRequestActivity : BaseActivity() {
                 val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, names)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinnerSub.adapter = adapter
+            }
+        }
+
+        val remainingDaysText = findViewById<TextView>(R.id.remote_work_remaining_days)
+        viewModel.homeOfficeSaldo.observe(this) { result ->
+            if (result is NetworkResult.Success && result.data != null) {
+                remainingDaysText.text = "${result.data.saldo?.toInt() ?: 0} dni"
+            }
+        }
+
+        val spinnerAddress = findViewById<Spinner>(R.id.spinner_remote_address)
+        val inputStreet = findViewById<EditText>(R.id.input_address_street)
+        val inputNumber = findViewById<EditText>(R.id.input_address_number)
+        val inputCity = findViewById<EditText>(R.id.input_address_city)
+        val inputZip = findViewById<EditText>(R.id.input_address_zip)
+
+        viewModel.addresses.observe(this) { result ->
+            if (result is NetworkResult.Success && result.data != null) {
+                homeOfficeAddresses = result.data
+                val options = mutableListOf<String>()
+                val addrList = mutableListOf<com.ossadkowski.crm.mobile.data.model.HomeOfficeAddressDto?>()
+
+                val firebird = result.data.firebird
+                if (firebird != null) {
+                    options.add("Z kadr (Firebird) — ${firebird.miasto ?: ""}")
+                    addrList.add(firebird)
+                }
+
+                result.data.custom.forEach { custom ->
+                    options.add("${custom.label ?: "Adres"} — ${custom.miasto ?: ""}")
+                    addrList.add(custom)
+                }
+
+                options.add("Inny adres")
+                addrList.add(null)
+
+                val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerAddress.adapter = adapter
+
+                spinnerAddress.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+                        val selectedAddr = addrList.getOrNull(pos)
+                        if (selectedAddr != null) {
+                            inputStreet.setText(selectedAddr.ulica ?: "")
+                            inputNumber.setText(selectedAddr.numer ?: "")
+                            inputCity.setText(selectedAddr.miasto ?: "")
+                            inputZip.setText(selectedAddr.kod ?: "")
+
+                            inputStreet.isEnabled = false
+                            inputNumber.isEnabled = false
+                            inputCity.isEnabled = false
+                            inputZip.isEnabled = false
+                        } else {
+                            inputStreet.setText("")
+                            inputNumber.setText("")
+                            inputCity.setText("")
+                            inputZip.setText("")
+
+                            inputStreet.isEnabled = true
+                            inputNumber.isEnabled = true
+                            inputCity.isEnabled = true
+                            inputZip.isEnabled = true
+                        }
+                    }
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
             }
         }
 
@@ -297,6 +374,37 @@ class NewRequestActivity : BaseActivity() {
             return
         }
 
+        val isRemote = typ == "Praca zdalna"
+        var address: com.ossadkowski.crm.mobile.data.model.HomeOfficeAddressDto? = null
+        var finalDescription = description
+
+        if (isRemote) {
+            val checkboxBhp = findViewById<CheckBox>(R.id.checkbox_bhp)
+            val checkboxRodo = findViewById<CheckBox>(R.id.checkbox_rodo)
+            if (!checkboxBhp.isChecked || !checkboxRodo.isChecked) {
+                Toast.makeText(this, "Musisz zaakceptować oświadczenia BHP i RODO", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            val street = findViewById<EditText>(R.id.input_address_street).text.toString().trim()
+            val number = findViewById<EditText>(R.id.input_address_number).text.toString().trim()
+            val city = findViewById<EditText>(R.id.input_address_city).text.toString().trim()
+            val zip = findViewById<EditText>(R.id.input_address_zip).text.toString().trim()
+
+            if (street.isEmpty() || number.isEmpty() || city.isEmpty() || zip.isEmpty()) {
+                Toast.makeText(this, "Wypełnij wszystkie pola adresu", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            address = com.ossadkowski.crm.mobile.data.model.HomeOfficeAddressDto(
+                ulica = street,
+                numer = number,
+                miasto = city,
+                kod = zip
+            )
+            finalDescription = "[Adres: $street $number, $zip $city] $description".trim()
+        }
+
         val rodzajUrlopu = if (typ == "Urlop") {
             val leaveIndex = spinnerLeave.selectedItemPosition
             rodzajeUrlopuList.getOrNull(leaveIndex)?.nazwa
@@ -315,12 +423,14 @@ class NewRequestActivity : BaseActivity() {
             typ = typ,
             rodzajUrlopu = rodzajUrlopu,
             odDo = odDo,
-            powod = description,
+            powod = finalDescription,
             iloscDni = iloscDni,
-            zastepstwoUserId = zastepstwoUserId
+            zastepstwoUserId = zastepstwoUserId,
+            checkBhp = if (isRemote) true else null,
+            checkRodo = if (isRemote) true else null
         )
 
-        viewModel.submitWniosek(request, photoUris.toList(), this)
+        viewModel.submitWniosek(request, photoUris.toList(), this, address)
     }
 
     private fun calculateWorkingDays(startStr: String, endStr: String): Int {

@@ -59,7 +59,9 @@ abstract class BaseDrawerActivity : BaseActivity() {
         drawerOferty: View? = null,
         drawerCrm: View? = null,
         drawerInfo: View? = null,
-        drawerMessages: View? = null
+        drawerMessages: View? = null,
+        drawerWindykacjaProfil: View? = null,
+        drawerHrUrlopy: View? = null
     ) {
         drawerName.text = sessionManager.fullName
         drawerRole.text = sessionManager.role
@@ -93,9 +95,24 @@ abstract class BaseDrawerActivity : BaseActivity() {
         drawerHrHeader?.visibility = if (hasHr) View.VISIBLE else View.GONE
         drawerHrSub?.visibility = View.GONE // Default collapsed
 
+        // Hide unimplemented features that show placeholder/coming soon toast
+        drawerSalesClients?.visibility = View.GONE
+        drawerSalesGrainTrade?.visibility = View.GONE
+        drawerKontrahenci?.visibility = View.GONE
+        drawerTowary?.visibility = View.GONE
+        drawerZamowienia?.visibility = View.GONE
+        drawerTransakcje?.visibility = View.GONE
+        drawerWizyty?.visibility = View.GONE
+        drawerOferty?.visibility = View.GONE
+        drawerCrm?.visibility = View.GONE
+        drawerInfo?.visibility = View.GONE
+
         drawerApprovals.setOnClickListener {
             drawerLayout.closeDrawers()
-            navigateTo(ApprovalActivity::class.java)
+            val intent = Intent(this, ApprovalActivity::class.java).apply {
+                putExtra("target_role", "Manager")
+            }
+            startActivity(intent)
         }
 
         drawerTasks.setOnClickListener {
@@ -131,6 +148,11 @@ abstract class BaseDrawerActivity : BaseActivity() {
             navigateTo(DebtTasksListActivity::class.java)
         }
 
+        drawerWindykacjaProfil?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(WindykacjaKontrahentActivity::class.java)
+        }
+
         // HR logic
         drawerHrHeader?.setOnClickListener {
             if (drawerHrSub == null || drawerHrArrow == null) return@setOnClickListener
@@ -141,7 +163,10 @@ abstract class BaseDrawerActivity : BaseActivity() {
 
         drawerHrAkceptacje?.setOnClickListener {
             drawerLayout.closeDrawers()
-            navigateTo(ApprovalActivity::class.java) // Same as drawerApprovals
+            val intent = Intent(this, ApprovalActivity::class.java).apply {
+                putExtra("target_role", "HR")
+            }
+            startActivity(intent)
         }
 
 
@@ -175,6 +200,13 @@ abstract class BaseDrawerActivity : BaseActivity() {
             drawerLayout.closeDrawers()
             navigateTo(HrSchematOrgActivity::class.java)
         }
+
+        val hrUrlopyView = drawerHrUrlopy ?: drawerLayout.findViewById(R.id.drawer_hr_urlopy)
+        hrUrlopyView?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(com.ossadkowski.crm.mobile.ui.vacation.UrlopyRoczneActivity::class.java)
+        }
+
 
         // Sales logic
         drawerSalesHeader?.setOnClickListener {
@@ -236,6 +268,87 @@ abstract class BaseDrawerActivity : BaseActivity() {
         drawerMessages?.setOnClickListener {
             drawerLayout.closeDrawers()
             navigateTo(ConversationsActivity::class.java)
+        }
+        // Transport logic (Collapsable)
+        val drawerTransportHeader = drawerLayout.findViewById<View>(R.id.drawer_transport_header)
+        val drawerTransportArrow = drawerLayout.findViewById<ImageView>(R.id.drawer_transport_arrow)
+        val drawerTransportSub = drawerLayout.findViewById<View>(R.id.drawer_transport_sub)
+        val drawerTransportMap = drawerLayout.findViewById<View>(R.id.drawer_transport_map)
+        val drawerTransportCeny = drawerLayout.findViewById<View>(R.id.drawer_transport_ceny)
+        val drawerTransportNowy = drawerLayout.findViewById<View>(R.id.drawer_transport_nowy)
+
+        drawerTransportHeader?.visibility = View.VISIBLE
+        drawerTransportSub?.visibility = View.GONE
+
+        drawerTransportHeader?.setOnClickListener {
+            if (drawerTransportSub == null || drawerTransportArrow == null) return@setOnClickListener
+            val isVisible = drawerTransportSub.visibility == View.VISIBLE
+            drawerTransportSub.visibility = if (isVisible) View.GONE else View.VISIBLE
+            drawerTransportArrow.rotation = if (isVisible) 0f else 90f
+        }
+
+        drawerTransportMap?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(com.ossadkowski.crm.mobile.ui.transport.TransportMapActivity::class.java)
+        }
+
+        drawerTransportCeny?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(com.ossadkowski.crm.mobile.ui.transport.TransportCenyListActivity::class.java)
+        }
+
+        drawerTransportNowy?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(com.ossadkowski.crm.mobile.ui.transport.TransportCenyNewActivity::class.java)
+        }
+
+        // Delegacje logic
+        val drawerDelegacjeHeader = drawerLayout.findViewById<View>(R.id.drawer_delegacje_header)
+        val drawerDelegacjeArrow = drawerLayout.findViewById<ImageView>(R.id.drawer_delegacje_arrow)
+        val drawerDelegacjeSub = drawerLayout.findViewById<View>(R.id.drawer_delegacje_sub)
+        val drawerDelegacjeMoja = drawerLayout.findViewById<View>(R.id.drawer_delegacje_moja)
+
+        drawerDelegacjeHeader?.visibility = View.VISIBLE
+        drawerDelegacjeSub?.visibility = View.GONE
+
+        drawerDelegacjeHeader?.setOnClickListener {
+            if (drawerDelegacjeSub == null || drawerDelegacjeArrow == null) return@setOnClickListener
+            val isVisible = drawerDelegacjeSub.visibility == View.VISIBLE
+            drawerDelegacjeSub.visibility = if (isVisible) View.GONE else View.VISIBLE
+            drawerDelegacjeArrow.rotation = if (isVisible) 0f else 90f
+        }
+
+        drawerDelegacjeMoja?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(com.ossadkowski.crm.mobile.ui.delegacja.DelegacjaCreateActivity::class.java)
+        }
+
+        // New delegation sub-items
+        val drawerDelegacjeMoje = drawerLayout.findViewById<View>(R.id.drawer_delegacje_moje)
+        val drawerDelegacjeTeam = drawerLayout.findViewById<View>(R.id.drawer_delegacje_team)
+        val drawerDelegacjeRozlicz = drawerLayout.findViewById<View>(R.id.drawer_delegacje_rozlicz)
+        val drawerDelegacjeZaliczki = drawerLayout.findViewById<View>(R.id.drawer_delegacje_zaliczki)
+        val drawerDelegacjeAudit = drawerLayout.findViewById<View>(R.id.drawer_delegacje_audit)
+
+        drawerDelegacjeMoje?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(com.ossadkowski.crm.mobile.ui.delegacja.DelegacjeMojeActivity::class.java)
+        }
+        drawerDelegacjeTeam?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(com.ossadkowski.crm.mobile.ui.delegacja.DelegacjeTeamActivity::class.java)
+        }
+        drawerDelegacjeRozlicz?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(com.ossadkowski.crm.mobile.ui.delegacja.DelegacjeRozliczActivity::class.java)
+        }
+        drawerDelegacjeZaliczki?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(com.ossadkowski.crm.mobile.ui.delegacja.DelegacjeZaliczkiActivity::class.java)
+        }
+        drawerDelegacjeAudit?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(com.ossadkowski.crm.mobile.ui.delegacja.DelegacjeAuditActivity::class.java)
         }
     }
 

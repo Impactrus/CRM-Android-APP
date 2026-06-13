@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9FAFB">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Profil kontrahenta (Windykacja)"
+            app:titleTextColor="#111827"
+            app:navigationIcon="@drawable/ic_arrow_back" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutSearch"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Szukaj (Nazwa, NIP, Nr AX)"
+                app:startIconDrawable="@drawable/ic_search"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxStrokeColor="#E5E7EB">
+
+                <AutoCompleteTextView
+                    android:id="@+id/editSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/layoutEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_user"
+            android:alpha="0.3"
+            app:tint="#6B7280" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Wyszukaj kontrahenta"
+            android:textColor="#374151"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Wpisz co najmniej 3 znaki, aby rozpocząć wyszukiwanie"
+            android:textColor="#6B7280"
+            android:textSize="13sp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- GŁÓWNA KARTA KONTRAHENTA -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#E5E7EB">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/textCustomerName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="4LIFT CHOJNACKI I ZIPPER SP.J"
+                        android:textColor="#111827"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textSyncDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Zsynchronizowano: 07.05.2026 11:18"
+                        android:textColor="#6B7280"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="12dp"
+                        android:background="#F3F4F6" />
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:rowCount="3"
+                        android:useDefaultMargins="true">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="NR AX" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textNrAx" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="40404" android:textColor="#374151" android:textSize="13sp" android:textStyle="bold" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="NIP" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textNip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="4LIFT CHOJNACKI" android:textColor="#374151" android:textSize="13sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="8dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ADRES" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textAddress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Warszawska 120, Blizne" android:textColor="#374151" android:textSize="13sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="8dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="RODZINA" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textRodzina" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TAK" android:textColor="#059669" android:textSize="13sp" android:textStyle="bold" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="8dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TYP GOSPODARSTWA" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textTypGospodarstwa" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="#374151" android:textSize="13sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </GridLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- FINANSE I LIMITY -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Finanse i limity"
+                android:textColor="#1F2937"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#E5E7EB">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:useDefaultMargins="true">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SALDO" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textSaldo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0,00 PLN" android:textColor="#111827" android:textSize="15sp" android:textStyle="bold" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ZADŁUŻENIE PRZETERMINOWANE" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textZadluzenie" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0,00 PLN" android:textColor="#DC2626" android:textSize="15sp" android:textStyle="bold" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LIMIT KREDYTOWY" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textLimit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1,00 PLN" android:textColor="#111827" android:textSize="15sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="WYKORZYSTANIE LIMITU" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textWykorzystanie" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1,00 PLN (100%)" android:textColor="#D97706" android:textSize="15sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ZAMÓWIONE" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textZamowione" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0,00 PLN" android:textColor="#111827" android:textSize="15sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="WSPÓŁPRACA OD" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textWspolpracaOd" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textColor="#111827" android:textSize="15sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </GridLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ODSETKI -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Odsetki"
+                android:textColor="#1F2937"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#E5E7EB">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:useDefaultMargins="true">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ODSETKI ODWROTNE" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textOdsetkiOdwrotne" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0,00 PLN" android:textColor="#111827" android:textSize="14sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ZA OSTATNIE ODSETKI" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textZaOstatnie" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0,00 PLN" android:textColor="#111827" android:textSize="14sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="HIPOTETYCZNE (1 ROK)" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textHipotetyczneRok" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0,00 PLN" android:textColor="#111827" android:textSize="14sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="HIPOTETYCZNE NA PŁATNOŚCIACH" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textHipotetycznePlatnosci" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0,00 PLN" android:textColor="#111827" android:textSize="14sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </GridLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- OPIEKUNOWIE I PROGRAM -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Opiekunowie i program"
+                android:textColor="#1F2937"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#E5E7EB">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:useDefaultMargins="true">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DKA (HANDLOWY)" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textOpiekunDka" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DETAL-PL" android:textColor="#111827" android:textSize="14sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="FK (KSIĘGOWOŚĆ)" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textOpiekunKsiegowy" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="a_szuleka" android:textColor="#111827" android:textSize="14sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DKZ (ZBOŻOWY)" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textOpiekunDkz" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DETAL-PL" android:textColor="#111827" android:textSize="14sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DKM (MASZYNOWY)" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textOpiekunDkm" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DETAL-PL" android:textColor="#111827" android:textSize="14sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </GridLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- OCENA I REKOMENDACJA -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ocena i rekomendacja"
+                android:textColor="#1F2937"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#E5E7EB">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:useDefaultMargins="true">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="REPUTACJA (AUTO)" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textReputacja" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="5 / 5" android:textColor="#059669" android:textSize="15sp" android:textStyle="bold" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_columnWeight="1">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="REKOMENDACJA" android:textColor="#9CA3AF" android:textSize="10sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/textRekomendacja" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nieokreślona" android:textColor="#111827" android:textSize="15sp" android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </GridLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

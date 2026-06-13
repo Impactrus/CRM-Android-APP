@@ -147,17 +147,119 @@
         app:layout_constraintTop_toBottomOf="@id/search_container"
         app:layout_constraintBottom_toBottomOf="parent">
         
-        <TextView
-            android:id="@+id/selected_user_name"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="Wnioski pracownika:"
-            android:textColor="@color/crm_blue"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textAllCaps="true" />
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/selected_user_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="SALAWA MARIUSZ"
+                android:textColor="@color/crm_heading"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_total_count" />
+
+            <TextView
+                android:id="@+id/selected_user_role"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Wnioski pracownika"
+                android:textColor="@color/crm_secondary"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@id/selected_user_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_total_count" />
+
+            <TextView
+                android:id="@+id/tv_total_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="11"
+                android:textColor="@color/crm_heading"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_total_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WNIOSKÓW"
+                android:textColor="@color/crm_secondary"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tv_total_count"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingHorizontal="16dp"
+            android:clipToPadding="false"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:text="Wszystkie"
+                    android:checked="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_accepted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:text="Zaakceptowane" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_in_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:text="W trakcie" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_rejected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:text="Odrzucone" />
+                    
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_draft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:text="Szkice" />
+                    
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_withdrawn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:text="Cofnięte" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/history_recycler"

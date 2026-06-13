@@ -107,7 +107,8 @@ class NewTransportPriceActivity : BaseDrawerActivity() {
             binding.includeDrawer.drawerOferty,
             binding.includeDrawer.drawerCrm,
             binding.includeDrawer.drawerInfo,
-            binding.includeDrawer.drawerMessages
+            binding.includeDrawer.drawerMessages,
+            binding.includeDrawer.drawerWindykacjaProfil
         )
 
         setupUI()

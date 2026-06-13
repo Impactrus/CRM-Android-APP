@@ -138,6 +138,36 @@
                     android:src="@drawable/ic_chevron_right" />
             </LinearLayout>
 
+            <!-- Zadania -->
+            <LinearLayout
+                android:id="@+id/drawer_tasks"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_task" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_tasks"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
             <!-- Kontrahenci -->
             <LinearLayout
                 android:id="@+id/drawer_kontrahenci"
@@ -360,35 +390,7 @@
                     android:src="@drawable/ic_chevron_right" />
             </LinearLayout>
 
-            <!-- Zadania -->
-            <LinearLayout
-                android:id="@+id/drawer_tasks"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp"
-                android:background="?attr/selectableItemBackground">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_task" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="14dp"
-                    android:text="@string/drawer_tasks"
-                    android:textColor="@color/crm_body"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_chevron_right" />
-            </LinearLayout>
 
             <!-- CRM -->
             <LinearLayout
@@ -490,6 +492,118 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <!-- Transport (New Root Module - Collapsable) -->
+            <LinearLayout
+                android:id="@+id/drawer_transport_header"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_local_shipping" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="Transport"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/drawer_transport_arrow"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/drawer_transport_sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Mapa transportu -->
+                <LinearLayout
+                    android:id="@+id/drawer_transport_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_location"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Mapa transportu"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Zapytania o ceny -->
+                <LinearLayout
+                    android:id="@+id/drawer_transport_ceny"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_receipt"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Zapytania o ceny"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Nowe zapytanie -->
+                <LinearLayout
+                    android:id="@+id/drawer_transport_nowy"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_add"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Nowe zapytanie"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Sekcja Windykacja (Screenshot alignment) -->
@@ -599,6 +713,30 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@string/drawer_windykacja_zadania"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Profil kontrahenta -->
+                <LinearLayout
+                    android:id="@+id/drawer_windykacja_profil"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_user"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_windykacja_profil"
                         android:textColor="@color/crm_body"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -814,6 +952,34 @@
 
             </LinearLayout>
 
+            <!-- Urlopy roczne -->
+            <LinearLayout
+                android:id="@+id/drawer_hr_urlopy"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_calendar" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="Urlopy roczne"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
             <!-- Sekcja HR -->
             <LinearLayout
                 android:id="@+id/drawer_hr_header"
@@ -1020,7 +1186,193 @@
                         android:textColor="@color/crm_body"
                         android:textSize="14sp" />
                 </LinearLayout>
+
             </LinearLayout>
+
+            <!-- Sekcja Delegacje -->
+            <LinearLayout
+                android:id="@+id/drawer_delegacje_header"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_local_shipping" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/drawer_delegacje_header"
+                    android:textColor="@color/crm_body"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/drawer_delegacje_arrow"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_chevron_right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/drawer_delegacje_sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Moja delegacja -->
+                <LinearLayout
+                    android:id="@+id/drawer_delegacje_moja"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_local_shipping"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/drawer_hr_delegacje"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Moje delegacje -->
+                <LinearLayout
+                    android:id="@+id/drawer_delegacje_moje"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_list"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Moje delegacje"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Zespół — delegacje -->
+                <LinearLayout
+                    android:id="@+id/drawer_delegacje_team"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_group"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Zespół — delegacje"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Rozliczenia — Finanse -->
+                <LinearLayout
+                    android:id="@+id/drawer_delegacje_rozlicz"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_monetization"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Rozliczenia — Fina…"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Zaliczki delegacyjne -->
+                <LinearLayout
+                    android:id="@+id/drawer_delegacje_zaliczki"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_wallet"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Zaliczki delegacyjne"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Audit — HR -->
+                <LinearLayout
+                    android:id="@+id/drawer_delegacje_audit"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="48dp"
+                    android:paddingEnd="20dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_verified"
+                        android:alpha="0.6" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Audit — HR"
+                        android:textColor="@color/crm_body"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
 
             <!-- Informacje o celu -->
             <LinearLayout

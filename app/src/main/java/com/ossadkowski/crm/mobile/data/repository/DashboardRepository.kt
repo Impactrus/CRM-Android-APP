@@ -39,17 +39,40 @@ class DashboardRepository(
         return when (boardResult) {
             is NetworkResult.Success -> {
                 val allTasks = mutableListOf<TaskItem>()
+                val dateFormat = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+                val todayStr = dateFormat.format(java.util.Date())
+
                 boardResult.data?.columns?.values?.forEach { column ->
                     column.items.forEach { task ->
-                        allTasks.add(TaskItem(
-                            id = task.id,
-                            title = task.tytul,
-                            description = task.kontrahentNazwa ?: "",
-                            status = task.status,
-                            assignedTo = task.assignedToName,
-                            createdAt = task.createdAt,
-                            dueDate = task.termin
-                        ))
+                        val t = task.typ?.lowercase() ?: ""
+                        val title = task.tytul?.lowercase() ?: ""
+                        if (!t.contains("zaliczka") && !t.contains("zaliczki") &&
+                            !title.contains("zaliczka") && !title.contains("zaliczki")) {
+                            
+                            val taskDate = task.termin?.let { termin ->
+                                val s = termin.trim().take(10)
+                                if (s.length == 10 && (s[2] == '.' || s[2] == '-')) {
+                                    val day = s.substring(0, 2)
+                                    val month = s.substring(3, 5)
+                                    val year = s.substring(6, 10)
+                                    "$year-$month-$day"
+                                } else {
+                                    s
+                                }
+                            } ?: ""
+
+                            if (taskDate == todayStr) {
+                                allTasks.add(TaskItem(
+                                    id = task.id,
+                                    title = task.tytul,
+                                    description = task.kontrahentNazwa ?: "",
+                                    status = task.status,
+                                    assignedTo = task.assignedToName,
+                                    createdAt = task.createdAt,
+                                    dueDate = task.termin
+                                ))
+                            }
+                        }
                     }
                 }
                 // Sortujemy po ID malejąco (najnowsze na górze)

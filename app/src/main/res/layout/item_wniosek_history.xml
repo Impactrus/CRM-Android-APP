@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="16dp">
+
+    <!-- Timeline Line (top) -->
+    <View
+        android:id="@+id/timeline_line_top"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="#E0E0E0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/timeline_dot"
+        app:layout_constraintStart_toStartOf="@id/timeline_dot"
+        app:layout_constraintEnd_toEndOf="@id/timeline_dot" />
+
+    <!-- Timeline Dot -->
+    <View
+        android:id="@+id/timeline_dot"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_timeline_dot"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Timeline Line (bottom) -->
+    <View
+        android:id="@+id/timeline_line_bottom"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="#E0E0E0"
+        app:layout_constraintTop_toBottomOf="@id/timeline_dot"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/timeline_dot"
+        app:layout_constraintEnd_toEndOf="@id/timeline_dot" />
+
+    <!-- Card Content -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#E0E0E0"
+        app:strokeWidth="1dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/timeline_dot"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Status Dot -->
+            <View
+                android:id="@+id/status_dot"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/bg_status_dot_gray"
+                app:layout_constraintTop_toTopOf="@id/tv_status"
+                app:layout_constraintBottom_toBottomOf="@id/tv_status"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Status Text -->
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-medium"
+                tools:text="Wprowadzono"
+                android:textColor="#757575"
+                android:textSize="14sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/status_dot" />
+
+            <!-- Type Text -->
+            <TextView
+                android:id="@+id/tv_typ"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="sans-serif-medium"
+                tools:text="Urlop - Bezpłatny"
+                android:textColor="@color/crm_heading"
+                android:textSize="14sp"
+                app:layout_constraintTop_toTopOf="@id/tv_status"
+                app:layout_constraintBottom_toBottomOf="@id/tv_status"
+                app:layout_constraintStart_toEndOf="@id/tv_status"
+                app:layout_constraintEnd_toStartOf="@id/tv_zlozono_label" />
+
+            <!-- Złożono Label -->
+            <TextView
+                android:id="@+id/tv_zlozono_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ZŁOŻONO"
+                android:textColor="#BDBDBD"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif-medium"
+                android:textAllCaps="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Created At Text -->
+            <TextView
+                android:id="@+id/tv_created_at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                tools:text="04.05.2026 21:32"
+                android:textColor="@color/crm_body"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_zlozono_label"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Date Range -->
+            <TextView
+                android:id="@+id/tv_od_do"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="04.05.2026"
+                android:textColor="@color/crm_body"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_status"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Divider Dot -->
+            <TextView
+                android:id="@+id/tv_dot_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="•"
+                android:textColor="@color/crm_secondary"
+                android:textSize="13sp"
+                app:layout_constraintTop_toTopOf="@id/tv_od_do"
+                app:layout_constraintBottom_toBottomOf="@id/tv_od_do"
+                app:layout_constraintStart_toEndOf="@id/tv_od_do" />
+
+            <!-- Days Count -->
+            <TextView
+                android:id="@+id/tv_ilosc_dni"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                tools:text="1 dzień"
+                android:textColor="@color/crm_body"
+                android:textSize="13sp"
+                app:layout_constraintTop_toTopOf="@id/tv_od_do"
+                app:layout_constraintBottom_toBottomOf="@id/tv_od_do"
+                app:layout_constraintStart_toEndOf="@id/tv_dot_divider" />
+
+            <!-- Hours Count (Optional) -->
+            <TextView
+                android:id="@+id/tv_godziny"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                tools:text="8h"
+                android:textColor="@color/crm_body"
+                android:textSize="13sp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="@id/tv_od_do"
+                app:layout_constraintBottom_toBottomOf="@id/tv_od_do"
+                app:layout_constraintStart_toEndOf="@id/tv_ilosc_dni" />
+                
+            <!-- Reason Text (Optional) -->
+            <TextView
+                android:id="@+id/tv_powod"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="Dzień wolny - pracownik dostaje +8 h do salda nadgodzin"
+                android:textColor="@color/crm_body"
+                android:textSize="13sp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tv_od_do"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

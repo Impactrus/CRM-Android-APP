@@ -22,4 +22,22 @@ class TransportRepository(private val apiService: ApiService) : BaseRepository()
             NetworkResult.Error(response.message())
         }
     }
+
+    suspend fun getTransportPrices(page: Int, pageSize: Int, status: String?, search: String?, tab: String?): NetworkResult<GenericPageResponse<TransportPriceListItem>> {
+        return safeApiCall { apiService.getTransportPrices(page, pageSize, status, search, tab) }
+    }
+
+    suspend fun getTransportPriceDetail(id: Int): NetworkResult<TransportPriceDetailResponse> {
+        return safeApiCall { apiService.getTransportPriceDetail(id) }
+    }
+
+    suspend fun reviewTransportPrice(id: Int, request: ReviewTransportPriceRequest): NetworkResult<Any> {
+        val response = apiService.reviewTransportPrice(id, request)
+        return if (response.isSuccessful) {
+            NetworkResult.Success(response.body() ?: Any())
+        } else {
+            NetworkResult.Error(response.message())
+        }
+    }
 }
+

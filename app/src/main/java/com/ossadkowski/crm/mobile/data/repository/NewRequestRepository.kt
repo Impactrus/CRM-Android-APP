@@ -50,10 +50,23 @@ class NewRequestRepository(
         ) { apiService.getWnioskiUzytkownicy() }
     }
 
+    suspend fun getHomeOfficeSaldo(): NetworkResult<HomeOfficeSaldoDto> {
+        return safeApiCall { apiService.getHomeOfficeSaldo() }
+    }
+
+    suspend fun getHomeOfficeAddresses(userId: Int): NetworkResult<HomeOfficeAddressListDto> {
+        return safeApiCall { apiService.getHomeOfficeAddresses(userId) }
+    }
+
+    suspend fun updateHomeOfficeAddress(wniosekId: Int, address: HomeOfficeAddressDto): NetworkResult<Any> {
+        return safeApiCall { apiService.updateHomeOfficeAddress(wniosekId, address) }
+    }
+
     suspend fun createWniosekWithPhotos(
         request: CreateWniosekRequest,
         photoUris: List<Uri>,
-        context: Context
+        context: Context,
+        address: HomeOfficeAddressDto? = null
     ): NetworkResult<CreateWniosekResponse> {
         val result = safeApiCall { apiService.createWniosek(request) }
         if (result is NetworkResult.Success) {
@@ -61,6 +74,14 @@ class NewRequestRepository(
             db.invalidateByPrefix("dash_wnioski_")
 
             val wniosekId = result.data?.id ?: return result
+
+            // If it is remote work, update address
+            if (request.typ == "Praca zdalna" && address != null) {
+                try {
+                    apiService.updateHomeOfficeAddress(wniosekId, address)
+                } catch (_: Exception) {}
+            }
+
             for ((index, uri) in photoUris.withIndex()) {
                 try {
                     val inputStream = context.contentResolver.openInputStream(uri) ?: continue

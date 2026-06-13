@@ -19,10 +19,10 @@ class ApprovalViewModel(
     var page = 1
     var search: String? = null
 
-    fun loadApprovals(userId: Int, pageSize: Int = 10) {
+    fun loadApprovals(userId: Int, role: String, pageSize: Int = 10) {
         _approvals.value = NetworkResult.Loading()
         viewModelScope.launch {
-            _approvals.value = repository.getApprovals(userId, page, pageSize, search)
+            _approvals.value = repository.getApprovals(userId, page, pageSize, search, role)
         }
     }
 

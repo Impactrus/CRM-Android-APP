@@ -19,8 +19,8 @@ class ApprovalRepository(
 
     private val gson = Gson()
 
-    suspend fun getApprovals(userId: Int, page: Int, pageSize: Int, search: String?): NetworkResult<PaginatedResponse<WniosekItem>> {
-        val request = ApprovalsRequest(userId, page, pageSize, search = search, role = "User")
+    suspend fun getApprovals(userId: Int, page: Int, pageSize: Int, search: String?, role: String? = null): NetworkResult<PaginatedResponse<WniosekItem>> {
+        val request = ApprovalsRequest(userId, page, pageSize, search = search, role = role ?: "User")
         return safeApiCall { apiService.getApprovals(request) }
     }
 

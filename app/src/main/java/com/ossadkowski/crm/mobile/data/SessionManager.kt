@@ -74,6 +74,12 @@ class SessionManager(context: Context) {
 
     val isLoggedIn: Boolean get() = token != null
 
+    val approvalRole: String get() {
+        if (hasClaim("action.wnioski.approve_hr")) return "HR"
+        if (hasClaim("action.wnioski.approve_manager")) return "Manager"
+        return role
+    }
+
     fun hasClaim(code: String): Boolean {
         val savedClaims = claims
         if (savedClaims.isNotEmpty()) return savedClaims.contains(code)

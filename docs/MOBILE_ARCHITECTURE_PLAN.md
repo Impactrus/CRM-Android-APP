@@ -1580,8 +1580,8 @@ Zmiana w `RetrofitClient.kt` (opisana w B.5) — w release build logowanie wylac
 
 | Kategoria | Ilosc |
 |-----------|-------|
-| Nowe Activities | 17 |
-| Nowe ViewModels | 15 |
+    | Nowe Activities | 17 |
+    | Nowe ViewModels | 15 |
 | Nowe Repositories | 7 |
 | Nowe model files | 9 |
 | Nowe utility classes | 3 (BaseActivity, PaginatedListHelper, TokenAuthenticator) |

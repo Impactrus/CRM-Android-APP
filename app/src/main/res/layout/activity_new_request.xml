@@ -262,6 +262,193 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!-- Praca Zdalna Section -->
+            <LinearLayout
+                android:id="@+id/section_remote_work"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Pozostale dni card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_input_field"
+                    android:padding="12dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Pozostała ilość dni"
+                        android:textColor="@color/crm_heading"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/remote_work_remaining_days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/status_success_bg"
+                        android:textColor="@color/status_success_text"
+                        android:text="-- dni"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Adres wykonywania pracy -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wybierz adres"
+                    android:textColor="@color/crm_heading"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+
+                <Spinner
+                    android:id="@+id/spinner_remote_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/input_height"
+                    android:background="@drawable/bg_input_field"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Address Inputs Container (Ulica, nr, miasto, kod) -->
+                <LinearLayout
+                    android:id="@+id/container_address_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="8dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ulica"
+                                android:textColor="@color/crm_heading"
+                                android:layout_marginBottom="4dp"/>
+                            <EditText
+                                android:id="@+id/input_address_street"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/input_height"
+                                android:background="@drawable/bg_input_field"
+                                android:paddingHorizontal="12dp"
+                                android:textSize="@dimen/text_body"
+                                android:inputType="textPostalAddress"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="8dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Nr lokalu"
+                                android:textColor="@color/crm_heading"
+                                android:layout_marginBottom="4dp"/>
+                            <EditText
+                                android:id="@+id/input_address_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/input_height"
+                                android:background="@drawable/bg_input_field"
+                                android:paddingHorizontal="12dp"
+                                android:textSize="@dimen/text_body"
+                                android:inputType="text"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="8dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Miasto"
+                                android:textColor="@color/crm_heading"
+                                android:layout_marginBottom="4dp"/>
+                            <EditText
+                                android:id="@+id/input_address_city"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/input_height"
+                                android:background="@drawable/bg_input_field"
+                                android:paddingHorizontal="12dp"
+                                android:textSize="@dimen/text_body"
+                                android:inputType="text"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="8dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Kod pocztowy"
+                                android:textColor="@color/crm_heading"
+                                android:layout_marginBottom="4dp"/>
+                            <EditText
+                                android:id="@+id/input_address_zip"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/input_height"
+                                android:background="@drawable/bg_input_field"
+                                android:paddingHorizontal="12dp"
+                                android:textSize="@dimen/text_body"
+                                android:inputType="text"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Declarations Checkboxes -->
+                <CheckBox
+                    android:id="@+id/checkbox_bhp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Oświadczam, iż na stanowisku pracy zdalnej w wymienionym miejscu zapewnione są bezpieczne i higieniczne warunki pracy."
+                    android:textSize="12sp"
+                    android:textColor="@color/crm_body"
+                    android:layout_marginBottom="8dp"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_rodo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Oświadczam, że w tym roku nie świadczyłem/świadczyłam pracy zdalnej okazjonalnej oraz zapoznałem/-łam się z przygotowaną przez pracodawcę oceną ryzyka zawodowego, informacją zawierającą zasady bezpiecznego i higienicznego wykonywania pracy zdalnej."
+                    android:textSize="12sp"
+                    android:textColor="@color/crm_body"
+                    android:layout_marginBottom="16dp"/>
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/btn_submit"
                 android:layout_width="match_parent"

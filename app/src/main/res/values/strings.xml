@@ -61,6 +61,7 @@
     <string name="drawer_windykacja_wnioski">Wnioski o limit</string>
     <string name="drawer_windykacja_nowy">Nowy wniosek</string>
     <string name="drawer_windykacja_zadania">Zadania windykacyjne</string>
+    <string name="drawer_windykacja_profil">Profil kontrahenta</string>
     <string name="drawer_wiadomosci">Wiadomości</string>
     
     <string name="drawer_hr">Dział HR</string>
@@ -71,6 +72,8 @@
     <string name="drawer_hr_home_office">Home Office</string>
     <string name="drawer_hr_prawo_pracy">Prawo pracy</string>
     <string name="drawer_hr_schemat">Schemat organizacyjny</string>
+    <string name="drawer_hr_delegacje">Moja delegacja</string>
+    <string name="drawer_delegacje_header">Delegacje</string>
     <string name="drawer_sales">Sprzedaż</string>
     <string name="drawer_sales_orders">Zamówienia</string>
     <string name="drawer_sales_transport">Transport zbóż</string>

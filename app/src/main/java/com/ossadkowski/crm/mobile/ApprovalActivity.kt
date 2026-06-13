@@ -22,14 +22,16 @@ class ApprovalActivity : BaseActivity() {
     private val viewModel: ApprovalViewModel by viewModels()
     private lateinit var adapter: ApprovalAdapter
 
+    private var targetRole: String = "User"
+
     private val pagination = PaginationHelper(pageSize = 10) { page ->
         viewModel.page = page
-        viewModel.loadApprovals(session.userId)
+        viewModel.loadApprovals(session.userId, targetRole)
     }
 
     private val detailLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
-            viewModel.loadApprovals(session.userId)
+            viewModel.loadApprovals(session.userId, targetRole)
         }
     }
 
@@ -39,14 +41,15 @@ class ApprovalActivity : BaseActivity() {
         setContentView(binding.root)
 
         session = SessionManager(this)
+        targetRole = intent.getStringExtra("target_role") ?: session.approvalRole
 
         adapter = ApprovalAdapter(
             onApprove = { wniosek ->
-                viewModel.approve(wniosek.id, session.userId, session.role) { success ->
+                viewModel.approve(wniosek.id, session.userId, targetRole) { success ->
                     runOnUiThread {
                         if (success) {
                             Toast.makeText(this, R.string.approved, Toast.LENGTH_SHORT).show()
-                            viewModel.loadApprovals(session.userId)
+                            viewModel.loadApprovals(session.userId, targetRole)
                         } else {
                             Toast.makeText(this, R.string.approve_error, Toast.LENGTH_SHORT).show()
                         }
@@ -54,11 +57,11 @@ class ApprovalActivity : BaseActivity() {
                 }
             },
             onReject = { wniosek ->
-                viewModel.reject(wniosek.id, session.userId, session.role) { success ->
+                viewModel.reject(wniosek.id, session.userId, targetRole) { success ->
                     runOnUiThread {
                         if (success) {
                             Toast.makeText(this, R.string.rejected, Toast.LENGTH_SHORT).show()
-                            viewModel.loadApprovals(session.userId)
+                            viewModel.loadApprovals(session.userId, targetRole)
                         } else {
                             Toast.makeText(this, R.string.reject_error, Toast.LENGTH_SHORT).show()
                         }
@@ -69,6 +72,7 @@ class ApprovalActivity : BaseActivity() {
                 val intent = Intent(this, ApprovalDetailActivity::class.java).apply {
                     putExtra("wniosek_id", wniosek.id)
                     putExtra("wniosek_num", wniosek.id.toString())
+                    putExtra("target_role", targetRole)
                 }
                 detailLauncher.launch(intent)
             }
@@ -83,14 +87,14 @@ class ApprovalActivity : BaseActivity() {
         binding.btnSyncFirebird.setOnClickListener {
             Toast.makeText(this, "Synchronizacja Firebird...", Toast.LENGTH_SHORT).show()
             // Placeholder: tu w przyszłości ewentualny call do API synchronizującego
-            viewModel.loadApprovals(session.userId)
+            viewModel.loadApprovals(session.userId, targetRole)
         }
 
         binding.searchInput.addDebouncedTextListener(lifecycleScope) { query ->
             viewModel.search = query.takeIf { it.isNotBlank() }
             viewModel.page = 1
             pagination.reset()
-            viewModel.loadApprovals(session.userId)
+            viewModel.loadApprovals(session.userId, targetRole)
         }
 
         viewModel.approvals.observe(this) { result ->
@@ -115,6 +119,6 @@ class ApprovalActivity : BaseActivity() {
         binding.btnPrev.setOnClickListener { pagination.prevPage() }
         binding.btnNext.setOnClickListener { pagination.nextPage() }
 
-        viewModel.loadApprovals(session.userId)
+        viewModel.loadApprovals(session.userId, targetRole)
     }
 }

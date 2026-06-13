@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
@@ -65,6 +66,9 @@
         <activity android:name=".HrHomeOfficeActivity" />
         <activity android:name=".HrPrawoPracyActivity" />
         <activity android:name=".HrSchematOrgActivity" />
+        <activity android:name=".ui.vacation.UrlopyRoczneActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp" />
 
         <!-- Transport -->
         <activity android:name=".TransportListActivity" />
@@ -74,6 +78,7 @@
         <activity android:name=".GrainContractDetailActivity" />
         <activity android:name=".HandlowcyListActivity" android:exported="false" />
         <activity android:name=".CustomerPanelActivity" android:exported="false" />
+        <activity android:name=".WindykacjaKontrahentActivity" android:exported="false" />
         <activity android:name=".ui.sales.AxContractSearchActivity" />
 
         <!-- Serwis (field-service) Compose host -->
@@ -96,6 +101,56 @@
             android:name=".example.serverstatus.ui.ServerStatusActivity"
             android:exported="true"
             android:label="Server Status (debug)" />
+
+        <activity
+            android:name=".ui.transport.TransportMapActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp" />
+
+        <activity
+            android:name=".ui.transport.TransportCenyListActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp" />
+
+        <activity
+            android:name=".ui.transport.TransportCenyNewActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp" />
+
+        <activity
+            android:name=".ui.transport.TransportCenyDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp" />
+
+        <activity
+            android:name=".ui.delegacja.DelegacjaCreateActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp" />
+
+        <activity
+            android:name=".ui.delegacja.DelegacjeMojeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp" />
+
+        <activity
+            android:name=".ui.delegacja.DelegacjeTeamActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp" />
+
+        <activity
+            android:name=".ui.delegacja.DelegacjeRozliczActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp" />
+
+        <activity
+            android:name=".ui.delegacja.DelegacjeZaliczkiActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp" />
+
+        <activity
+            android:name=".ui.delegacja.DelegacjeAuditActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp" />
 
         <service
             android:name=".fcm.CrmFirebaseMessagingService"

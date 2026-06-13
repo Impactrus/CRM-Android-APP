@@ -130,6 +130,7 @@ class DashboardActivity : BaseDrawerActivity() {
             drawerWindykacjaWnioski = binding.includeDrawer.drawerWindykacjaWnioski,
             drawerWindykacjaNowy = binding.includeDrawer.drawerWindykacjaNowy,
             drawerWindykacjaZadania = binding.includeDrawer.drawerWindykacjaZadania,
+            drawerWindykacjaProfil = binding.includeDrawer.drawerWindykacjaProfil,
             drawerHrHeader = binding.includeDrawer.drawerHrHeader,
             drawerHrArrow = binding.includeDrawer.drawerHrArrow,
             drawerHrSub = binding.includeDrawer.drawerHrSub,
@@ -452,7 +453,7 @@ class DashboardActivity : BaseDrawerActivity() {
             "board" -> viewModel.loadBoard()
             "wnioski" -> viewModel.loadWnioski(sessionManager.userId)
             "zastepstwa" -> viewModel.loadZastepstwa()
-            "akceptacje" -> viewModel.loadApprovals(sessionManager.userId, sessionManager.role)
+            "akceptacje" -> viewModel.loadApprovals(sessionManager.userId, sessionManager.approvalRole)
             "polecenie" -> setupPoleceniePracy()
         }
     }

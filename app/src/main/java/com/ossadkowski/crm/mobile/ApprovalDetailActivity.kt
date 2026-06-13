@@ -16,6 +16,7 @@ class ApprovalDetailActivity : BaseActivity() {
     private val viewModel: ApprovalDetailViewModel by viewModels()
     private lateinit var session: SessionManager
     private var wniosekId: Int = -1
+    private var targetRole: String = "User"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +24,7 @@ class ApprovalDetailActivity : BaseActivity() {
         setContentView(binding.root)
 
         session = SessionManager(this)
+        targetRole = intent.getStringExtra("target_role") ?: session.approvalRole
         wniosekId = intent.getIntExtra("wniosek_id", -1)
         val wniosekNum = intent.getStringExtra("wniosek_num") ?: wniosekId.toString()
 
@@ -86,7 +88,7 @@ class ApprovalDetailActivity : BaseActivity() {
         binding.btnApprove.setOnClickListener {
             val komentarz = binding.inputKomentarz.text.toString().trim()
             setButtonsEnabled(false)
-            viewModel.approve(wniosekId, session.userId, session.role, komentarz) { success ->
+            viewModel.approve(wniosekId, session.userId, targetRole, komentarz) { success ->
                 runOnUiThread {
                     setButtonsEnabled(true)
                     if (success) {
@@ -103,7 +105,7 @@ class ApprovalDetailActivity : BaseActivity() {
         binding.btnReject.setOnClickListener {
             val komentarz = binding.inputKomentarz.text.toString().trim()
             setButtonsEnabled(false)
-            viewModel.reject(wniosekId, session.userId, session.role, komentarz) { success ->
+            viewModel.reject(wniosekId, session.userId, targetRole, komentarz) { success ->
                 runOnUiThread {
                     setButtonsEnabled(true)
                     if (success) {

@@ -227,7 +227,9 @@ data class CreateTaskRequest(
 data class WnioskiListRequest(
     val userId: Int,
     val page: Int,
-    val pageSize: Int
+    val pageSize: Int,
+    val typ: String? = null,
+    val status: String? = null
 )
 
 data class WniosekItem(
@@ -239,6 +241,25 @@ data class WniosekItem(
     val powod: String?,
     val iloscDni: Int?,
     val status: String?
+)
+
+data class WniosekHistoryItem(
+    val id: Int,
+    val typ: String?,
+    val rodzajUrlopu: String?,
+    val odDo: String?,
+    val iloscDni: Int?,
+    val godziny: Int?,
+    val status: String?,
+    val powod: String?,
+    val createdAt: String?,
+    val managerApprovedAt: String?,
+    val hrApprovedAt: String?,
+    val managerName: String?,
+    val hrName: String?,
+    val komentarzManager: String?,
+    val komentarzHr: String?,
+    val zastepstwoName: String?
 )
 
 data class WniosekDetailDto(
@@ -287,7 +308,9 @@ data class CreateWniosekRequest(
     val powod: String,
     val iloscDni: Int,
     val dokumenty: Int? = null,
-    val zastepstwoUserId: Int? = null
+    val zastepstwoUserId: Int? = null,
+    val checkBhp: Boolean? = null,
+    val checkRodo: Boolean? = null
 )
 
 data class CreateWniosekResponse(
@@ -295,10 +318,40 @@ data class CreateWniosekResponse(
     val message: String?
 )
 
+// ── Home Office Addresses ──
+data class HomeOfficeAddressDto(
+    val label: String? = null,
+    @com.google.gson.annotations.SerializedName("adresUlica") val ulica: String?,
+    @com.google.gson.annotations.SerializedName("adresNumer") val numer: String?,
+    @com.google.gson.annotations.SerializedName("adresMiasto") val miasto: String?,
+    @com.google.gson.annotations.SerializedName("adresKod") val kod: String?,
+    val isDefault: Boolean? = null,
+    val isFirebird: Boolean? = null,
+    val id: Int? = null
+)
+
+data class HomeOfficeAddressListDto(
+    val firebird: HomeOfficeAddressDto?,
+    val custom: List<HomeOfficeAddressDto>
+)
+
 data class SlownikItemDto(
     val id: Int,
-    val nazwa: String
+    val nazwa: String,
+    val opis: String? = null
 )
+
+data class HrEmployeeDto(
+    val userId: Int,
+    val username: String?,
+    val fname: String?,
+    val name: String?,
+    val workpost: String?,
+    val depart: String?,
+    val dzial: String?,
+    val role: String?
+)
+
 
 data class UserIdRequest(val userId: Int)
 
@@ -771,3 +824,75 @@ data class GrainContractDetail(
     @SerializedName("price") val cena: Double?,
     val paymentTermId: String?
 )
+
+// ── Windykacja Kontrahent DTOs ──
+data class WindykacjaFinanseDto(
+    val srednieOpoznienieBiezacy: Int?,
+    val srednieOpoznieniePoprzedni: Int?,
+    val srednieOpoznienie2lata: Int?,
+    val srednieOpoznienie3lata: Int?,
+    val odsetkiOdwrotne: Double?,
+    val zaOstatnieOdsetki: Double?,
+    val hipotetyczneOdsetkiRok: Double?,
+    val hipotetyczneNaPlatnosciach: Double?,
+    val notyObciazeniowe0180: Double?,
+    val notyObciazeniowe180Plus: Double?
+)
+
+data class WindykacjaProfilDto(
+    val accountNum: String?,
+    val nazwa: String?,
+    val adres: String?,
+    val nip: String?,
+    val nrAx: String?,
+    val rodzina: String?,
+    val custGroup: String?,
+    val saldo: Double?,
+    val creditMax: Double?,
+    val zamowione: Double?,
+    val pozostalyLimit: Double?,
+    val pozostalyKredyt: Double?,
+    val wykorzystanieLimitu: Double?,
+    val aging030: Double?,
+    val aging3160: Double?,
+    val aging6190: Double?,
+    val aging91180: Double?,
+    val aging181365: Double?,
+    val aging365Plus: Double?,
+    val aging365545: Double?,
+    val aging545Plus: Double?,
+    val agingTotal: Double?,
+    val frozen: Boolean?,
+    val frozenReason: String?,
+    val blocked: Int?,
+    val windykacjaLevel: String?,
+    val windykacjaOpenTasks: Int?,
+    val windykacjaTasksKomornik: Int?,
+    val windykacjaTasksLimit: Int?,
+    val windykacjaResponsible: String?,
+    val windykacjaLastActivity: String?,
+    val dangerousClient: Boolean?,
+    val insolvent: Boolean?,
+    val reputacja: Int?,
+    val wspolpracaOd: String?,
+    val opiekunDka: String?,
+    val opiekunDkz: String?,
+    val opiekunDkm: String?,
+    val opiekunBranzowy: String?,
+    val opiekunKsiegowy: String?,
+    val opiekunVn: String?,
+    val regionalDirector: String?,
+    val grupaDka: String?,
+    val program: Int?,
+    val punkty: Int?,
+    val brakujacePkt: Int?,
+    val zabezpieczeniaSuma: Double?,
+    val zabezpieczeniaCount: Int?,
+    val procentGwarancji: Int?,
+    val rekomendacja: String?,
+    val typGospodarstwa: String?,
+    val syncedAt: String?,
+    val finanse: WindykacjaFinanseDto?,
+    val glowaRodziny: String?
+)
+

@@ -22,9 +22,27 @@ class TasksRepository(
 
     suspend fun getList(page: Int, pageSize: Int, search: String?, status: String?, typ: String?): NetworkResult<PaginatedResponse<TaskListItemDto>> {
         val key = "tasks_p${page}_s${status ?: ""}_q${search ?: ""}_t${typ ?: ""}"
-        return cachedApiCall(db, key, CacheTtl.SHORT,
+        val result = cachedApiCall(db, key, CacheTtl.SHORT,
             object : TypeToken<PaginatedResponse<TaskListItemDto>>() {}.type
         ) { apiService.getTasksV2(page, pageSize, search, status, typ) }
+
+        return when (result) {
+            is NetworkResult.Success -> {
+                val paginated = result.data
+                if (paginated != null) {
+                    val filteredItems = paginated.items.filter {
+                        val t = it.typ?.lowercase() ?: ""
+                        val title = it.tytul?.lowercase() ?: ""
+                        !t.contains("zaliczka") && !t.contains("zaliczki") &&
+                        !title.contains("zaliczka") && !title.contains("zaliczki")
+                    }
+                    NetworkResult.Success(PaginatedResponse(filteredItems, filteredItems.size, paginated.totalPages))
+                } else {
+                    result
+                }
+            }
+            else -> result
+        }
     }
 
     suspend fun getTasksForMonth(rok: Int, miesiac: Int): NetworkResult<List<TaskListItemDto>> {
@@ -34,11 +52,13 @@ class TasksRepository(
         return when (result) {
             is NetworkResult.Success -> {
                 val allTasks = result.data?.items ?: emptyList()
-                // Local filtering for current month/year if needed, 
-                // but since we don't have task dates in the List item sometimes, 
-                // we'll rely on the API if possible.
-                // For now just return the list.
-                NetworkResult.Success(allTasks)
+                val filteredTasks = allTasks.filter {
+                    val t = it.typ?.lowercase() ?: ""
+                    val title = it.tytul?.lowercase() ?: ""
+                    !t.contains("zaliczka") && !t.contains("zaliczki") &&
+                    !title.contains("zaliczka") && !title.contains("zaliczki")
+                }
+                NetworkResult.Success(filteredTasks)
             }
             is NetworkResult.Error -> NetworkResult.Error(result.message ?: "Błąd", null)
             is NetworkResult.Loading -> NetworkResult.Loading()

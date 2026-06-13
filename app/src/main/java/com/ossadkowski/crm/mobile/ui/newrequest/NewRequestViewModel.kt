@@ -27,6 +27,12 @@ class NewRequestViewModel(
     private val _submitResult = MutableLiveData<NetworkResult<CreateWniosekResponse>>()
     val submitResult: LiveData<NetworkResult<CreateWniosekResponse>> = _submitResult
 
+    private val _homeOfficeSaldo = MutableLiveData<NetworkResult<HomeOfficeSaldoDto>>()
+    val homeOfficeSaldo: LiveData<NetworkResult<HomeOfficeSaldoDto>> = _homeOfficeSaldo
+
+    private val _addresses = MutableLiveData<NetworkResult<HomeOfficeAddressListDto>>()
+    val addresses: LiveData<NetworkResult<HomeOfficeAddressListDto>> = _addresses
+
     fun loadFormData() {
         viewModelScope.launch {
             val typyResult = repository.getTypy()
@@ -44,10 +50,17 @@ class NewRequestViewModel(
         }
     }
 
-    fun submitWniosek(request: CreateWniosekRequest, photoUris: List<Uri>, context: Context) {
+    fun loadHomeOfficeData(userId: Int) {
+        viewModelScope.launch {
+            _homeOfficeSaldo.value = repository.getHomeOfficeSaldo()
+            _addresses.value = repository.getHomeOfficeAddresses(userId)
+        }
+    }
+
+    fun submitWniosek(request: CreateWniosekRequest, photoUris: List<Uri>, context: Context, address: HomeOfficeAddressDto? = null) {
         _submitResult.value = NetworkResult.Loading()
         viewModelScope.launch {
-            _submitResult.value = repository.createWniosekWithPhotos(request, photoUris, context)
+            _submitResult.value = repository.createWniosekWithPhotos(request, photoUris, context, address)
         }
     }
 }
