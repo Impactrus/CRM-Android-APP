@@ -8,12 +8,11 @@ import javax.inject.Singleton
  * Gates the fertiliser-order module ("Zamówienia nawozy").
  *
  * Access rules (mirroring the desktop CRM-OC sales section):
- *  - any user whose role contains "admin", or who holds the `action.admin` claim → allowed
+ *  - any user whose role contains "admin" → always allowed
  *  - users granted the explicit `nav.sprzedaz.zamowienia_nawozy` claim → allowed
- *  - INTERIM: until that dedicated claim is rolled out to users, anyone holding the
- *    general sales-orders nav (`nav.sprzedaz.zamowienia`) → allowed. Verified on-device:
- *    real tokens (claims v51) carry `nav.sprzedaz.zamowienia` but not yet the `_nawozy`
- *    one, so without this fallback the feature would be unreachable for everyone.
+ *
+ * NOTE: the feature is hidden until the backend assigns `nav.sprzedaz.zamowienia_nawozy`
+ * to the user (real tokens did not carry it yet at build time).
  *
  * Both the drawer entry in `BaseDrawerActivity` and the dashboard launch surface
  * MUST consult this checker before exposing the feature.
@@ -24,14 +23,10 @@ class NawozyAccessChecker @Inject constructor(
 ) {
     fun hasAccess(): Boolean {
         if (session.role.lowercase().contains("admin")) return true
-        if (session.hasClaim(CLAIM)) return true
-        if (session.hasClaim("action.admin")) return true
-        if (session.hasClaim(FALLBACK_CLAIM)) return true
-        return false
+        return session.hasClaim(CLAIM)
     }
 
     companion object {
         const val CLAIM = "nav.sprzedaz.zamowienia_nawozy"
-        const val FALLBACK_CLAIM = "nav.sprzedaz.zamowienia"
     }
 }
