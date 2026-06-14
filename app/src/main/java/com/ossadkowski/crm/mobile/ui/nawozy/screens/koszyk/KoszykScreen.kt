@@ -53,6 +53,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ossadkowski.crm.mobile.domain.nawozy.model.Koszyk
 import com.ossadkowski.crm.mobile.domain.nawozy.model.KoszykPozycja
 import com.ossadkowski.crm.mobile.domain.nawozy.model.SlownikPozycja
+import com.ossadkowski.crm.mobile.domain.nawozy.model.TowarNawoz
 import com.ossadkowski.crm.mobile.domain.nawozy.model.ZamowienieStatus
 import com.ossadkowski.crm.mobile.ui.nawozy.common.LimitBanner
 import com.ossadkowski.crm.mobile.ui.nawozy.common.formatPln
@@ -148,9 +149,11 @@ private fun KoszykContent(
                 Text("Parametry zamówienia", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     Text("Łączna ilość", style = MaterialTheme.typography.bodyMedium)
-                    Text(formatTons(koszyk.qtyTons), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+                    // Empty cart shows the full-truck default (24 T) as the planned size.
+                    val tons = koszyk.qtyTons.takeIf { it > 0.0 } ?: TowarNawoz.FULL_TRUCK_TONS
+                    Text(formatTons(tons), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
                 }
-                SlownikDropdown("Termin płatności", koszyk.paymentTerm, state.paymentTerms, onPaymentTerm)
+                SlownikDropdown("Termin płatności", koszyk.paymentTerm, state.paymentTerms, onPaymentTerm, ::paymentTermLabel)
                 SlownikDropdown("Forma dostawy", koszyk.dlvMode, state.dlvModes, onDlvMode)
                 SlownikDropdown("Termin dostawy", koszyk.dlvTerm, state.dlvTerms, onDlvTerm)
             }
@@ -184,6 +187,14 @@ private fun KoszykContent(
     }
 }
 
+/**
+ * Payment-term label: many entries share `nazwa = "0 dni"` (Faktura_gotówka,
+ * gotówka_paragon, …) so showing `nazwa` looks like duplicates. Numeric codes show
+ * their day count ("14 dni"); named codes show the readable kod (underscores → spaces).
+ */
+private fun paymentTermLabel(p: SlownikPozycja): String =
+    if (p.kod.isNotEmpty() && p.kod.all { it.isDigit() }) p.nazwa else p.kod.replace('_', ' ')
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SlownikDropdown(
@@ -191,9 +202,10 @@ private fun SlownikDropdown(
     selectedKod: String?,
     options: List<SlownikPozycja>,
     onSelect: (String) -> Unit,
+    labelOf: (SlownikPozycja) -> String = { it.nazwa },
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val selectedLabel = options.firstOrNull { it.kod == selectedKod }?.nazwa ?: selectedKod ?: ""
+    val selectedLabel = options.firstOrNull { it.kod == selectedKod }?.let(labelOf) ?: selectedKod ?: ""
     ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = it }) {
         OutlinedTextField(
             value = selectedLabel,
@@ -206,7 +218,7 @@ private fun SlownikDropdown(
         ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             options.forEach { option ->
                 DropdownMenuItem(
-                    text = { Text(option.nazwa) },
+                    text = { Text(labelOf(option)) },
                     onClick = {
                         expanded = false
                         onSelect(option.kod)
@@ -268,7 +280,7 @@ private fun SubmitBar(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(checked = state.riskAcknowledged, onCheckedChange = { onToggleRisk() })
                     Text(
-                        "Rozumiem ryzyko (limit zamrożony/zablokowany)",
+                        "Rozumiem ryzyko — nadwyżka ponad limit na zwykłą fakturę",
                         style = MaterialTheme.typography.bodySmall,
                     )
                 }

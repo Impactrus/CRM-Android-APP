@@ -23,7 +23,8 @@ import com.ossadkowski.crm.mobile.domain.nawozy.model.LimitStatus
 /** Severity of a customer's credit-limit state, ordered least→most restrictive. */
 private enum class LimitLevel(val label: String, val color: Color) {
     OK("Limit OK", Color(0xFF059669)),
-    WARNING("Ostrzeżenie — limit wyczerpany", Color(0xFFD97706)),
+    // Over limit is allowed — the excess is simply invoiced normally (not on credit).
+    WARNING("Limit przekroczony — nadwyżka na zwykłą fakturę", Color(0xFFD97706)),
     FROZEN("Limit zamrożony", Color(0xFFEA580C)),
     BLOCKED("Kontrahent zablokowany", Color(0xFFDC2626)),
 }
