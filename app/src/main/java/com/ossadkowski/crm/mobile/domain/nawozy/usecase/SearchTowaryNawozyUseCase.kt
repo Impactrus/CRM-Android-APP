@@ -1,0 +1,18 @@
+package com.ossadkowski.crm.mobile.domain.nawozy.usecase
+
+import com.ossadkowski.crm.mobile.domain.common.Result
+import com.ossadkowski.crm.mobile.domain.nawozy.model.TowarNawoz
+import com.ossadkowski.crm.mobile.domain.nawozy.repository.NawozyRepository
+import javax.inject.Inject
+
+/**
+ * Lists fertiliser articles. The repository fans out to branża `N` (Nawozy) and
+ * `D` (Nawozy dolistne) and merges/dedups by `itemId` — the caller just gets the
+ * combined catalogue.
+ */
+class SearchTowaryNawozyUseCase @Inject constructor(
+    private val repo: NawozyRepository,
+) {
+    suspend operator fun invoke(search: String? = null): Result<List<TowarNawoz>> =
+        repo.searchTowaryNawozy(search)
+}

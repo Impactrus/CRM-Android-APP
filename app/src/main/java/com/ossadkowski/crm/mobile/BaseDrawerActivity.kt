@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.core.view.GravityCompat
 import com.ossadkowski.crm.mobile.data.SessionManager
+import com.ossadkowski.crm.mobile.ui.nawozy.ZamowieniaNawozyActivity
+import com.ossadkowski.crm.mobile.ui.nawozy.access.NawozyAccessChecker
 
 abstract class BaseDrawerActivity : BaseActivity() {
 
@@ -100,7 +102,9 @@ abstract class BaseDrawerActivity : BaseActivity() {
         drawerSalesGrainTrade?.visibility = View.GONE
         drawerKontrahenci?.visibility = View.GONE
         drawerTowary?.visibility = View.GONE
-        drawerZamowienia?.visibility = View.GONE
+        // "Zamówienia" now launches the fertiliser-order module — visible only with access.
+        drawerZamowienia?.visibility =
+            if (NawozyAccessChecker(sessionManager).hasAccess()) View.VISIBLE else View.GONE
         drawerTransakcje?.visibility = View.GONE
         drawerWizyty?.visibility = View.GONE
         drawerOferty?.visibility = View.GONE
@@ -258,7 +262,10 @@ abstract class BaseDrawerActivity : BaseActivity() {
 
         drawerKontrahenci?.setOnClickListener(placeholderClick)
         drawerTowary?.setOnClickListener(placeholderClick)
-        drawerZamowienia?.setOnClickListener(placeholderClick)
+        drawerZamowienia?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            startActivity(Intent(this, ZamowieniaNawozyActivity::class.java))
+        }
         drawerTransakcje?.setOnClickListener(placeholderClick)
         drawerWizyty?.setOnClickListener(placeholderClick)
         drawerOferty?.setOnClickListener(placeholderClick)

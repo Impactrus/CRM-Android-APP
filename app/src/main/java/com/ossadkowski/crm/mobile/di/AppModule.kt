@@ -11,6 +11,7 @@ import com.ossadkowski.crm.mobile.data.cache.AppDatabase
 import com.ossadkowski.crm.mobile.data.db.CrmDatabase
 import com.ossadkowski.crm.mobile.data.device.DeviceIdProvider
 import com.ossadkowski.crm.mobile.data.device.FcmTokenProvider
+import com.ossadkowski.crm.mobile.data.nawozy.api.NawozyApi
 import com.ossadkowski.crm.mobile.data.serwis.api.ServiceOrderApi
 import com.ossadkowski.crm.mobile.data.serwis.parts.db.PartRequestDao
 import dagger.Module
@@ -32,6 +33,11 @@ object AppModule {
     @Singleton
     fun provideServiceOrderApi(): ServiceOrderApi =
         RetrofitClient.retrofit.create(ServiceOrderApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideNawozyApi(): NawozyApi =
+        RetrofitClient.retrofit.create(NawozyApi::class.java)
 
     @Provides
     @Singleton
