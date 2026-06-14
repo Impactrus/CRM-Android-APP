@@ -41,7 +41,9 @@ data class TowarPickerState(
 
     // cart context (loaded once), needed for pricing + logistics
     val paymTermId: String? = null,
+    val addressQuery: String = "",
     val addresses: List<AdresDostawy> = emptyList(),
+    val addressLoading: Boolean = false,
     val selectedAddress: AdresDostawy? = null,
 
     // selected-product sheet
@@ -94,10 +96,10 @@ class TowarPickerViewModel @Inject constructor(
 
     private var searchJob: Job? = null
     private var pricingJob: Job? = null
+    private var addressJob: Job? = null
 
     init {
         loadCartContext()
-        loadAddresses()
         search()
     }
 
@@ -109,16 +111,36 @@ class TowarPickerViewModel @Inject constructor(
         }
     }
 
-    private fun loadAddresses() {
-        viewModelScope.launch {
-            (getAddressBook(null) as? Result.Success)?.let { res ->
-                _state.update { it.copy(addresses = res.data, selectedAddress = it.selectedAddress ?: res.data.firstOrNull()) }
+    /**
+     * Address book is a hybrid AX+LOCAL search that REQUIRES search ≥ 2 chars
+     * (shorter/blank returns an empty page on purpose), so we query as the user types.
+     */
+    fun setAddressQuery(query: String) {
+        _state.update { it.copy(addressQuery = query) }
+        addressJob?.cancel()
+        if (query.trim().length < 2) {
+            _state.update { it.copy(addresses = emptyList(), addressLoading = false) }
+            return
+        }
+        addressJob = viewModelScope.launch {
+            delay(SEARCH_DEBOUNCE_MS)
+            _state.update { it.copy(addressLoading = true) }
+            when (val r = getAddressBook(query.trim())) {
+                is Result.Success -> _state.update { it.copy(addressLoading = false, addresses = r.data) }
+                is Result.Error -> _state.update { it.copy(addressLoading = false, addresses = emptyList()) }
+                Result.Loading -> Unit
             }
         }
     }
 
     fun selectAddress(address: AdresDostawy) {
-        _state.update { it.copy(selectedAddress = address) }
+        _state.update {
+            it.copy(
+                selectedAddress = address,
+                addressQuery = address.label.ifBlank { address.adres.orEmpty() },
+                addresses = emptyList(),
+            )
+        }
     }
 
     fun setQuery(query: String) {
