@@ -1,0 +1,11 @@
+package com.ossadkowski.crm.mobile.domain.nawozy.usecase
+
+import com.ossadkowski.crm.mobile.domain.common.Result
+import com.ossadkowski.crm.mobile.domain.nawozy.repository.NawozyRepository
+import javax.inject.Inject
+
+class AbandonKoszykUseCase @Inject constructor(
+    private val repo: NawozyRepository,
+) {
+    suspend operator fun invoke(koszykId: Long): Result<Unit> = repo.abandonKoszyk(koszykId)
+}

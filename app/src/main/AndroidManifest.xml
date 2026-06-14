@@ -87,6 +87,13 @@
             android:exported="false"
             android:theme="@style/Theme.OssadkowskiApp"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode" />
+
+        <!-- Zamówienia nawozy (fertiliser-order) Compose host -->
+        <activity
+            android:name=".ui.nawozy.ZamowieniaNawozyActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode" />
         
         <activity
             android:name=".KontrahentSearchActivity"
