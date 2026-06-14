@@ -13,8 +13,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -50,7 +50,7 @@ private val FILTERABLE_STATUSES = ZamowienieStatus.entries.filter { it != Zamowi
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ZamowieniaListScreen(
-    onMenuClick: () -> Unit,
+    onBack: () -> Unit,
     onCreateNew: () -> Unit,
     onOrderClick: (Long) -> Unit,
     viewModel: ZamowieniaListViewModel = hiltViewModel(),
@@ -71,8 +71,8 @@ fun ZamowieniaListScreen(
             TopAppBar(
                 title = { Text("Zamówienia nawozy") },
                 navigationIcon = {
-                    IconButton(onClick = onMenuClick) {
-                        Icon(Icons.Filled.Menu, contentDescription = "Menu")
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Powrót do menu")
                     }
                 },
             )
