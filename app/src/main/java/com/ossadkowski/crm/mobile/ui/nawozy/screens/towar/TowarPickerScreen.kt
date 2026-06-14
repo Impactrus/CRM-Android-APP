@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -144,6 +145,7 @@ fun TowarPickerScreen(
                 onQtyChange = viewModel::setQty,
                 onRabatChange = viewModel::setRabat,
                 onTargetPriceChange = viewModel::setTargetPrice,
+                onAddressQuery = viewModel::setAddressQuery,
                 onSelectAddress = viewModel::selectAddress,
                 onCalcLogistics = viewModel::loadWarianty,
                 onSelectWariant = viewModel::selectWariant,
@@ -205,6 +207,7 @@ private fun ProductSheet(
     onQtyChange: (Double) -> Unit,
     onRabatChange: (Double) -> Unit,
     onTargetPriceChange: (Double) -> Unit,
+    onAddressQuery: (String) -> Unit,
     onSelectAddress: (AdresDostawy) -> Unit,
     onCalcLogistics: () -> Unit,
     onSelectWariant: (WariantLogistyczny) -> Unit,
@@ -238,7 +241,7 @@ private fun ProductSheet(
         SectionLabel("Cena i rabat")
         if (state.paymTermId == null) {
             Text(
-                "Ustaw termin płatności w koszyku, aby policzyć cenę z kredytem kupieckim.",
+                "Ustaw termin płatności w koszyku, aby policzyć cenę z limitem.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -254,8 +257,10 @@ private fun ProductSheet(
         // Logistics
         SectionLabel("Kalkulator logistyczny")
         AddressDropdown(
-            selected = state.selectedAddress,
+            query = state.addressQuery,
             options = state.addresses,
+            loading = state.addressLoading,
+            onQueryChange = onAddressQuery,
             onSelect = onSelectAddress,
         )
         OutlinedButton(onClick = onCalcLogistics, enabled = !state.wariantyLoading) {
@@ -361,7 +366,7 @@ private fun PricingCalculator(
             Card {
                 Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     PriceLine("Cena bazowa", formatPln(p.cenaBazowa))
-                    PriceLine("Kredyt kupiecki", formatPln(p.kredytKupiecki))
+                    PriceLine("Dopłata za limit", formatPln(p.kredytKupiecki))
                     PriceLine("Rabat", "${p.rabatProcentowy}%")
                     PriceLine("Cena sprzedaży", formatPln(p.cenaSprzedazy), bold = true)
                     if (p.maxRabatPrzekroczony) {
@@ -389,28 +394,48 @@ private fun PriceLine(label: String, value: String, bold: Boolean = false) {
     }
 }
 
+/**
+ * Searchable delivery-address picker. The backend address book requires search ≥ 2
+ * characters (blank/short returns an empty page), so this is an editable field that
+ * queries as the user types and lists the matches to pick from.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AddressDropdown(
-    selected: AdresDostawy?,
+    query: String,
     options: List<AdresDostawy>,
+    loading: Boolean,
+    onQueryChange: (String) -> Unit,
     onSelect: (AdresDostawy) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = it }) {
+    val showMenu = expanded && options.isNotEmpty()
+    ExposedDropdownMenuBox(expanded = showMenu, onExpandedChange = { }) {
         OutlinedTextField(
-            value = selected?.label?.ifBlank { selected.adres ?: "" } ?: "",
-            onValueChange = {},
-            readOnly = true,
+            value = query,
+            onValueChange = {
+                onQueryChange(it)
+                expanded = true
+            },
+            singleLine = true,
             label = { Text("Adres dostawy") },
-            placeholder = { Text("Wybierz adres") },
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier.fillMaxWidth().menuAnchor(MenuAnchorType.PrimaryNotEditable),
+            placeholder = { Text("Wpisz min. 2 znaki…") },
+            trailingIcon = { if (loading) CircularProgressIndicator(Modifier.size(20.dp)) },
+            modifier = Modifier.fillMaxWidth().menuAnchor(MenuAnchorType.PrimaryEditable),
         )
-        ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+        ExposedDropdownMenu(expanded = showMenu, onDismissRequest = { expanded = false }) {
             options.forEach { option ->
+                val main = option.label.ifBlank { option.adres ?: "—" }
+                val sub = option.adres?.takeIf { it.isNotBlank() && it != main }
                 DropdownMenuItem(
-                    text = { Text(option.label.ifBlank { option.adres ?: "—" }) },
+                    text = {
+                        Column {
+                            Text(main, style = MaterialTheme.typography.bodyMedium)
+                            if (sub != null) {
+                                Text(sub, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                        }
+                    },
                     onClick = {
                         expanded = false
                         onSelect(option)

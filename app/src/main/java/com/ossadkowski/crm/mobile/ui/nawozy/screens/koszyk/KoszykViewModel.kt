@@ -40,7 +40,13 @@ data class KoszykState(
     val submittedStatus: ZamowienieStatus? = null,
     val message: String? = null,
 ) {
-    val requiresRisk: Boolean get() = limitStatus?.isRestricted == true
+    /**
+     * Risk acknowledgement is required when the customer is frozen/blocked OR over the
+     * credit limit. Over-limit orders are allowed — the excess is invoiced normally —
+     * but the salesperson must confirm awareness first.
+     */
+    val requiresRisk: Boolean
+        get() = limitStatus?.let { it.isRestricted || (it.dostepne ?: Double.MAX_VALUE) <= 0.0 } == true
     val canSubmit: Boolean
         get() = !submitting && (koszyk?.pozycje?.isNotEmpty() == true) && (!requiresRisk || riskAcknowledged)
 }
