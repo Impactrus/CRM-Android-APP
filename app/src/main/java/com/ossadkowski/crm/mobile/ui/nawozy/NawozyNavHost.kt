@@ -24,13 +24,13 @@ import com.ossadkowski.crm.mobile.ui.nawozy.screens.towar.TowarPickerScreen
 @Composable
 fun NawozyNavHost(
     navController: NavHostController = rememberNavController(),
-    onMenuClick: () -> Unit,
+    onExit: () -> Unit,
 ) {
     NavHost(navController = navController, startDestination = NawozyRoutes.LISTA) {
 
         composable(NawozyRoutes.LISTA) {
             ZamowieniaListScreen(
-                onMenuClick = onMenuClick,
+                onBack = onExit,
                 onCreateNew = { navController.navigate(NawozyRoutes.KONTRAHENT) },
                 onOrderClick = { koszykId -> navController.navigate(NawozyRoutes.koszyk(koszykId)) },
             )
