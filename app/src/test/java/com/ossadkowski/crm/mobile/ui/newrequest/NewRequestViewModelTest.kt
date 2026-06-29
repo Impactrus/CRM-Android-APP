@@ -21,6 +21,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.any
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
@@ -98,7 +99,7 @@ class NewRequestViewModelTest {
     @Test
     fun `submitWniosek success updates submitResult`() = runTest {
         val request = CreateWniosekRequest(1, "Urlop", null, "01-05", null, "reason", 1)
-        whenever(repository.createWniosekWithPhotos(any(), any(), any()))
+        whenever(repository.createWniosekWithPhotos(any(), any(), any(), anyOrNull()))
             .thenReturn(NetworkResult.Success(CreateWniosekResponse(1, "ok")))
 
         viewModel.submitWniosek(request, emptyList(), context)
@@ -110,7 +111,7 @@ class NewRequestViewModelTest {
     @Test
     fun `submitWniosek sets loading state`() = runTest {
         val request = CreateWniosekRequest(1, "Urlop", null, "01-05", null, "reason", 1)
-        whenever(repository.createWniosekWithPhotos(any(), any(), any()))
+        whenever(repository.createWniosekWithPhotos(any(), any(), any(), anyOrNull()))
             .thenReturn(NetworkResult.Success(CreateWniosekResponse(1, "ok")))
 
         viewModel.submitWniosek(request, emptyList(), context)
@@ -123,7 +124,7 @@ class NewRequestViewModelTest {
     @Test
     fun `submitWniosek error updates submitResult`() = runTest {
         val request = CreateWniosekRequest(1, "Urlop", null, "01-05", null, "reason", 1)
-        whenever(repository.createWniosekWithPhotos(any(), any(), any()))
+        whenever(repository.createWniosekWithPhotos(any(), any(), any(), anyOrNull()))
             .thenReturn(NetworkResult.Error("Validation error"))
 
         viewModel.submitWniosek(request, emptyList(), context)
@@ -136,7 +137,7 @@ class NewRequestViewModelTest {
     @Test
     fun `submitWniosek network error`() = runTest {
         val request = CreateWniosekRequest(1, "Urlop", null, "01-05", null, "reason", 1)
-        whenever(repository.createWniosekWithPhotos(any(), any(), any()))
+        whenever(repository.createWniosekWithPhotos(any(), any(), any(), anyOrNull()))
             .thenReturn(NetworkResult.Error("Network error"))
 
         viewModel.submitWniosek(request, emptyList(), context)
