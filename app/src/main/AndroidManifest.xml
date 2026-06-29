@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:sharedUserId="com.ossadkowski.crm.shared">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -81,14 +80,6 @@
         <activity android:name=".CustomerPanelActivity" android:exported="false" />
         <activity android:name=".WindykacjaKontrahentActivity" android:exported="false" />
         <activity android:name=".ui.sales.AxContractSearchActivity" />
-        <activity
-            android:name=".ui.sales.SalesCoverageActivity"
-            android:exported="false"
-            android:theme="@style/Theme.OssadkowskiApp" />
-        <activity
-            android:name=".ui.sales.SalesCoverageDetailActivity"
-            android:exported="false"
-            android:theme="@style/Theme.OssadkowskiApp" />
 
         <!-- Serwis (field-service) Compose host -->
         <activity
