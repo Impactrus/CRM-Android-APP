@@ -5,6 +5,7 @@ import com.ossadkowski.crm.mobile.data.wizyty.db.ContractorCoordDao
 import com.ossadkowski.crm.mobile.data.wizyty.db.ContractorCoordEntity
 import com.ossadkowski.crm.mobile.data.wizyty.db.VisitEventDao
 import com.ossadkowski.crm.mobile.data.wizyty.db.VisitEventEntity
+import com.ossadkowski.crm.mobile.data.wizyty.location.DetectionTuning
 import com.ossadkowski.crm.mobile.data.wizyty.mapper.toDomain
 import com.ossadkowski.crm.mobile.data.wizyty.mapper.toEntity
 import com.ossadkowski.crm.mobile.domain.common.Result
@@ -59,8 +60,17 @@ class VisitRepositoryImpl @Inject constructor(
         return result
     }
 
-    override suspend fun recordDetectedEvent(new: NewVisitEvent): Result<VisitEvent> =
-        insert(new, VisitSource.AUTO_GPS, VisitStatus.DETECTED)
+    override suspend fun recordDetectedEvent(new: NewVisitEvent): Result<VisitEvent> {
+        // Suppress duplicate auto-detections for the same contractor within the dedup
+        // window (re-fired DWELL / re-registered geofences would otherwise pile up rows).
+        val name = new.contractorName?.takeIf { it.isNotBlank() }
+        if (name != null) {
+            val since = Instant.now().minusMillis(DetectionTuning.DETECTION_DEDUP_WINDOW_MS)
+            val recent = runCatching { dao.countRecentDetected(name, since) }.getOrDefault(0)
+            if (recent > 0) return Result.Error("Wizyta u tego kontrahenta została już wykryta.")
+        }
+        return insert(new, VisitSource.AUTO_GPS, VisitStatus.DETECTED)
+    }
 
     private suspend fun insert(
         new: NewVisitEvent,

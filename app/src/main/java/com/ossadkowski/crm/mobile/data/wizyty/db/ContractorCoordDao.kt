@@ -10,6 +10,16 @@ import kotlinx.coroutines.flow.Flow
 @JvmSuppressWildcards
 interface ContractorCoordDao {
 
+    /**
+     * Insert-or-replace keyed by [ContractorCoordEntity.key]. REPLACE is intentional: re-saving
+     * the same contractor (same accountNum, or same typed name for a test location) updates the
+     * stored coordinates rather than creating a duplicate geofence target.
+     *
+     * Known limitation (acceptable while coordinates are local demo data): two *different*
+     * contractors that both lack an accountNum and share a name collapse onto one row. Once the
+     * backend exposes real `/kontrahenci` coordinates, the key becomes the stable accountNum and
+     * the collision disappears — see [ContractorCoordEntity.key].
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(e: ContractorCoordEntity): Long
 

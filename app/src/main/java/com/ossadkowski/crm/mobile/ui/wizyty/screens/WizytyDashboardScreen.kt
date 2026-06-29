@@ -107,6 +107,13 @@ fun WizytyDashboardScreen(
                         ) { Text("Zakończ sesję") }
 
                         if (!LocationPermissions.hasBackgroundLocation(context)) {
+                            Text(
+                                text = "Wykrywanie w tle działa niezawodnie tylko z uprawnieniem " +
+                                    "\"Zawsze zezwalaj\". Bez niego wizyty są wykrywane głównie, " +
+                                    "gdy aplikacja jest otwarta lub widoczne jest powiadomienie sesji.",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.error,
+                            )
                             TextButton(onClick = { openAppSettings(context) }) {
                                 Text("Włącz lokalizację w tle (Zawsze zezwalaj)")
                             }

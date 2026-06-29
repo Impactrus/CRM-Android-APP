@@ -18,7 +18,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.ossadkowski.crm.mobile.R
-import com.ossadkowski.crm.mobile.ui.wizyty.WizytyActivity
+import dagger.hilt.android.EntryPointAccessors
 
 /**
  * Foreground service for an active work session. Runs ONLY while the rep has a session
@@ -86,10 +86,14 @@ class VisitDetectionForegroundService : Service() {
         } else {
             PendingIntent.FLAG_UPDATE_CURRENT
         }
+        val provider = EntryPointAccessors.fromApplication(
+            applicationContext,
+            WizytyEngineEntryPoint::class.java,
+        ).wizytyContentIntentProvider()
         val contentIntent = PendingIntent.getActivity(
             this,
             0,
-            Intent(this, WizytyActivity::class.java),
+            provider.contentIntent(),
             flags,
         )
         return NotificationCompat.Builder(this, CHANNEL_ID)

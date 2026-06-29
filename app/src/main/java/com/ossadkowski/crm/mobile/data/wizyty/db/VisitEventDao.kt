@@ -25,6 +25,17 @@ interface VisitEventDao {
     @Query("SELECT * FROM visit_events WHERE status = 'CONFIRMED' AND syncStatus = 'PENDING_SYNC'")
     suspend fun pendingForSync(): List<VisitEventEntity>
 
+    /**
+     * How many auto-detected, still-pending visits exist for this contractor since [since].
+     * Used to suppress duplicate DWELL signals for the same stay. Rejected rows are excluded
+     * so a user who rejected a visit can still have a fresh one detected later.
+     */
+    @Query(
+        "SELECT COUNT(*) FROM visit_events WHERE source = 'AUTO_GPS' AND status = 'DETECTED' " +
+            "AND contractorName = :name AND occurredAt >= :since",
+    )
+    suspend fun countRecentDetected(name: String, since: Instant): Int
+
     @Query("UPDATE visit_events SET status = :status, syncStatus = :syncStatus, updatedAt = :updatedAt WHERE id = :id")
     suspend fun updateStatus(id: Long, status: String, syncStatus: String, updatedAt: Instant): Int
 

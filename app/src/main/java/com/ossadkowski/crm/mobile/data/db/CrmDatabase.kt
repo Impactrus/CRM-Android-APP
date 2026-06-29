@@ -25,7 +25,7 @@ import com.ossadkowski.crm.mobile.data.wizyty.db.VisitEventEntity
 @Database(
     entities = [PartRequestEntity::class, VisitEventEntity::class, ContractorCoordEntity::class],
     version = 3,
-    exportSchema = false,
+    exportSchema = true,
 )
 @TypeConverters(InstantConverter::class)
 abstract class CrmDatabase : RoomDatabase() {

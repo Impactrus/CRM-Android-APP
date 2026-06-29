@@ -60,8 +60,15 @@ class GeofenceManager @Inject constructor(
             .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_DWELL)
             .addGeofences(geofences)
             .build()
-        client.addGeofences(request, pendingIntent)
-            .addOnFailureListener { Log.e(TAG, "addGeofences failed", it) }
+        // Clear the previously-registered set first so the live geofences exactly match
+        // `contractors`. Otherwise geofences for contractors that were removed (e.g. a
+        // deleted test location) linger and keep firing. addGeofences only adds/updates
+        // the requestIds we pass — it never prunes stale ones.
+        client.removeGeofences(pendingIntent)
+            .addOnCompleteListener {
+                client.addGeofences(request, pendingIntent)
+                    .addOnFailureListener { Log.e(TAG, "addGeofences failed", it) }
+            }
     }
 
     fun clear() {

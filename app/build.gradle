@@ -63,6 +63,13 @@ android {
     }
 }
 
+// Export Room schemas so migrations can be regression-tested against the generated
+// CREATE statements (see MigrationDdlTest). The exported JSON is the ground truth that
+// Room's own TableInfo validation uses at runtime.
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 dependencies {  []
     implementation 'androidx.core:core-ktx:1.15.0'
     implementation 'androidx.appcompat:appcompat:1.7.0'

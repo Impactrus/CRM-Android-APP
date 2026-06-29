@@ -16,6 +16,13 @@ object DetectionTuning {
     /** DWELL / loitering delay (ms): only count a visit after staying ~5 min — filters drive-bys. */
     const val LOITERING_DELAY_MS = 300_000
 
+    /**
+     * Dedup window (ms): suppress a new auto-detected visit for the same contractor if one
+     * was already recorded within this window. GMS can re-fire DWELL and a re-started
+     * session re-registers geofences, so without this the same stay produces duplicate rows.
+     */
+    const val DETECTION_DEDUP_WINDOW_MS = 1_800_000L // 30 min
+
     /** Geofence notification responsiveness (ms): relaxed → fewer wake-ups, acceptable lag. */
     const val NOTIFICATION_RESPONSIVENESS_MS = 300_000
 

@@ -20,4 +20,5 @@ interface WizytyEngineEntryPoint {
     fun geofenceManager(): GeofenceManager
     fun wizytyPrefs(): WizytyPrefs
     fun wizytyNotifier(): WizytyNotifier
+    fun wizytyContentIntentProvider(): WizytyContentIntentProvider
 }

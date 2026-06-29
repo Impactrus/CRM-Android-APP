@@ -106,6 +106,31 @@ class VisitRepositoryImplTest {
     }
 
     @Test
+    fun `recordDetectedEvent is suppressed when a recent detection exists for the contractor`() = runTest {
+        whenever(visitDao.countRecentDetected(eq("X"), any())).thenReturn(1)
+
+        val result = repo.recordDetectedEvent(
+            NewVisitEvent(contractorName = "X", eventType = VisitEventType.DWELL),
+        )
+
+        assertTrue(result is Result.Error)
+        verify(visitDao, never()).insert(any())
+    }
+
+    @Test
+    fun `recordDetectedEvent records when no recent detection exists`() = runTest {
+        whenever(visitDao.countRecentDetected(eq("Y"), any())).thenReturn(0)
+        whenever(visitDao.insert(any())).thenReturn(8L)
+
+        val result = repo.recordDetectedEvent(
+            NewVisitEvent(contractorName = "Y", eventType = VisitEventType.DWELL),
+        )
+
+        assertTrue(result is Result.Success)
+        verify(visitDao).insert(any())
+    }
+
+    @Test
     fun `confirm sets CONFIRMED and PENDING_SYNC`() = runTest {
         whenever(visitDao.updateStatus(eq(1L), eq("CONFIRMED"), eq("PENDING_SYNC"), any())).thenReturn(1)
 

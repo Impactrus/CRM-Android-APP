@@ -3,7 +3,6 @@ package com.ossadkowski.crm.mobile.data.wizyty.location
 import android.Manifest
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
@@ -11,7 +10,6 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.ossadkowski.crm.mobile.R
 import com.ossadkowski.crm.mobile.fcm.NotificationChannelHelper
-import com.ossadkowski.crm.mobile.ui.wizyty.WizytyActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -23,10 +21,14 @@ import javax.inject.Singleton
  *
  * This is an on-device ("local") notification, not a server push — detection happens on
  * the device, so there is no backend round-trip to deliver an FCM message.
+ *
+ * The tap target comes from [WizytyContentIntentProvider] (implemented in the ui layer)
+ * so this data-layer class never imports a concrete Activity.
  */
 @Singleton
 class WizytyNotifier @Inject constructor(
     @ApplicationContext private val context: Context,
+    private val contentIntentProvider: WizytyContentIntentProvider,
 ) {
     fun notifyDetectedVisit(contractorName: String?) {
         if (!canPostNotifications()) return
@@ -40,7 +42,7 @@ class WizytyNotifier @Inject constructor(
         val contentIntent = PendingIntent.getActivity(
             context,
             0,
-            Intent(context, WizytyActivity::class.java),
+            contentIntentProvider.contentIntent(),
             flags,
         )
         val notification = NotificationCompat.Builder(context, NotificationChannelHelper.CHANNEL_ID)
