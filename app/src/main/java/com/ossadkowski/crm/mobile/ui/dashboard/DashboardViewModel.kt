@@ -129,10 +129,11 @@ class DashboardViewModel(
 
     fun loadSaldo() {
         viewModelScope.launch {
-            _saldo.value = repository.getPrawoPracySaldo()
-            _vacationSummary.value = repository.getVacationSummary()
-            _homeOfficeSaldo.value = repository.getHomeOfficeSaldo()
-            _overtimeSaldo.value = repository.getOvertimeSaldo()
+            // Load all different balances in parallel using separate coroutines
+            launch { _saldo.value = repository.getPrawoPracySaldo() }
+            launch { _vacationSummary.value = repository.getVacationSummary() }
+            launch { _homeOfficeSaldo.value = repository.getHomeOfficeSaldo() }
+            launch { _overtimeSaldo.value = repository.getOvertimeSaldo() }
         }
     }
 

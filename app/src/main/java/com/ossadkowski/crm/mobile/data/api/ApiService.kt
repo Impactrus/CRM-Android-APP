@@ -331,6 +331,27 @@ interface ApiService {
         @Body request: ReviewTransportPriceRequest
     ): Response<Any>
 
+    // ── Pokrycie sprzedaży ──
+    @GET("grain-sales-coverage")
+    suspend fun getSalesCoverage(
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int,
+        @Query("search") search: String? = null,
+        @Query("itemId") itemId: String? = null,
+        @Query("periodMonth") periodMonth: String? = null,
+        @Query("dkz") dkz: String? = null,
+        @Query("risk") risk: String? = null
+    ): GenericPageResponse<SalesCoverageListItem>
+
+    @GET("grain-sales-coverage/facets")
+    suspend fun getSalesCoverageFacets(): SalesCoverageFacetsResponse
+
+    @POST("grain-sales-coverage/sync")
+    suspend fun syncSalesCoverage(): Response<Any>
+
+    @GET("grain-sales-coverage/{id}")
+    suspend fun getSalesCoverageDetail(@Path("id") id: String): SalesCoverageDetailResponse
+
     // ── Umowy zbożowe ──
     @GET("grain-contracts")
     suspend fun getGrainContracts(

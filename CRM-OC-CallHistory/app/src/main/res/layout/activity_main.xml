@@ -29,6 +29,18 @@
             android:textColor="@color/crm_heading"
             android:textSize="18sp" />
 
+        <ImageView
+            android:id="@+id/btn_topbar_settings"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="12dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="6dp"
+            android:src="@drawable/ic_settings"
+            app:tint="@color/crm_primary" />
+
         <TextView
             android:id="@+id/topbar_avatar"
             android:layout_width="36dp"
@@ -88,14 +100,62 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_check"
-                app:tint="@color/crm_secondary" />
+                app:tint="@color/crm_placeholder" />
             <TextView
                 android:id="@+id/nav_tasks_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Zadania"
                 android:textSize="11sp"
-                android:textColor="@color/crm_secondary"
+                android:textColor="@color/crm_placeholder"
+                android:fontFamily="sans-serif"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_organizer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground">
+            <ImageView
+                android:id="@+id/nav_organizer_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_check"
+                app:tint="@color/crm_placeholder" />
+            <TextView
+                android:id="@+id/nav_organizer_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kontrahenci"
+                android:textSize="11sp"
+                android:textColor="@color/crm_placeholder"
+                android:fontFamily="sans-serif"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_gps"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground">
+            <ImageView
+                android:id="@+id/nav_gps_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_gps"
+                app:tint="@color/crm_placeholder" />
+            <TextView
+                android:id="@+id/nav_gps_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GPS"
+                android:textSize="11sp"
+                android:textColor="@color/crm_placeholder"
                 android:fontFamily="sans-serif"/>
         </LinearLayout>
     </LinearLayout>
@@ -145,15 +205,32 @@
                     android:textSize="13sp"
                     android:layout_marginBottom="12dp" />
 
-                <Button
-                    android:id="@+id/btn_grant"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/button_small_height"
-                    android:backgroundTint="@color/crm_primary"
-                    android:text="@string/btn_grant"
-                    android:textColor="@color/white"
-                    app:cornerRadius="6dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_grant"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/button_small_height"
+                        android:backgroundTint="@color/crm_primary"
+                        android:text="@string/btn_grant"
+                        android:textColor="@color/white"
+                        android:layout_marginEnd="8dp"
+                        app:cornerRadius="6dp" />
+
+                    <Button
+                        android:id="@+id/btn_settings"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/button_small_height"
+                        android:text="Ustawienia"
+                        android:textColor="@color/crm_primary"
+                        app:strokeColor="@color/crm_primary"
+                        app:cornerRadius="6dp" />
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Stats Card Container (2 Mini Cards) -->
@@ -487,6 +564,128 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tasks_header" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Content Organizer Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_organizer_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+
+        <!-- Header controls for Organizer -->
+        <LinearLayout
+            android:id="@+id/organizer_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Search input for contractors -->
+            <EditText
+                android:id="@+id/et_kontrahent_search_input"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_search_bar"
+                android:hint="Szukaj kontrahenta..."
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/crm_heading"
+                android:textColorHint="@color/crm_placeholder"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+            <!-- Sync Button -->
+            <Button
+                android:id="@+id/btn_sync_crm"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/crm_primary"
+                android:text="Wyszukaj w CRM"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+
+        <!-- Organizer Recycler View -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/organizer_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/organizer_header" />
+
+        <!-- Organizer Empty State -->
+        <TextView
+            android:id="@+id/organizer_empty_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wpisz szukaną frazę (min. 3 znaki) i kliknij 'Wyszukaj w CRM'."
+            android:textColor="@color/crm_secondary"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:padding="24dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/organizer_header" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Content GPS Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_gps_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+
+        <!-- GPS Header -->
+        <LinearLayout
+            android:id="@+id/gps_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btn_sync_gps"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/crm_primary"
+                android:text="Wyszukaj i pokaż na mapie"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+
+            <TextView
+                android:id="@+id/gps_info_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mapa kontrahentów"
+                android:textColor="@color/crm_secondary"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Map View -->
+        <org.osmdroid.views.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/gps_header"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

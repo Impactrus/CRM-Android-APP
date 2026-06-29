@@ -238,6 +238,11 @@ abstract class BaseDrawerActivity : BaseActivity() {
             drawerLayout.closeDrawers()
             navigateTo(GrainContractsListActivity::class.java)
         }
+        val salesCoverageView = drawerLayout.findViewById<View>(R.id.drawer_sales_coverage)
+        salesCoverageView?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            navigateTo(com.ossadkowski.crm.mobile.ui.sales.SalesCoverageActivity::class.java)
+        }
         drawerSalesReps?.setOnClickListener {
             drawerLayout.closeDrawers()
             navigateTo(HandlowcyListActivity::class.java)

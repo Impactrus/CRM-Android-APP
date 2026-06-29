@@ -896,3 +896,59 @@ data class WindykacjaProfilDto(
     val glowaRodziny: String?
 )
 
+// ── Pokrycie Sprzedaży (Sales Coverage) ──
+data class SalesCoverageListItem(
+    @SerializedName("axContractId") val contractNumber: String?,
+    @SerializedName("customerName") val clientName: String?,
+    @SerializedName("itemId") val itemName: String?,
+    val salesQty: Double?,
+    val coverageQty: Double?,
+    @SerializedName("coveragePct") val coveragePercent: Double?,
+    @SerializedName("deliveryPct") val deliveryPercent: Double?,
+    val gapQty: Double?,
+    @SerializedName("salesPrice") val price: Double?,
+    val spread: Double?,
+    val dkz: String?,
+    val dueDate: String?,
+    @SerializedName("risk") val status: String?
+)
+
+data class SalesCoverageItemFacet(
+    val id: String?,
+    val name: String?
+)
+
+data class SalesCoverageFacetsResponse(
+    val items: List<SalesCoverageItemFacet>?,
+    val periods: List<String>?,
+    val dkzList: List<String>?
+)
+
+data class SalesCoveragePurchase(
+    val contractNumber: String?,
+    val vendAccount: String?,
+    val vendName: String?,
+    val itemId: String?,
+    val itemName: String?,
+    val qty: Double?,
+    val price: Double?,
+    val spread: Double?,
+    val status: String?
+)
+
+data class SalesCoverageDetailResponse(
+    val header: SalesCoverageListItem?,
+    val description: String?,
+    val contractDate: String?,
+    val realizationDateFrom: String?,
+    val realizationDateTo: String?,
+    val customerAccount: String?,
+    val axActiveClosed: Int?,
+    val purchases: List<SalesCoveragePurchase>?,
+    val salesRealizations: List<Any>?,
+    val purchaseRealizations: List<Any>?,
+    val deliveries: List<Any>?
+)
+
+
+

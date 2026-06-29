@@ -74,13 +74,13 @@ class DashboardActivity : BaseDrawerActivity() {
 
         initSession()
 
-        // Evict expired cache + prefetch reference data in background
+        // Evict expired cache + prefetch reference data in background in parallel
         CoroutineScope(Dispatchers.IO).launch {
-            try { RetrofitClient.cacheDb.evictExpired() } catch (_: Exception) {}
+            launch { try { RetrofitClient.cacheDb.evictExpired() } catch (_: Exception) {} }
             val prefetchRepo = com.ossadkowski.crm.mobile.data.repository.NewRequestRepository()
-            try { prefetchRepo.getTypy() } catch (_: Exception) {}
-            try { prefetchRepo.getRodzajeUrlopu() } catch (_: Exception) {}
-            try { prefetchRepo.getUzytkownicy() } catch (_: Exception) {}
+            launch { try { prefetchRepo.getTypy() } catch (_: Exception) {} }
+            launch { try { prefetchRepo.getRodzajeUrlopu() } catch (_: Exception) {} }
+            launch { try { prefetchRepo.getUzytkownicy() } catch (_: Exception) {} }
         }
 
         wnioskiAdapter = WnioskiAdapter(onClick = { wniosek ->

@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F5F7FA">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:elevation="0dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <ImageView
+                        android:id="@+id/backButton"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_arrow_back"
+                        app:tint="#4A5568" />
+
+                    <TextView
+                        android:id="@+id/textToolbarTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Pokrycie kontraktu zbożowego"
+                        android:textColor="#2D3748"
+                        android:textSize="17sp" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <!-- Podsumowanie Nagłówka -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:strokeWidth="0dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:id="@+id/textDetailContractHeader"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Kontrakt klienta z AX: -"
+                                    android:textColor="#2D3748"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginTop="8dp">
+
+                                    <TextView
+                                        android:id="@+id/textDetailAxStatus"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Status AX -"
+                                        android:textColor="#4A5568"
+                                        android:textSize="12sp"
+                                        android:paddingHorizontal="6dp"
+                                        android:paddingVertical="2dp"
+                                        android:background="#EDF2F7"/>
+
+                                    <TextView
+                                        android:id="@+id/textDetailCoveragePercent"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Pokrycie -"
+                                        android:textColor="#0D9488"
+                                        android:textSize="12sp"
+                                        android:paddingHorizontal="6dp"
+                                        android:paddingVertical="2dp"
+                                        android:background="#E6FFFA"/>
+
+                                    <TextView
+                                        android:id="@+id/textDetailDeliveryPercent"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Dostarczono -"
+                                        android:textColor="#10B981"
+                                        android:textSize="12sp"
+                                        android:paddingHorizontal="6dp"
+                                        android:paddingVertical="2dp"
+                                        android:background="#ECFDF5"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Sekcja Metryk (Grid) -->
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:columnCount="2"
+                            android:rowCount="3"
+                            android:layout_marginBottom="12dp"
+                            android:alignmentMode="alignMargins"
+                            android:columnOrderPreserved="false">
+
+                            <!-- Ilość sprzedaży -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="4dp"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="1dp"
+                                app:strokeWidth="0dp">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="12dp">
+                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ilość sprzedaży" android:textColor="#718096" android:textSize="11sp"/>
+                                    <TextView android:id="@+id/metricSalesQty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textColor="#2D3748" android:textSize="16sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Pokrycie zakupem -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="4dp"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="1dp"
+                                app:strokeWidth="0dp">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="12dp">
+                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pokrycie zakupem" android:textColor="#718096" android:textSize="11sp"/>
+                                    <TextView android:id="@+id/metricCoverageQty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textColor="#2D3748" android:textSize="16sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Luka -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="4dp"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="1dp"
+                                app:strokeWidth="0dp">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="12dp">
+                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Luka" android:textColor="#718096" android:textSize="11sp"/>
+                                    <TextView android:id="@+id/metricGapQty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textColor="#E53E3E" android:textSize="16sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Cena sprzedaży -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="4dp"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="1dp"
+                                app:strokeWidth="0dp">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="12dp">
+                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cena sprzedaży" android:textColor="#718096" android:textSize="11sp"/>
+                                    <TextView android:id="@+id/metricSalesPrice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textColor="#2D3748" android:textSize="16sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Śr. zakup -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="4dp"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="1dp"
+                                app:strokeWidth="0dp">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="12dp">
+                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Śr. zakup" android:textColor="#718096" android:textSize="11sp"/>
+                                    <TextView android:id="@+id/metricPurchasePrice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textColor="#2D3748" android:textSize="16sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Spread -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="4dp"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="1dp"
+                                app:strokeWidth="0dp">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="12dp">
+                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Spread" android:textColor="#718096" android:textSize="11sp"/>
+                                    <TextView android:id="@+id/metricSpread" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textColor="#2D3748" android:textSize="16sp" android:textStyle="bold" android:layout_marginTop="4dp"/>
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </GridLayout>
+
+                        <!-- Karta: Kontrakt sprzedażowy klienta -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:strokeWidth="0dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Kontrakt sprzedażowy klienta"
+                                    android:textColor="#2D3748"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textClientInfo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="-"
+                                    android:textColor="#718096"
+                                    android:textSize="13sp" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#E2E8F0"
+                                    android:layout_marginVertical="12dp" />
+
+                                <!-- Szczegóły tabelaryczne -->
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TOWAR" android:textColor="#A0AEC0" android:textSize="10sp"/>
+                                <TextView android:id="@+id/textDetailItem" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textColor="#2D3748" android:textSize="13sp" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TERMIN REALIZACJI" android:textColor="#A0AEC0" android:textSize="10sp"/>
+                                <TextView android:id="@+id/textDetailTermin" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textColor="#2D3748" android:textSize="13sp" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Karta: Kontrola marży i ryzyka -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:strokeWidth="0dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Kontrola marży i ryzyka"
+                                    android:textColor="#2D3748"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="Roboczy wynik na podpiętych zakupach"
+                                    android:textColor="#A0AEC0"
+                                    android:textSize="12sp" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#E2E8F0"
+                                    android:layout_marginVertical="12dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginBottom="6dp">
+                                    <TextView android:id="@+id/labelMarginSales" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sprzedaż - t * - PLN/t" android:textColor="#4A5568" android:textSize="13sp"/>
+                                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                                    <TextView android:id="@+id/valMarginSales" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="- PLN" android:textColor="#2D3748" android:textSize="13sp" android:textStyle="bold"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginBottom="12dp">
+                                    <TextView android:id="@+id/labelMarginPurchase" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Zakup - t * - PLN/t" android:textColor="#4A5568" android:textSize="13sp"/>
+                                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                                    <TextView android:id="@+id/valMarginPurchase" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="- PLN" android:textColor="#2D3748" android:textSize="13sp" android:textStyle="bold"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+                                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Spread na pokryciu" android:textColor="#2D3748" android:textSize="14sp" android:textStyle="bold"/>
+                                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                                    <TextView android:id="@+id/valSpreadTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="- PLN" android:textColor="#10B981" android:textSize="15sp" android:textStyle="bold"/>
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Karta: Podpięte Zakupy -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:strokeWidth="0dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Podpięte zakupy dostawców"
+                                    android:textColor="#2D3748"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#E2E8F0"
+                                    android:layout_marginVertical="12dp" />
+
+                                <TextView
+                                    android:id="@+id/textDetailPurchasesList"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Brak podpiętych zakupów"
+                                    android:textColor="#718096"
+                                    android:textSize="13sp" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <include
+            android:id="@+id/includeDrawer"
+            layout="@layout/nav_drawer_content" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>
