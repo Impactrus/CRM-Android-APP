@@ -2,6 +2,7 @@ package com.ossadkowski.crm.mobile.data.repository
 
 import com.ossadkowski.crm.mobile.data.NetworkResult
 import com.ossadkowski.crm.mobile.data.api.ApiService
+import com.ossadkowski.crm.mobile.data.cache.AppDatabase
 import com.ossadkowski.crm.mobile.data.model.ZamrozenieDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,13 +25,18 @@ import org.mockito.kotlin.whenever
 class CalendarRepositoryTest {
 
     @Mock lateinit var apiService: ApiService
+    @Mock lateinit var db: AppDatabase
     private lateinit var repository: CalendarRepository
     private val testDispatcher = StandardTestDispatcher()
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        repository = CalendarRepository(apiService)
+        // Pass a mock cache DB so the constructor doesn't resolve the default
+        // RetrofitClient.cacheDb (which needs an initialized Android appContext).
+        // With no cache entries stubbed, getValid/getAny return null → cache miss →
+        // the network branch is exercised exactly as before.
+        repository = CalendarRepository(apiService, db)
     }
 
     @After

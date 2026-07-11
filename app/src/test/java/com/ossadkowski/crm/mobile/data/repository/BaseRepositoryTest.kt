@@ -53,10 +53,10 @@ class BaseRepositoryTest {
     }
 
     @Test
-    fun `safeApiCall returns Error with Unknown Error for null message`() = runTest {
+    fun `safeApiCall returns Error with default message for null message`() = runTest {
         val result = repository.callApi<String> { throw RuntimeException() }
         assertTrue(result is NetworkResult.Error)
-        assertEquals("Unknown Error", result.message)
+        assertEquals("Nieoczekiwany błąd.", result.message)
     }
 
     @Test(expected = CancellationException::class)
@@ -86,6 +86,7 @@ class BaseRepositoryTest {
             throw java.io.IOException("timeout")
         }
         assertTrue(result is NetworkResult.Error)
-        assertEquals("timeout", result.message)
+        // IOException is mapped to a friendly, user-facing Polish message.
+        assertEquals("Brak połączenia z serwerem.", result.message)
     }
 }

@@ -30,6 +30,10 @@ class SessionManagerTest {
                 prefsStore[invocation.getArgument(0)] = invocation.getArgument<Int>(1)
                 mockEditor
             }
+            on { putStringSet(any(), anyOrNull()) } doAnswer { invocation ->
+                prefsStore[invocation.getArgument(0)] = invocation.getArgument<Set<String>?>(1)
+                mockEditor
+            }
             on { clear() } doAnswer {
                 prefsStore.clear()
                 mockEditor
@@ -44,6 +48,10 @@ class SessionManagerTest {
             }
             on { getInt(any(), any()) } doAnswer { invocation ->
                 prefsStore[invocation.getArgument(0)] as? Int ?: invocation.getArgument(1)
+            }
+            @Suppress("UNCHECKED_CAST")
+            on { getStringSet(any(), anyOrNull()) } doAnswer { invocation ->
+                prefsStore[invocation.getArgument(0)] as? Set<String> ?: invocation.getArgument(1)
             }
         }
 

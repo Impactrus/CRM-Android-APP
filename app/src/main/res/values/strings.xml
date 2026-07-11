@@ -78,9 +78,6 @@
     <string name="drawer_sales_orders">Zamówienia</string>
     <string name="drawer_sales_transport">Transport zbóż</string>
     <string name="drawer_sales_contracts">Umowy zbożowe</string>
-    <string name="drawer_sales_coverage">Pokrycie sprzedaży</string>
-    <string name="sales_coverage_title">Pokrycie sprzedaży</string>
-    <string name="sales_coverage_subtitle">Monitoruj pokrycie kontraktów sprzedażowych zakupami</string>
     <string name="drawer_sales_reps">Handlowcy</string>
     <string name="drawer_sales_client_panel">Panel klienta</string>
     <string name="drawer_sales_clients">Kontrahenci</string>

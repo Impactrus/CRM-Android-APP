@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat
 import com.ossadkowski.crm.mobile.data.SessionManager
 import com.ossadkowski.crm.mobile.ui.nawozy.ZamowieniaNawozyActivity
 import com.ossadkowski.crm.mobile.ui.nawozy.access.NawozyAccessChecker
+import com.ossadkowski.crm.mobile.ui.wizyty.WizytyActivity
 
 abstract class BaseDrawerActivity : BaseActivity() {
 
@@ -106,7 +107,8 @@ abstract class BaseDrawerActivity : BaseActivity() {
         drawerZamowienia?.visibility =
             if (NawozyAccessChecker(sessionManager).hasAccess()) View.VISIBLE else View.GONE
         drawerTransakcje?.visibility = View.GONE
-        drawerWizyty?.visibility = View.GONE
+        // "Wizyty" (GPS visit detection) is open to every logged-in user (no claim gate).
+        drawerWizyty?.visibility = View.VISIBLE
         drawerOferty?.visibility = View.GONE
         drawerCrm?.visibility = View.GONE
         drawerInfo?.visibility = View.GONE
@@ -238,11 +240,6 @@ abstract class BaseDrawerActivity : BaseActivity() {
             drawerLayout.closeDrawers()
             navigateTo(GrainContractsListActivity::class.java)
         }
-        val salesCoverageView = drawerLayout.findViewById<View>(R.id.drawer_sales_coverage)
-        salesCoverageView?.setOnClickListener {
-            drawerLayout.closeDrawers()
-            navigateTo(com.ossadkowski.crm.mobile.ui.sales.SalesCoverageActivity::class.java)
-        }
         drawerSalesReps?.setOnClickListener {
             drawerLayout.closeDrawers()
             navigateTo(HandlowcyListActivity::class.java)
@@ -272,7 +269,10 @@ abstract class BaseDrawerActivity : BaseActivity() {
             startActivity(Intent(this, ZamowieniaNawozyActivity::class.java))
         }
         drawerTransakcje?.setOnClickListener(placeholderClick)
-        drawerWizyty?.setOnClickListener(placeholderClick)
+        drawerWizyty?.setOnClickListener {
+            drawerLayout.closeDrawers()
+            startActivity(Intent(this, WizytyActivity::class.java))
+        }
         drawerOferty?.setOnClickListener(placeholderClick)
         drawerCrm?.setOnClickListener(placeholderClick)
         drawerInfo?.setOnClickListener(placeholderClick)

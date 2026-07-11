@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:sharedUserId="com.ossadkowski.crm.shared">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Wizyty (GPS visit detection): location, activity recognition, foreground
+         service (location type), and geofence re-registration after reboot. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".OssadkowskiApp"
@@ -81,14 +90,6 @@
         <activity android:name=".CustomerPanelActivity" android:exported="false" />
         <activity android:name=".WindykacjaKontrahentActivity" android:exported="false" />
         <activity android:name=".ui.sales.AxContractSearchActivity" />
-        <activity
-            android:name=".ui.sales.SalesCoverageActivity"
-            android:exported="false"
-            android:theme="@style/Theme.OssadkowskiApp" />
-        <activity
-            android:name=".ui.sales.SalesCoverageDetailActivity"
-            android:exported="false"
-            android:theme="@style/Theme.OssadkowskiApp" />
 
         <!-- Serwis (field-service) Compose host -->
         <activity
@@ -103,6 +104,38 @@
             android:exported="false"
             android:theme="@style/Theme.OssadkowskiApp"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode" />
+
+        <!-- Wizyty (GPS visit detection) Compose host. -->
+        <activity
+            android:name=".ui.wizyty.WizytyActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OssadkowskiApp"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode" />
+
+        <!-- Wizyty detection engine: foreground service (location type) runs only during
+             an active work session; geofence/activity receivers are app-internal; the
+             boot receiver re-registers geofences after a reboot. -->
+        <service
+            android:name=".data.wizyty.location.VisitDetectionForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="location" />
+
+        <receiver
+            android:name=".data.wizyty.location.GeofenceBroadcastReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".data.wizyty.location.ActivityTransitionReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".data.wizyty.location.BootCompletedReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
         
         <activity
             android:name=".KontrahentSearchActivity"
