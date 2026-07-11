@@ -2,6 +2,8 @@ package com.ossadkowski.crm.mobile.data.repository
 
 import com.ossadkowski.crm.mobile.data.NetworkResult
 import com.ossadkowski.crm.mobile.data.api.ApiService
+import com.ossadkowski.crm.mobile.data.cache.AppDatabase
+import com.ossadkowski.crm.mobile.data.cache.ActionQueue
 import com.ossadkowski.crm.mobile.data.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,13 +27,15 @@ import org.mockito.kotlin.whenever
 class TasksRepositoryTest {
 
     @Mock lateinit var apiService: ApiService
+    @Mock lateinit var db: AppDatabase
+    @Mock lateinit var actionQueue: ActionQueue
     private lateinit var repository: TasksRepository
     private val testDispatcher = StandardTestDispatcher()
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        repository = TasksRepository(apiService)
+        repository = TasksRepository(apiService, db, actionQueue)
     }
 
     @After
@@ -42,12 +46,12 @@ class TasksRepositoryTest {
     @Test
     fun `getList success`() = runTest {
         val item = TaskListItemDto(1, null, "typ", "Title", "Firma", "2026-01-01", "User", 1, "nowy", false, "2026-01-01", "Creator")
-        val response = PaginatedResponse(items = listOf(item), totalCount = 1, totalPages = 1)
+        val response = PaginatedResponse(_items = listOf(item), _totalCount = 1, _totalPages = 1)
         whenever(apiService.getTasksV2(any(), any(), anyOrNull(), anyOrNull(), anyOrNull())).thenReturn(response)
 
         val result = repository.getList(1, 10, null, null, null)
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
         assertEquals(1, result.data?.items?.size)
     }
 
@@ -57,7 +61,7 @@ class TasksRepositoryTest {
 
         val result = repository.getList(1, 10, null, null, null)
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Error<*>)
     }
 
     @Test
@@ -67,7 +71,7 @@ class TasksRepositoryTest {
 
         val result = repository.getDetail(1)
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
         assertEquals(1, result.data?.id)
     }
 
@@ -77,7 +81,7 @@ class TasksRepositoryTest {
 
         val result = repository.getDetail(99)
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Error<*>)
     }
 
     @Test
@@ -87,7 +91,7 @@ class TasksRepositoryTest {
 
         val result = repository.getComments(1)
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
         assertEquals(1, result.data?.size)
     }
 
@@ -97,7 +101,7 @@ class TasksRepositoryTest {
 
         val result = repository.getComments(1)
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Error<*>)
     }
 
     @Test
@@ -106,7 +110,7 @@ class TasksRepositoryTest {
 
         val result = repository.addComment(1, "My comment")
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
     }
 
     @Test
@@ -115,7 +119,8 @@ class TasksRepositoryTest {
 
         val result = repository.addComment(1, "My comment")
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Success<*>)
+        assertEquals("queued_offline", (result as NetworkResult.Success).data)
     }
 
     @Test
@@ -125,17 +130,17 @@ class TasksRepositoryTest {
 
         val result = repository.getFiles(1)
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
     }
 
     @Test
     fun `getHistoria success`() = runTest {
-        val historia = listOf(TaskHistoriaDto(1, "user", "zmiana", "old", "new", null, "2026-01-01"))
+        val historia = listOf(TaskHistoriaDto(1, "zmiana", "user", "szczegoly", "2026-01-01"))
         whenever(apiService.getTaskHistoria(any())).thenReturn(historia)
 
         val result = repository.getHistoria(1)
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
     }
 
     @Test
@@ -145,7 +150,7 @@ class TasksRepositoryTest {
 
         val result = repository.getObservers(1)
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
     }
 
     @Test
@@ -154,7 +159,7 @@ class TasksRepositoryTest {
 
         val result = repository.changeStatus(1, "w_trakcie")
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
     }
 
     @Test
@@ -163,6 +168,7 @@ class TasksRepositoryTest {
 
         val result = repository.changeStatus(1, "w_trakcie")
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Success<*>)
+        assertEquals("queued_offline", (result as NetworkResult.Success).data)
     }
 }

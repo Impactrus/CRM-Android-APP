@@ -1,7 +1,10 @@
 package com.ossadkowski.crm.mobile.data.repository
 
 import com.ossadkowski.crm.mobile.data.NetworkResult
+import android.content.Context
 import com.ossadkowski.crm.mobile.data.api.ApiService
+import com.ossadkowski.crm.mobile.data.cache.AppDatabase
+import com.ossadkowski.crm.mobile.data.cache.ActionQueue
 import com.ossadkowski.crm.mobile.data.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,13 +27,16 @@ import org.mockito.kotlin.whenever
 class NewRequestRepositoryTest {
 
     @Mock lateinit var apiService: ApiService
+    @Mock lateinit var db: AppDatabase
+    @Mock lateinit var actionQueue: ActionQueue
+    @Mock lateinit var context: Context
     private lateinit var repository: NewRequestRepository
     private val testDispatcher = StandardTestDispatcher()
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        repository = NewRequestRepository(apiService)
+        repository = NewRequestRepository(apiService, db, actionQueue)
     }
 
     @After
@@ -45,7 +51,7 @@ class NewRequestRepositoryTest {
 
         val result = repository.getTypy()
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
         assertEquals(2, result.data?.size)
     }
 
@@ -55,7 +61,7 @@ class NewRequestRepositoryTest {
 
         val result = repository.getTypy()
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Error<*>)
     }
 
     @Test
@@ -65,7 +71,7 @@ class NewRequestRepositoryTest {
 
         val result = repository.getRodzajeUrlopu()
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
         assertEquals(1, result.data?.size)
     }
 
@@ -75,7 +81,7 @@ class NewRequestRepositoryTest {
 
         val result = repository.getRodzajeUrlopu()
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Error<*>)
     }
 
     @Test
@@ -85,7 +91,7 @@ class NewRequestRepositoryTest {
 
         val result = repository.getUzytkownicy()
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
         assertEquals(1, result.data?.size)
     }
 
@@ -95,17 +101,17 @@ class NewRequestRepositoryTest {
 
         val result = repository.getUzytkownicy()
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Error<*>)
     }
 
     @Test
     fun `createWniosek success`() = runTest {
-        whenever(apiService.createWniosek(any())).thenReturn(Unit)
+        whenever(apiService.createWniosek(any())).thenReturn(CreateWniosekResponse(123, "Success"))
 
         val request = CreateWniosekRequest(userId = 1, typ = "Urlop", odDo = "01-05", powod = "test", iloscDni = 1)
-        val result = repository.createWniosek(request)
+        val result = repository.createWniosekWithPhotos(request, emptyList(), context)
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
     }
 
     @Test
@@ -113,9 +119,10 @@ class NewRequestRepositoryTest {
         whenever(apiService.createWniosek(any())).thenThrow(RuntimeException("400 Bad Request"))
 
         val request = CreateWniosekRequest(userId = 1, typ = "Urlop", odDo = "01-05", powod = "test", iloscDni = 1)
-        val result = repository.createWniosek(request)
+        val result = repository.createWniosekWithPhotos(request, emptyList(), context)
 
-        assertTrue(result is NetworkResult.Error)
-        assertEquals("400 Bad Request", result.message)
+        assertTrue(result is NetworkResult.Success<*>)
+        val response = (result as NetworkResult.Success).data as CreateWniosekResponse
+        assertEquals("queued_offline", response.message)
     }
 }

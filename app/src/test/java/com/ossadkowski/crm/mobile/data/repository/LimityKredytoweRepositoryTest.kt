@@ -2,6 +2,8 @@ package com.ossadkowski.crm.mobile.data.repository
 
 import com.ossadkowski.crm.mobile.data.NetworkResult
 import com.ossadkowski.crm.mobile.data.api.ApiService
+import com.ossadkowski.crm.mobile.data.cache.AppDatabase
+import com.ossadkowski.crm.mobile.data.cache.ActionQueue
 import com.ossadkowski.crm.mobile.data.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,13 +27,15 @@ import org.mockito.kotlin.whenever
 class LimityKredytoweRepositoryTest {
 
     @Mock lateinit var apiService: ApiService
+    @Mock lateinit var db: AppDatabase
+    @Mock lateinit var actionQueue: ActionQueue
     private lateinit var repository: LimityKredytoweRepository
     private val testDispatcher = StandardTestDispatcher()
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        repository = LimityKredytoweRepository(apiService)
+        repository = LimityKredytoweRepository(apiService, db, actionQueue)
     }
 
     @After
@@ -47,7 +51,7 @@ class LimityKredytoweRepositoryTest {
 
         val result = repository.getList(1, 10, "nowy", "firma", "moje")
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
         assertEquals(1, result.data?.data?.size)
     }
 
@@ -57,17 +61,49 @@ class LimityKredytoweRepositoryTest {
 
         val result = repository.getList(1, 10, null, null, null)
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Error<*>)
     }
 
     @Test
     fun `getDetail success`() = runTest {
-        val detail = LimitKredytowyDetailDto(id = 1, user_id = 1, kontrahent_account_num = "ACC1", kontrahent_nazwa = "Firma", obecny_limit = null, saldo = null, zamowione = null, pozostaly_kredyt = null, wartosc_zabezpieczen = null, naklady_poprzedni = null, naklady_biezacy = null, przychody_poprzedni = null, przychody_biezacy = null, zadluzenie_przeterminowane = null, wnioskowany_limit = 20000.0, termin_zabezpieczen = null, opis_zabezpieczen = null, nowe_zabezpieczenia = null, dodatkowe_dochody = null, zobowiazania = null, uwagi = null, potwierdzone_przeterminowane = false, rozliczenie_plonami = false, status = "Szkic", approved_by = null, approved_at = null, komentarz_decyzja = null, ax_sync = false, ax_data_sync = null, created_at = "2026-01-01", updated_at = null)
+        val detail = LimitKredytowyDetailDto(
+            id = 1,
+            userId = 1,
+            kontrahentAccountNum = "ACC1",
+            kontrahentNazwa = "Firma",
+            obecnyLimit = null,
+            saldo = null,
+            zamowione = null,
+            pozostalyKredyt = null,
+            wartoscZabezpieczen = null,
+            nakladyPoprzedni = null,
+            nakladyBiezacy = null,
+            przychodyPoprzedni = null,
+            przychodyBiezacy = null,
+            zadluzeniePrzeterminowane = null,
+            wnioskowanyLimit = 20000.0,
+            terminZabezpieczen = null,
+            opisZabezpieczen = null,
+            noweZabezpieczenia = null,
+            dodatkoweDochody = null,
+            zobowiazania = null,
+            uwagi = null,
+            potwierdzonePrzeterminowane = false,
+            rozliczeniePlonami = false,
+            status = "Szkic",
+            approvedBy = null,
+            approvedAt = null,
+            komentarzDecyzja = null,
+            axSync = false,
+            axDataSync = null,
+            createdAt = "2026-01-01",
+            updatedAt = null
+        )
         whenever(apiService.getLimitKredytowyDetail(any())).thenReturn(detail)
 
         val result = repository.getDetail(1)
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
     }
 
     @Test
@@ -76,7 +112,7 @@ class LimityKredytoweRepositoryTest {
 
         val result = repository.getDetail(99)
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Error<*>)
     }
 
     @Test
@@ -86,7 +122,7 @@ class LimityKredytoweRepositoryTest {
         val request = CreateLimitKredytowyRequest(userId = 1, kontrahentAccountNum = "ACC1", wnioskowanyLimit = 20000.0)
         val result = repository.create(request)
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
     }
 
     @Test
@@ -96,24 +132,25 @@ class LimityKredytoweRepositoryTest {
         val request = CreateLimitKredytowyRequest(userId = 1, kontrahentAccountNum = "ACC1", wnioskowanyLimit = 20000.0)
         val result = repository.create(request)
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Success<*>)
+        assertEquals("queued_offline", (result as NetworkResult.Success).data)
     }
 
     @Test
     fun `searchKontrahenci success`() = runTest {
-        whenever(apiService.searchKontrahenci(anyOrNull(), any(), any())).thenReturn(listOf<Any>())
+        whenever(apiService.searchKontrahenci(any())).thenReturn(listOf(KontrahentSearchItem("ACC1", "Firma", "Adres", "1234567890")))
 
         val result = repository.searchKontrahenci("firma")
 
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is NetworkResult.Success<*>)
     }
 
     @Test
     fun `searchKontrahenci error`() = runTest {
-        whenever(apiService.searchKontrahenci(anyOrNull(), any(), any())).thenThrow(RuntimeException("Error"))
+        whenever(apiService.searchKontrahenci(any())).thenThrow(RuntimeException("Error"))
 
         val result = repository.searchKontrahenci("test")
 
-        assertTrue(result is NetworkResult.Error)
+        assertTrue(result is NetworkResult.Error<*>)
     }
 }
