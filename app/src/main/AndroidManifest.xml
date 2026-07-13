@@ -30,7 +30,7 @@
 
         <meta-data
             android:name="co.tomtom.apiKey"
-            android:value="e2ab4530-51b9-416a-8312-c6e61964ebf6" />
+            android:value="HYnyrS2sa9vkTCYH5QjDfSWDV3XJMccH" />
 
         <activity
             android:name=".MainActivity"

@@ -48,6 +48,7 @@ import com.ossadkowski.crm.mobile.R
 import com.ossadkowski.crm.mobile.data.wizyty.location.LocationPermissions
 import com.tomtom.sdk.location.GeoPoint as TomTomGeoPoint
 import com.tomtom.sdk.map.display.MapOptions
+import com.tomtom.sdk.map.display.TomTomMap
 import com.tomtom.sdk.map.display.ui.MapView as TomTomMapView
 import com.tomtom.sdk.map.display.camera.CameraOptions
 import com.tomtom.sdk.map.display.gesture.MapClickListener
@@ -86,8 +87,9 @@ fun AddTestLocationScreen(
     }
 
     val mapView = remember {
-        val options = MapOptions(mapKey = "e2ab4530-51b9-416a-8312-c6e61964ebf6")
+        val options = MapOptions(mapKey = "HYnyrS2sa9vkTCYH5QjDfSWDV3XJMccH")
         TomTomMapView(context, options).apply {
+            onCreate(null) // Initialize TomTom map engine context
             getMapAsync { map ->
                 // Center on Poland on first load
                 map.moveCamera(CameraOptions(position = TomTomGeoPoint(52.069167, 19.480556), zoom = 6.0))
@@ -114,7 +116,9 @@ fun AddTestLocationScreen(
 
     DisposableEffect(mapView) {
         var listener: MapClickListener? = null
+        var mapInstance: TomTomMap? = null
         mapView.getMapAsync { map ->
+            mapInstance = map
             val clickListener = MapClickListener { point ->
                 viewModel.onMapClick(point.latitude, point.longitude, context)
                 true
@@ -123,8 +127,14 @@ fun AddTestLocationScreen(
             map.addMapClickListener(clickListener)
         }
         onDispose {
-            mapView.getMapAsync { map ->
-                listener?.let { map.removeMapClickListener(it) }
+            val map = mapInstance
+            val clickL = listener
+            if (map != null && clickL != null) {
+                try {
+                    map.removeMapClickListener(clickL)
+                } catch (e: Exception) {
+                    // Map might be already closed, safe to ignore
+                }
             }
         }
     }
@@ -133,8 +143,10 @@ fun AddTestLocationScreen(
     DisposableEffect(lifecycle) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
+                Lifecycle.Event.ON_START -> mapView.onStart()
                 Lifecycle.Event.ON_RESUME -> mapView.onResume()
                 Lifecycle.Event.ON_PAUSE -> mapView.onPause()
+                Lifecycle.Event.ON_STOP -> mapView.onStop()
                 Lifecycle.Event.ON_DESTROY -> mapView.onDestroy()
                 else -> {}
             }
