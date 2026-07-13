@@ -44,16 +44,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ossadkowski.crm.mobile.R
 import com.ossadkowski.crm.mobile.data.wizyty.location.LocationPermissions
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory
-import org.osmdroid.util.GeoPoint
-import org.osmdroid.views.MapView
-import org.osmdroid.views.overlay.MapEventsOverlay
-import org.osmdroid.views.overlay.Marker
+import com.tomtom.sdk.location.GeoPoint as TomTomGeoPoint
+import com.tomtom.sdk.map.display.MapOptions
+import com.tomtom.sdk.map.display.ui.MapView as TomTomMapView
+import com.tomtom.sdk.map.display.camera.CameraOptions
+import com.tomtom.sdk.map.display.gesture.MapClickListener
+import com.tomtom.sdk.map.display.image.ImageFactory
+import com.tomtom.sdk.map.display.marker.MarkerOptions
 
 /**
  * "Dodaj lokalizację testową": the rep types an address (server-proxied TomTom search),
- * picks a suggestion, or clicks/taps directly on the interactive OSM map, and saves it
+ * picks a suggestion, or clicks/taps directly on the interactive TomTom map, and saves it
  * as a geofenced test point. Saving (re)starts the work session so the location is watched
  * immediately — arriving there auto-detects a visit and posts a local notification.
  */
@@ -83,11 +86,12 @@ fun AddTestLocationScreen(
     }
 
     val mapView = remember {
-        MapView(context).apply {
-            setTileSource(TileSourceFactory.MAPNIK)
-            setMultiTouchControls(true)
-            controller.setZoom(6.0)
-            controller.setCenter(GeoPoint(52.069167, 19.480556)) // Polska
+        val options = MapOptions(mapKey = "e2ab4530-51b9-416a-8312-c6e61964ebf6")
+        TomTomMapView(context, options).apply {
+            getMapAsync { map ->
+                // Center on Poland on first load
+                map.moveCamera(CameraOptions(position = TomTomGeoPoint(52.069167, 19.480556), zoom = 6.0))
+            }
             setOnTouchListener { v, event ->
                 v.parent.requestDisallowInterceptTouchEvent(true)
                 false
@@ -95,40 +99,33 @@ fun AddTestLocationScreen(
         }
     }
 
-    val marker = remember(mapView) {
-        Marker(mapView).apply {
-            setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            title = "Wybrana lokalizacja"
-        }
-    }
-
     LaunchedEffect(state.selected) {
         val selected = state.selected
-        if (selected != null) {
-            val point = GeoPoint(selected.lat, selected.lng)
-            marker.position = point
-            if (!mapView.overlays.contains(marker)) {
-                mapView.overlays.add(marker)
+        mapView.getMapAsync { map ->
+            map.removeMarkers()
+            if (selected != null) {
+                val position = TomTomGeoPoint(selected.lat, selected.lng)
+                val markerImage = ImageFactory.fromResource(R.drawable.ic_location)
+                map.addMarker(MarkerOptions(coordinate = position, pinImage = markerImage))
+                map.animateCamera(CameraOptions(position = position, zoom = 15.0))
             }
-            mapView.controller.animateTo(point, 15.0, 500L)
-        } else {
-            mapView.overlays.remove(marker)
         }
-        mapView.invalidate()
     }
 
     DisposableEffect(mapView) {
-        val mapEventsReceiver = object : org.osmdroid.events.MapEventsReceiver {
-            override fun singleTapConfirmedHelper(p: GeoPoint): Boolean {
-                viewModel.onMapClick(p.latitude, p.longitude, context)
-                return true
+        var listener: MapClickListener? = null
+        mapView.getMapAsync { map ->
+            val clickListener = MapClickListener { point ->
+                viewModel.onMapClick(point.latitude, point.longitude, context)
+                true
             }
-            override fun longPressHelper(p: GeoPoint): Boolean = false
+            listener = clickListener
+            map.addMapClickListener(clickListener)
         }
-        val mapEventsOverlay = MapEventsOverlay(mapEventsReceiver)
-        mapView.overlays.add(mapEventsOverlay)
         onDispose {
-            mapView.overlays.remove(mapEventsOverlay)
+            mapView.getMapAsync { map ->
+                listener?.let { map.removeMapClickListener(it) }
+            }
         }
     }
 
@@ -138,13 +135,13 @@ fun AddTestLocationScreen(
             when (event) {
                 Lifecycle.Event.ON_RESUME -> mapView.onResume()
                 Lifecycle.Event.ON_PAUSE -> mapView.onPause()
+                Lifecycle.Event.ON_DESTROY -> mapView.onDestroy()
                 else -> {}
             }
         }
         lifecycle.addObserver(observer)
         onDispose {
             lifecycle.removeObserver(observer)
-            mapView.onDetach()
         }
     }
 

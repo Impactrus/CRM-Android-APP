@@ -29,7 +29,7 @@ android {
 
     defaultConfig {
         applicationId "com.ossadkowski.crm.mobile"
-        minSdk 24
+        minSdk 26
         targetSdk 35
         versionCode 16
         versionName "1.1.6"
@@ -139,6 +139,11 @@ dependencies {  []
 
     // OSMDroid for Transport Maps
     implementation 'org.osmdroid:osmdroid-android:6.1.18'
+
+    // TomTom Maps SDK
+    implementation 'com.tomtom.sdk.maps:map-display:1.15.0'
+    implementation 'com.tomtom.sdk.location:model:1.15.0'
+
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0'
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation 'com.google.dagger:hilt-android-testing:2.59.2'

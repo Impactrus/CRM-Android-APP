@@ -27,6 +27,11 @@
         android:theme="@style/Theme.OssadkowskiApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="co.tomtom.apiKey"
+            android:value="e2ab4530-51b9-416a-8312-c6e61964ebf6" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

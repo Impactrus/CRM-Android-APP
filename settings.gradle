@@ -10,6 +10,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "https://repositories.tomtom.com/artifactory/maven"
+        }
     }
 }
 rootProject.name = "OssadkowskiApp"
