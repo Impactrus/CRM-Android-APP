@@ -120,11 +120,18 @@ object AppModule {
         }
     }
 
+    /** v3 → v4: add note column to visit_events. */
+    val MIGRATION_3_4 = object : Migration(3, 4) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL("ALTER TABLE `visit_events` ADD COLUMN `note` TEXT DEFAULT NULL")
+        }
+    }
+
     @Provides
     @Singleton
     fun provideCrmDatabase(@ApplicationContext context: Context): CrmDatabase =
         Room.databaseBuilder(context, CrmDatabase::class.java, "crm-mobile.db")
-            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
             .build()
 
     @Provides

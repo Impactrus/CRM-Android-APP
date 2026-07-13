@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ossadkowski.crm.mobile.domain.common.Result
 import com.ossadkowski.crm.mobile.domain.wizyty.model.AddressSuggestion
+import com.ossadkowski.crm.mobile.domain.wizyty.model.ContractorLocation
 import com.ossadkowski.crm.mobile.domain.wizyty.model.NewVisitEvent
 import com.ossadkowski.crm.mobile.domain.wizyty.usecase.AddManualVisitUseCase
+import com.ossadkowski.crm.mobile.domain.wizyty.usecase.ObserveTestLocationsUseCase
 import com.ossadkowski.crm.mobile.domain.wizyty.usecase.SearchAddressUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -19,6 +21,7 @@ import javax.inject.Inject
 
 data class AddVisitUiState(
     val contractorName: String = "",
+    val contractorSuggestions: List<ContractorLocation> = emptyList(),
     val addressQuery: String = "",
     val suggestions: List<AddressSuggestion> = emptyList(),
     val selected: AddressSuggestion? = null,
@@ -32,15 +35,53 @@ data class AddVisitUiState(
 class AddVisitViewModel @Inject constructor(
     private val searchAddress: SearchAddressUseCase,
     private val addManualVisit: AddManualVisitUseCase,
+    private val observeTestLocations: ObserveTestLocationsUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(AddVisitUiState())
     val state: StateFlow<AddVisitUiState> = _state.asStateFlow()
 
     private var searchJob: Job? = null
+    private var allLocations: List<ContractorLocation> = emptyList()
+
+    init {
+        viewModelScope.launch {
+            observeTestLocations().collect { list ->
+                allLocations = list
+            }
+        }
+    }
 
     fun onContractorNameChange(value: String) {
-        _state.update { it.copy(contractorName = value, error = null) }
+        val filtered = if (value.trim().length >= 2) {
+            allLocations.filter {
+                it.name.contains(value, ignoreCase = true)
+            }
+        } else {
+            emptyList()
+        }
+        _state.update {
+            it.copy(
+                contractorName = value,
+                contractorSuggestions = filtered,
+                error = null
+            )
+        }
+    }
+
+    fun onContractorSelected(location: ContractorLocation) {
+        _state.update {
+            it.copy(
+                contractorName = location.name,
+                selected = AddressSuggestion(
+                    label = location.label ?: location.name,
+                    lat = location.lat,
+                    lng = location.lng
+                ),
+                addressQuery = location.label ?: "",
+                contractorSuggestions = emptyList()
+            )
+        }
     }
 
     fun onAddressQueryChange(value: String) {
@@ -91,3 +132,4 @@ class AddVisitViewModel @Inject constructor(
         const val DEBOUNCE_MS = 300L
     }
 }
+

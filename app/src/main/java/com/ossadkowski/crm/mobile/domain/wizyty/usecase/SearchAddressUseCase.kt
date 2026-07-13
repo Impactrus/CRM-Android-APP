@@ -14,8 +14,9 @@ class SearchAddressUseCase @Inject constructor(
     private val repo: VisitRepository,
 ) {
     suspend operator fun invoke(query: String): Result<List<AddressSuggestion>> {
-        if (query.trim().length < MIN_QUERY_LENGTH) return Result.Success(emptyList())
-        return repo.searchAddress(query.trim())
+        val trimmed = query.trim()
+        if (trimmed.length < MIN_QUERY_LENGTH) return Result.Success(emptyList())
+        return repo.searchAddress(trimmed)
     }
 
     private companion object {

@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.Calendar
 
-class SalesOrderDetailActivity : BaseActivity() {
+class  SalesOrderDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySalesOrderDetailBinding
     private var orderId: Int = -1

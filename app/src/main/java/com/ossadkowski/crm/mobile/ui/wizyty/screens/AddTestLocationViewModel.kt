@@ -1,5 +1,7 @@
 package com.ossadkowski.crm.mobile.ui.wizyty.screens
 
+import android.content.Context
+import android.location.Geocoder
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ossadkowski.crm.mobile.data.wizyty.location.WizytySessionController
@@ -8,6 +10,7 @@ import com.ossadkowski.crm.mobile.domain.wizyty.model.AddressSuggestion
 import com.ossadkowski.crm.mobile.domain.wizyty.usecase.SaveTestLocationUseCase
 import com.ossadkowski.crm.mobile.domain.wizyty.usecase.SearchAddressUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +18,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 data class AddTestLocationUiState(
@@ -64,6 +68,42 @@ class AddTestLocationViewModel @Inject constructor(
         }
     }
 
+    fun onMapClick(lat: Double, lng: Double, context: Context) {
+        searchJob?.cancel()
+        val tempLabel = "Wybrany punkt: %.5f, %.5f".format(lat, lng)
+        _state.update {
+            it.copy(
+                selected = AddressSuggestion(label = tempLabel, lat = lat, lng = lng),
+                addressQuery = tempLabel,
+                suggestions = emptyList()
+            )
+        }
+        
+        viewModelScope.launch {
+            val addressLabel = withContext(Dispatchers.IO) {
+                try {
+                    val geocoder = Geocoder(context)
+                    @Suppress("DEPRECATION")
+                    val addresses = geocoder.getFromLocation(lat, lng, 1)
+                    addresses?.firstOrNull()?.getAddressLine(0)
+                } catch (e: Exception) {
+                    null
+                }
+            }
+            val finalLabel = addressLabel ?: tempLabel
+            _state.update {
+                if (it.selected?.lat == lat && it.selected?.lng == lng) {
+                    it.copy(
+                        selected = AddressSuggestion(label = finalLabel, lat = lat, lng = lng),
+                        addressQuery = finalLabel
+                    )
+                } else {
+                    it
+                }
+            }
+        }
+    }
+
     /** Call only after foreground location permission is granted. */
     fun save(onSaved: () -> Unit) {
         val current = _state.value
@@ -87,3 +127,4 @@ class AddTestLocationViewModel @Inject constructor(
         const val DEBOUNCE_MS = 300L
     }
 }
+

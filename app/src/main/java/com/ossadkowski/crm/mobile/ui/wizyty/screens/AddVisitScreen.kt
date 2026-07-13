@@ -74,6 +74,24 @@ fun AddVisitScreen(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             )
 
+            if (state.contractorSuggestions.isNotEmpty()) {
+                Card(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+                    Column {
+                        state.contractorSuggestions.forEachIndexed { index, location ->
+                            if (index > 0) HorizontalDivider()
+                            Text(
+                                text = "${location.name} (${location.label ?: "Brak adresu"})",
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable { viewModel.onContractorSelected(location) }
+                                    .padding(12.dp),
+                            )
+                        }
+                    }
+                }
+            }
+
             OutlinedTextField(
                 value = state.addressQuery,
                 onValueChange = viewModel::onAddressQueryChange,

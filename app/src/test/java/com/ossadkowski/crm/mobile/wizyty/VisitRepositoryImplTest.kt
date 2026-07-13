@@ -1,5 +1,6 @@
 package com.ossadkowski.crm.mobile.wizyty
 
+import android.content.Context
 import com.ossadkowski.crm.mobile.data.api.ApiService
 import com.ossadkowski.crm.mobile.data.model.GeocodeSuggestionDto
 import com.ossadkowski.crm.mobile.data.wizyty.db.ContractorCoordDao
@@ -39,12 +40,13 @@ class VisitRepositoryImplTest {
     @Mock lateinit var visitDao: VisitEventDao
     @Mock lateinit var coordDao: ContractorCoordDao
     @Mock lateinit var api: ApiService
+    @Mock lateinit var context: Context
 
     private lateinit var repo: VisitRepositoryImpl
 
     @Before
     fun setUp() {
-        repo = VisitRepositoryImpl(visitDao, coordDao, api)
+        repo = VisitRepositoryImpl(visitDao, coordDao, api, context)
     }
 
     @Test
@@ -59,7 +61,7 @@ class VisitRepositoryImplTest {
         val visit = (result as Result.Success).data
         assertEquals(10L, visit.id)
         assertEquals(VisitSource.MANUAL, visit.source)
-        assertEquals(VisitStatus.CONFIRMED, visit.status)
+        assertEquals(VisitStatus.DETECTED, visit.status)
         assertEquals(VisitSyncStatus.PENDING_SYNC, visit.syncStatus)
         verify(coordDao).upsert(check<ContractorCoordEntity> {
             assertEquals("Foo", it.key)
@@ -173,10 +175,14 @@ class VisitRepositoryImplTest {
     }
 
     @Test
-    fun `searchAddress returns error when the call throws`() = runTest {
+    fun `searchAddress returns fallback coordinate suggestion when the call throws and query has coordinates`() = runTest {
         whenever(api.searchGeocode(any(), any())).thenThrow(RuntimeException("boom"))
 
-        assertTrue(repo.searchAddress("anything") is Result.Error)
+        val result = repo.searchAddress("51.11, 17.03")
+        assertTrue(result is Result.Success)
+        val suggestions = (result as Result.Success).data
+        assertEquals(1, suggestions.size)
+        assertEquals("Współrzędne: 51.11, 17.03", suggestions[0].label)
     }
 
     @Test
@@ -262,5 +268,6 @@ class VisitRepositoryImplTest {
         idempotencyKey = "k$id",
         createdAt = Instant.EPOCH,
         updatedAt = Instant.EPOCH,
+        note = null,
     )
 }

@@ -7,14 +7,14 @@ import com.google.android.gms.location.Priority
  * for post-pilot battery/accuracy tuning lives here so it can be adjusted in one place.
  */
 object DetectionTuning {
-    /** Geofence radius (m): covers GPS drift + a parking lot without overlapping neighbours. */
-    const val GEOFENCE_RADIUS_M = 150f
+    /** Geofence radius (m): set to 1000m (1km) temporarily for user testing. */
+    const val GEOFENCE_RADIUS_M = 1000f
 
     /** Platform cap is 100; keep a safety buffer and register only the nearest N. */
     const val MAX_GEOFENCES = 80
 
-    /** DWELL / loitering delay (ms): only count a visit after staying ~5 min — filters drive-bys. */
-    const val LOITERING_DELAY_MS = 300_000
+    /** DWELL / loitering delay (ms): set to 30 seconds for responsive testing (5 min in prod). */
+    const val LOITERING_DELAY_MS = 30_000
 
     /**
      * Dedup window (ms): suppress a new auto-detected visit for the same contractor if one
@@ -23,8 +23,8 @@ object DetectionTuning {
      */
     const val DETECTION_DEDUP_WINDOW_MS = 1_800_000L // 30 min
 
-    /** Geofence notification responsiveness (ms): relaxed → fewer wake-ups, acceptable lag. */
-    const val NOTIFICATION_RESPONSIVENESS_MS = 300_000
+    /** Geofence notification responsiveness (ms): set to 0 for instant testing. */
+    const val NOTIFICATION_RESPONSIVENESS_MS = 0
 
     /** Active-session location request interval (ms). */
     const val SESSION_LOCATION_INTERVAL_MS = 60_000L

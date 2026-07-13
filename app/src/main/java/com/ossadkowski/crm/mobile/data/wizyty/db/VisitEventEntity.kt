@@ -32,4 +32,5 @@ data class VisitEventEntity(
     val idempotencyKey: String,
     val createdAt: Instant,
     val updatedAt: Instant,
+    val note: String? = null,
 )

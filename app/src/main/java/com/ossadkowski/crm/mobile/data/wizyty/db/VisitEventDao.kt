@@ -31,7 +31,7 @@ interface VisitEventDao {
      * so a user who rejected a visit can still have a fresh one detected later.
      */
     @Query(
-        "SELECT COUNT(*) FROM visit_events WHERE source = 'AUTO_GPS' AND status = 'DETECTED' " +
+        "SELECT COUNT(*) FROM visit_events WHERE source = 'AUTO_GPS' AND status != 'REJECTED' " +
             "AND contractorName = :name AND occurredAt >= :since",
     )
     suspend fun countRecentDetected(name: String, since: Instant): Int
@@ -39,6 +39,12 @@ interface VisitEventDao {
     @Query("UPDATE visit_events SET status = :status, syncStatus = :syncStatus, updatedAt = :updatedAt WHERE id = :id")
     suspend fun updateStatus(id: Long, status: String, syncStatus: String, updatedAt: Instant): Int
 
+    @Query("UPDATE visit_events SET note = :note, syncStatus = :syncStatus, updatedAt = :updatedAt WHERE id = :id")
+    suspend fun updateNote(id: Long, note: String?, syncStatus: String, updatedAt: Instant): Int
+
     @Query("UPDATE visit_events SET syncStatus = :syncStatus, updatedAt = :updatedAt WHERE id IN (:ids)")
     suspend fun markSync(ids: List<Long>, syncStatus: String, updatedAt: Instant): Int
+
+    @Query("DELETE FROM visit_events WHERE id = :id")
+    suspend fun delete(id: Long): Int
 }

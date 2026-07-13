@@ -29,6 +29,7 @@ fun VisitEventEntity.toDomain(): VisitEvent = VisitEvent(
     idempotencyKey = idempotencyKey,
     createdAt = createdAt,
     updatedAt = updatedAt,
+    note = note,
 )
 
 /**
@@ -56,6 +57,7 @@ fun NewVisitEvent.toEntity(
     idempotencyKey = idempotencyKey,
     createdAt = now,
     updatedAt = now,
+    note = note,
 )
 
 private fun parseEventType(raw: String): VisitEventType = try {

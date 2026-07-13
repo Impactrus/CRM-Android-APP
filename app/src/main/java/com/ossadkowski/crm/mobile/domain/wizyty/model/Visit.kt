@@ -29,6 +29,7 @@ data class VisitEvent(
     val idempotencyKey: String,           // UUID; backend dedupe key
     val createdAt: Instant,
     val updatedAt: Instant,
+    val note: String?,
 )
 
 /**
@@ -44,6 +45,7 @@ data class NewVisitEvent(
     val eventType: VisitEventType = VisitEventType.MANUAL,
     val occurredAt: Instant? = null,      // null → now
     val dwellSeconds: Long? = null,
+    val note: String? = null,
 )
 
 enum class VisitEventType { ENTER, DWELL, EXIT, MANUAL }

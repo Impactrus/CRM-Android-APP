@@ -27,6 +27,8 @@ interface VisitRepository {
 
     suspend fun confirm(id: Long): Result<Unit>
     suspend fun reject(id: Long): Result<Unit>
+    suspend fun updateNote(id: Long, note: String?): Result<Unit>
+    suspend fun delete(id: Long): Result<Unit>
 
     /** CONFIRMED + PENDING_SYNC rows the sync worker should upload. */
     suspend fun pendingForSync(): List<VisitEvent>

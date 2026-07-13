@@ -22,6 +22,14 @@ class WizytyActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Initialize OSMDroid synchronously before any View is created
+        org.osmdroid.config.Configuration.getInstance().load(
+            applicationContext, 
+            applicationContext.getSharedPreferences("osmdroid", android.content.Context.MODE_PRIVATE)
+        )
+        org.osmdroid.config.Configuration.getInstance().userAgentValue = packageName
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.TRANSPARENT
         window.navigationBarColor = Color.TRANSPARENT
