@@ -93,7 +93,7 @@ class VisitRepositoryImplTest {
     }
 
     @Test
-    fun `recordDetectedEvent stores AUTO_GPS DETECTED`() = runTest {
+    fun `recordDetectedEvent stores AUTO_GPS CONFIRMED`() = runTest {
         whenever(visitDao.insert(any())).thenReturn(3L)
 
         val result = repo.recordDetectedEvent(
@@ -103,7 +103,7 @@ class VisitRepositoryImplTest {
         assertTrue(result is Result.Success)
         val visit = (result as Result.Success).data
         assertEquals(VisitSource.AUTO_GPS, visit.source)
-        assertEquals(VisitStatus.DETECTED, visit.status)
+        assertEquals(VisitStatus.CONFIRMED, visit.status)
         assertEquals(VisitEventType.DWELL, visit.eventType)
     }
 

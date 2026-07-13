@@ -75,7 +75,7 @@ class VisitRepositoryImpl @Inject constructor(
             val recent = runCatching { dao.countRecentDetected(name, since) }.getOrDefault(0)
             if (recent > 0) return Result.Error("Wizyta u tego kontrahenta została już wykryta.")
         }
-        return insert(new, VisitSource.AUTO_GPS, VisitStatus.DETECTED)
+        return insert(new, VisitSource.AUTO_GPS, VisitStatus.CONFIRMED)
     }
 
     private suspend fun insert(
